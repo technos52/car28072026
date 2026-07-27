@@ -33,9 +33,12 @@ jobs:
       - name: Generate Compatible p12 on Mac
         id: gen_p12
         run: |
-          # Download Apple WWDR Certificates (G3 is standard for current Distribution certs)
+          # Download Apple WWDR Certificates (G3 and G6 are standard for current Distribution certs)
           curl -sL https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer -o wwdr_g3.cer
-          openssl x509 -inform der -in wwdr_g3.cer -out wwdr.pem
+          curl -sL https://www.apple.com/certificateauthority/AppleWWDRCAG6.cer -o wwdr_g6.cer
+          openssl x509 -inform der -in wwdr_g3.cer -out wwdr_g3.pem
+          openssl x509 -inform der -in wwdr_g6.cer -out wwdr_g6.pem
+          cat wwdr_g3.pem wwdr_g6.pem > wwdr.pem
           
           echo "${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_CER }}" | base64 --decode > distribution.cer
           echo "${{ secrets.IOS_DISTRIBUTION_PRIVATE_KEY }}" | base64 --decode > distribution.key

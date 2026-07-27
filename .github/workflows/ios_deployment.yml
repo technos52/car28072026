@@ -30,10 +30,23 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Generate Compatible p12 on Mac
+        id: gen_p12
+        run: |
+          echo "${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_CER }}" | base64 --decode > distribution.cer
+          echo "${{ secrets.IOS_DISTRIBUTION_PRIVATE_KEY }}" | base64 --decode > distribution.key
+          openssl x509 -inform der -in distribution.cer -out distribution.pem
+          openssl pkcs12 -export -out distribution.p12 -inkey distribution.key -in distribution.pem -passout pass:Dealmate2026!
+          P12_B64=$(base64 -i distribution.p12)
+          # Use EOF for multiline strings in GitHub Actions outputs
+          echo "p12_base64<<EOF" >> $GITHUB_OUTPUT
+          echo "$P12_B64" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Import Code Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1
         with:
-          p12-file-base64: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_P12 }}
+          p12-file-base64: ${{ steps.gen_p12.outputs.p12_base64 }}
           p12-password: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_PASSWORD }}
 
       - name: Install Provisioning Profile

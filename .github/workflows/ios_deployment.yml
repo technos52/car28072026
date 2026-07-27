@@ -68,6 +68,19 @@ jobs:
 
       - name: Build iOS IPA
         run: |
+          # Extract Team ID from the certificate
+          echo "${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_CER }}" | base64 --decode > temp_cert.cer
+          SUBJECT=$(openssl x509 -inform der -in temp_cert.cer -subject -noout)
+          echo "Certificate Subject: $SUBJECT"
+          TEAM_ID=$(echo "$SUBJECT" | awk -F'OU ?= ?' '{print $2}' | awk -F'[,/]' '{print $1}')
+          # Clean up any potential spaces
+          TEAM_ID=$(echo "$TEAM_ID" | tr -d ' ')
+          echo "Extracted Team ID: $TEAM_ID"
+          
+          # Inject the correct Team ID into Xcode project files
+          sed -i '' "s/U2B9S8VMG9/$TEAM_ID/g" ios/Runner.xcodeproj/project.pbxproj
+          sed -i '' "s/U2B9S8VMG9/$TEAM_ID/g" ios/ExportOptions.plist
+          
           # Use the GitHub run number to ensure a unique, increasing build number
           BUILD_NUMBER=$((GITHUB_RUN_NUMBER + 100)) 
           flutter build ipa --release \

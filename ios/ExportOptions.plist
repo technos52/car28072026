@@ -11,7 +11,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.shailesh.DealMatee</key>
-		<string>AppStore</string>
+		<string>DealMatee App Store Profile</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Apple Distribution</string>

@@ -1,0 +1,166 @@
+{
+  "project_info": {
+    "project_number": "1073666893011",
+    "project_id": "cardealer-eb165",
+    "storage_bucket": "cardealer-eb165.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073666893011:android:cee520f85f2665ade66026",
+        "android_client_info": {
+          "package_name": "com.car.dealer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073666893011-6bftevpdrrq0mpcrj0ur4mte21tlsj2k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.car.dealer",
+            "certificate_hash": "cbac78a4e570483549bea62005d348089f53c3a7"
+          }
+        },
+        {
+          "client_id": "1073666893011-uutqjt4hkidv6poumegfctqecov1jsse.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.car.dealer",
+            "certificate_hash": "282f968bd0bac4b35e5f8fb48aa4443c6cc90b4a"
+          }
+        },
+        {
+          "client_id": "1073666893011-0o4dm31e4r0uofm4gdiecui9dclgms66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBShwEjinbjukRSDXHu8MRFqJdL4YJYKmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073666893011-0o4dm31e4r0uofm4gdiecui9dclgms66.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1073666893011-ts9eacgsuncb3hjooa924mvclesett8p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.carDealer"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073666893011:android:0f0ca48a470b7417e66026",
+        "android_client_info": {
+          "package_name": "com.example.car_dealer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073666893011-0o4dm31e4r0uofm4gdiecui9dclgms66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBShwEjinbjukRSDXHu8MRFqJdL4YJYKmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073666893011-0o4dm31e4r0uofm4gdiecui9dclgms66.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1073666893011-ts9eacgsuncb3hjooa924mvclesett8p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.carDealer"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073666893011:android:8f6b575806df8ec5e66026",
+        "android_client_info": {
+          "package_name": "com.shailesh.DealMatee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073666893011-5a4a2oof5a1a157keq5sek5m4i8spmko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shailesh.DealMatee",
+            "certificate_hash": "403dab91c3f3ba163269859beea7d0472effe38e"
+          }
+        },
+        {
+          "client_id": "1073666893011-fmk2p2ofv8bu7lb5nhn8nsprlcjjpthh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shailesh.DealMatee",
+            "certificate_hash": "cbac78a4e570483549bea62005d348089f53c3a7"
+          }
+        },
+        {
+          "client_id": "1073666893011-h2sd6r0t6af37uqrg1voujrhee0sonrg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shailesh.DealMatee",
+            "certificate_hash": "ef99b17ab8dfd69ad7e9b0e679bd2fcbdca87395"
+          }
+        },
+        {
+          "client_id": "1073666893011-hpa57o3dtn4sv6j3bvlvhp2jen8coftc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shailesh.DealMatee",
+            "certificate_hash": "282f968bd0bac4b35e5f8fb48aa4443c6cc90b4a"
+          }
+        },
+        {
+          "client_id": "1073666893011-0o4dm31e4r0uofm4gdiecui9dclgms66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBShwEjinbjukRSDXHu8MRFqJdL4YJYKmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073666893011-0o4dm31e4r0uofm4gdiecui9dclgms66.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1073666893011-ts9eacgsuncb3hjooa924mvclesett8p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.carDealer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

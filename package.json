@@ -1,0 +1,13 @@
+{
+  "name": "firebase-phone-users-checker",
+  "version": "1.0.0",
+  "description": "Script to check phone-authenticated users in Firebase",
+  "main": "check_phone_users.js",
+  "scripts": {
+    "check-users": "node check_phone_users.js"
+  },
+  "dependencies": {
+    "docx": "^9.7.1",
+    "firebase-admin": "^12.0.0"
+  }
+}

@@ -1,0 +1,728 @@
+Analyzing car_dealer...
+
+  error - lib\core\database\database_stub.dart:86:8 - 'AppDatabase.close' ('void Function()') isn't a valid override of 'GeneratedDatabase.close' ('Future<void> Function()'). - invalid_override
+           - The member being overridden at ..\..\..\AppData\Local\Pub\Cache\hosted\pub.dev\drift-2.29.0\lib\src\runtime\api\db_base.dart:143:16.
+  error - lib\core\database\database_stub.g.dart:19:11 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:30:11 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:42:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:54:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:65:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:76:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:87:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:98:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:193:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:197:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:201:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:205:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:209:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:213:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:217:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:221:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:285:5 - Undefined class 'ValueSerializer'. Try changing the name to the name of an existing class, or creating a class with the name 'ValueSerializer'. - undefined_class
+  error - lib\core\database\database_stub.g.dart:300:32 - Undefined class 'ValueSerializer'. Try changing the name to the name of an existing class, or creating a class with the name 'ValueSerializer'. - undefined_class
+  error - lib\core\database\database_stub.g.dart:535:11 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:546:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:557:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:568:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:580:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:592:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:603:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:614:11 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:626:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:637:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:648:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:659:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:792:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:796:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:800:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:804:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:808:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:812:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:816:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:820:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:824:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:828:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:832:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:836:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:912:5 - Undefined class 'ValueSerializer'. Try changing the name to the name of an existing class, or creating a class with the name 'ValueSerializer'. - undefined_class
+  error - lib\core\database\database_stub.g.dart:931:32 - Undefined class 'ValueSerializer'. Try changing the name to the name of an existing class, or creating a class with the name 'ValueSerializer'. - undefined_class
+  error - lib\core\database\database_stub.g.dart:1244:11 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1255:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1266:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1277:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1288:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1299:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1301:29 - Undefined name 'GeneratedColumn'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1314:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1325:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1420:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1424:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1428:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1432:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1436:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1440:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1444:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1448:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1521:5 - Undefined class 'ValueSerializer'. Try changing the name to the name of an existing class, or creating a class with the name 'ValueSerializer'. - undefined_class
+  error - lib\core\database\database_stub.g.dart:1536:32 - Undefined class 'ValueSerializer'. Try changing the name to the name of an existing class, or creating a class with the name 'ValueSerializer'. - undefined_class
+  error - lib\core\database\database_stub.g.dart:1778:11 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1789:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1800:11 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1812:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1823:11 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1835:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1846:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1857:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1868:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1870:29 - Undefined name 'GeneratedColumn'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1883:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:1894:15 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2018:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2022:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2026:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2030:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2034:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2038:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2042:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2046:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2050:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2054:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2058:9 - Undefined name 'DriftSqlType'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - lib\core\database\database_stub.g.dart:2138:5 - Undefined class 'ValueSerializer'. Try changing the name to the name of an existing class, or creating a class with the name 'ValueSerializer'. - undefined_class
+  error - lib\core\database\database_stub.g.dart:2156:32 - Undefined class 'ValueSerializer'. Try changing the name to the name of an existing class, or creating a class with the name 'ValueSerializer'. - undefined_class
+  error - lib\core\database\database_stub.g.dart:2438:17 - Undefined class 'QueryExecutor'. Try changing the name to the name of an existing class, or creating a class with the name 'QueryExecutor'. - undefined_class
+  error - test_carousel_firebase.dart:5:8 - Target of URI doesn't exist: 'core/services/remote_service.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - test_carousel_firebase.dart:26:27 - The function 'RemoteService' isn't defined. Try importing the library that defines 'RemoteService', correcting the name to the name of an existing function, or defining a function named 'RemoteService'. - undefined_function
+warning - car_dealer_admin\lib\app\modules\admins\admins_page.dart:115:16 - The declaration '_resetPassword' isn't referenced. Try removing the declaration of '_resetPassword'. - unused_element
+warning - car_dealer_admin\lib\app\modules\admins\admins_page.dart:327:16 - The declaration '_removeAdmin' isn't referenced. Try removing the declaration of '_removeAdmin'. - unused_element
+warning - car_dealer_admin\lib\app\modules\users\users_page.dart:3:8 - Unused import: 'package:intl/intl.dart'. Try removing the import directive. - unused_import
+warning - car_dealer_admin\lib\main.dart:17:9 - The value of the local variable 'authService' isn't used. Try removing the variable or using it. - unused_local_variable
+warning - lib\app\modules\add_car\add_car_view.dart:6:8 - Unused import: '../root/controller/root_controller.dart'. Try removing the import directive. - unused_import
+warning - lib\app\modules\home\home_controller.dart:7:8 - Unused import: 'package:cloud_firestore/cloud_firestore.dart'. Try removing the import directive. - unused_import
+warning - lib\app\modules\home\home_controller.dart:11:8 - Unused import: '../../../core/utils/carousel_setup.dart'. Try removing the import directive. - unused_import
+warning - lib\app\modules\profile\controller\profile_menu_controller.dart:4:8 - Unused import: 'package:flutter/foundation.dart'. Try removing the import directive. - unused_import
+warning - lib\core\widgets\car_card.dart:2:8 - Unused import: 'package:get/get.dart'. Try removing the import directive. - unused_import
+warning - lib\main_minimal.dart:6:8 - Unused import: 'app/routes/app_routes.dart'. Try removing the import directive. - unused_import
+   info - add_carousel_images.dart:43:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - add_carousel_images.dart:52:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - add_carousel_images.dart:55:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - add_carousel_images.dart:57:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - add_carousel_images.dart:64:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - add_carousel_images.dart:68:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\admins\admins_page.dart:504:62 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:1:1 - 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:1:1 - Don't use web-only libraries outside Flutter web plugins. Try finding a different library for your needs. - avoid_web_libraries_in_flutter
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:40:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:42:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:49:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:139:35 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:140:41 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:141:40 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:165:17 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:296:35 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:297:41 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:298:40 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:327:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:345:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:408:34 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:428:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:477:37 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:536:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\carousel_images\carousel_images_page.dart:642:66 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\cars\cars_page.dart:145:29 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\dashboard\dashboard_page.dart:61:57 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\dashboard\dashboard_page.dart:62:57 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\dashboard\dashboard_page.dart:193:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\dashboard\dashboard_page.dart:227:47 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\dashboard\dashboard_page.dart:240:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\dashboard\dashboard_page.dart:244:49 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\dashboard\dashboard_page.dart:257:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:1:1 - 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:1:1 - Don't use web-only libraries outside Flutter web plugins. Try finding a different library for your needs. - avoid_web_libraries_in_flutter
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:165:27 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:166:27 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:481:37 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:504:51 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:591:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:592:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:674:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:675:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:692:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:693:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\kyc\kyc_page.dart:706:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\login\login_page.dart:135:49 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\login\login_page.dart:167:65 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\login\login_page.dart:168:65 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\notifications\notifications_page.dart:234:66 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\send_message\send_message_page.dart:1:1 - 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\send_message\send_message_page.dart:1:1 - Don't use web-only libraries outside Flutter web plugins. Try finding a different library for your needs. - avoid_web_libraries_in_flutter
+   info - car_dealer_admin\lib\app\modules\send_message\send_message_page.dart:95:37 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\send_message\send_message_page.dart:96:43 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\send_message\send_message_page.dart:97:42 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - car_dealer_admin\lib\app\modules\send_message\send_message_page.dart:227:62 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\send_message\send_message_page.dart:336:55 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:115:48 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:136:35 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:204:39 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:222:56 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:230:62 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:308:22 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:310:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:378:28 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:415:38 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:467:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:468:37 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:481:32 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:554:22 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:556:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:585:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:643:50 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:697:38 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:806:38 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:812:40 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\user_detail_page.dart:885:22 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\users_page.dart:129:55 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\users_page.dart:152:74 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\users_page.dart:155:76 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\app\modules\users\users_page.dart:242:74 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:63:33 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:91:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:95:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:121:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:244:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:266:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:396:44 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:433:48 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:436:50 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:453:43 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:505:39 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:510:48 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:528:38 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:530:55 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\core\widgets\admin_layout.dart:531:55 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\main.dart:48:11 - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\main.dart:70:37 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\main.dart:79:37 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\main.dart:125:50 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\main.dart:127:24 - 'MaterialStateProperty' is deprecated and shouldn't be used. Use WidgetStateProperty instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\main.dart:128:20 - 'MaterialState' is deprecated and shouldn't be used. Use WidgetState instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\main.dart:129:37 - 'MaterialState' is deprecated and shouldn't be used. Use WidgetState instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - car_dealer_admin\lib\main.dart:130:37 - 'MaterialState' is deprecated and shouldn't be used. Use WidgetState instead. Moved to the Widgets layer to make code available outside of Material. This feature was deprecated after v3.19.0-0.3.pre. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\add_car\add_car_view.dart:531:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:539:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:545:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:553:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:561:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:568:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:576:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:583:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:590:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:597:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:603:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:607:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:610:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:612:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:625:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:628:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\add_car_view.dart:634:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:111:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:115:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:126:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:133:23 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:159:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:239:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:246:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:255:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:264:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:269:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:285:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:294:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:299:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:309:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:314:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:324:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:329:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:339:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:344:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:354:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:359:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:369:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:374:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:383:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:390:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:397:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:405:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:414:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:418:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:422:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:427:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:481:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:485:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:558:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:587:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:588:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:595:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:599:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:607:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:611:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:624:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:639:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:641:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:642:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:682:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:684:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:732:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:736:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:744:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:753:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:756:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\add_car\controller\add_car_controller.dart:757:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:165:44 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:170:46 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:176:43 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:191:48 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:192:54 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:320:37 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:354:39 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:370:35 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\admin_messages_view.dart:383:33 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\controller\admin_messages_controller.dart:39:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\controller\admin_messages_controller.dart:48:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\controller\admin_messages_controller.dart:59:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\controller\admin_messages_controller.dart:66:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\controller\admin_messages_controller.dart:108:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\controller\admin_messages_controller.dart:152:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\admin_messages\controller\admin_messages_controller.dart:189:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\car_detail_view.dart:559:14 - Use a 'SizedBox' to add whitespace to a layout. Try using a 'SizedBox' rather than a 'Container'. - sized_box_for_whitespace
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:55:17 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:57:17 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:67:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:82:17 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:103:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:118:17 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:124:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:140:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:141:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:151:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:162:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:163:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:165:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:167:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:168:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:174:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:177:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:189:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:196:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:198:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:203:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:216:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:233:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:234:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:235:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:238:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:241:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:251:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:254:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:273:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:275:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:283:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:285:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:289:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:290:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:304:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:312:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:386:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:387:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:388:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:389:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:390:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:391:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:392:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:393:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:394:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:395:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:396:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:397:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:418:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:442:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:470:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:484:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:487:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:488:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:520:9 - Use 'isNotEmpty' instead of 'length' to test whether the collection is empty. Try rewriting the expression to use 'isNotEmpty'. - prefer_is_empty
+   info - lib\app\modules\car_detail\controller\car_detail_controller.dart:870:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\cars\cars_view.dart:179:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\cars\cars_view.dart:187:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\cars\cars_view.dart:194:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\cars\cars_view.dart:203:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\cars\cars_view.dart:240:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\cars\cars_view.dart:270:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\cars\cars_view.dart:271:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:55:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:65:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:72:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:74:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:75:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:90:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:91:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:93:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:99:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:102:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:441:15 - Use a 'SizedBox' to add whitespace to a layout. Try using a 'SizedBox' rather than a 'Container'. - sized_box_for_whitespace
+   info - lib\app\modules\dealer\dealer_view.dart:461:31 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:474:39 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:488:33 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:558:29 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:569:37 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\dealer\dealer_view.dart:585:31 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:10:43 - The prefix 'CarModel' isn't a lower_case_with_underscores identifier. Try changing the prefix to follow the lower_case_with_underscores style. - library_prefixes
+   info - lib\app\modules\home\home_controller.dart:105:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:111:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:168:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:174:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:177:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:183:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:184:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:186:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:187:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:190:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:200:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:203:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:206:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:210:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:213:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:218:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:219:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:254:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:260:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:268:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:422:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:424:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:451:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:472:17 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:514:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:541:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:607:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:611:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:676:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:684:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_controller.dart:742:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\home\home_screen.dart:340:40 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+   info - lib\app\modules\home\home_screen.dart:376:40 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+   info - lib\app\modules\otp\otp_view.dart:33:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\otp\otp_view.dart:36:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\otp\otp_view.dart:70:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\owner_cars\controller\owner_cars_controller.dart:4:46 - The prefix 'CarModel' isn't a lower_case_with_underscores identifier. Try changing the prefix to follow the lower_case_with_underscores style. - library_prefixes
+   info - lib\app\modules\owner_cars\controller\owner_cars_controller.dart:91:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\owner_cars\controller\owner_cars_controller.dart:93:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\owner_cars\owner_cars_view.dart:233:47 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\owner_cars\owner_cars_view.dart:265:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\phone\controller\phone_controller.dart:90:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:66:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:70:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:80:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:83:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:86:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:98:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:100:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:104:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:106:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:108:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:110:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:112:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:113:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:115:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:125:17 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:126:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:130:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:134:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:143:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:145:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:147:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:149:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:151:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\profile\controller\profile_controller.dart:181:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:199:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:297:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:334:25 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:349:25 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:353:19 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:366:19 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:371:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:383:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_controller.dart:417:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_menu_controller.dart:51:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_menu_controller.dart:98:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\controller\profile_menu_controller.dart:105:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\profile_menu_view.dart:84:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\profile_menu_view.dart:87:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\profile_menu_view.dart:94:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\profile_menu_view.dart:98:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\profile_menu_view.dart:110:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\profile_menu_view.dart:118:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\profile_menu_view.dart:124:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\profile\profile_menu_view.dart:136:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\root\controller\root_controller.dart:91:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\root\controller\root_controller.dart:102:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\root\controller\root_controller.dart:114:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\root\controller\root_controller.dart:139:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\root\controller\root_controller.dart:154:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\root\controller\root_controller.dart:186:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:5:46 - The prefix 'CarModel' isn't a lower_case_with_underscores identifier. Try changing the prefix to follow the lower_case_with_underscores style. - library_prefixes
+   info - lib\app\modules\search\controller\search_controller.dart:137:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:148:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:232:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:245:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:286:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:287:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:293:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:294:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:331:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:337:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:343:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:348:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:502:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\controller\search_controller.dart:504:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\search\search_view.dart:475:3 - Invalid use of a private type in a public API. Try making the private type public, or making the API that uses the private type also be private. - library_private_types_in_public_api
+   info - lib\app\modules\search\search_view.dart:1103:9 - Use a 'SizedBox' to add whitespace to a layout. Try using a 'SizedBox' rather than a 'Container'. - sized_box_for_whitespace
+   info - lib\app\modules\search\search_view.dart:1142:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\search\search_view.dart:1186:36 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\search\search_view.dart:1366:47 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\search\search_view.dart:1401:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\shop\controller\shop_controller.dart:77:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:81:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:92:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:95:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:106:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:108:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:112:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:114:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:116:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:118:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:120:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:122:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:124:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:126:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:128:15 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:129:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:131:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:144:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:146:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:150:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:159:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:161:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:163:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:165:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:167:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:169:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:171:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:173:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:175:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\shop\controller\shop_controller.dart:221:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:243:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:360:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\shop\controller\shop_controller.dart:362:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:17:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:35:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:39:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:41:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:51:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:59:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:75:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:82:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:85:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:89:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:92:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\controller\splash_controller.dart:96:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\splash\splash_view.dart:32:21 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:120:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:192:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:263:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:278:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:295:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:312:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:345:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:348:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:385:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:398:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:401:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\verification_docs\controller\verification_docs_controller.dart:421:21 - Type could be non-nullable. Try changing the type to be non-nullable. - unnecessary_nullable_for_final_variable_declarations
+   info - lib\app\modules\verification_docs\verification_docs_view.dart:97:19 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\verification_docs\verification_docs_view.dart:99:19 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - lib\app\modules\verification_docs\verification_docs_view.dart:196:29 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\wishlist\wishlist_controller.dart:5:43 - The prefix 'CarModel' isn't a lower_case_with_underscores identifier. Try changing the prefix to follow the lower_case_with_underscores style. - library_prefixes
+   info - lib\app\modules\wishlist\wishlist_controller.dart:117:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\wishlist\wishlist_controller.dart:145:21 - Empty catch block. Try adding statements to the block, adding a comment to the block, or removing the 'catch' clause. - empty_catches
+   info - lib\app\modules\wishlist\wishlist_controller.dart:148:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\modules\wishlist\wishlist_controller.dart:166:9 - Use 'isNotEmpty' instead of 'length' to test whether the collection is empty. Try rewriting the expression to use 'isNotEmpty'. - prefer_is_empty
+   info - lib\app\modules\wishlist\wishlist_view.dart:9:43 - The prefix 'CarModel' isn't a lower_case_with_underscores identifier. Try changing the prefix to follow the lower_case_with_underscores style. - library_prefixes
+   info - lib\app\modules\wishlist\wishlist_view.dart:255:49 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\modules\wishlist\wishlist_view.dart:311:47 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\app\services\auth_service.dart:16:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\services\auth_service.dart:26:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\services\auth_service.dart:36:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\services\auth_service.dart:40:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\app\services\auth_service.dart:43:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\constants\app_color.dart:64:25 - 'red' is deprecated and shouldn't be used. Use (*.r * 255.0).round().clamp(0, 255). Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\constants\app_color.dart:64:40 - 'green' is deprecated and shouldn't be used. Use (*.g * 255.0).round().clamp(0, 255). Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\constants\app_color.dart:64:57 - 'blue' is deprecated and shouldn't be used. Use (*.b * 255.0).round().clamp(0, 255). Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\constants\app_color.dart:78:32 - 'value' is deprecated and shouldn't be used. Use component accessors like .r or .g, or toARGB32 for an explicit conversion. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\constants\firebase_config.dart:6:24 - Type could be non-nullable. Try changing the type to be non-nullable. - unnecessary_nullable_for_final_variable_declarations
+   info - lib\core\database\database_service.dart:16:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\database\database_service.dart:20:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\database\database_service.dart:22:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\database\database_service.dart:24:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\database\database_stub.dart:86:8 - The member 'close' overrides an inherited member but isn't annotated with '@override'. Try adding the '@override' annotation. - annotate_overrides
+   info - lib\core\services\notification_service.dart:38:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:40:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:54:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:79:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:81:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:90:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:93:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:105:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:108:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:113:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:141:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:155:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:163:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:171:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:172:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:173:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:174:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:175:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\notification_service.dart:180:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:113:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:138:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:152:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:168:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:177:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:200:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:220:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:231:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:333:19 - Empty catch block. Try adding statements to the block, adding a comment to the block, or removing the 'catch' clause. - empty_catches
+   info - lib\core\services\remote_service.dart:435:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:629:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:631:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:694:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\remote_service.dart:696:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:4:8 - The import of 'package:firebase_core/firebase_core.dart' is unnecessary because all of the used elements are also provided by the import of 'package:firebase_storage/firebase_storage.dart'. Try removing the import directive. - unnecessary_import
+   info - lib\core\services\storage_service.dart:27:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:33:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:39:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:52:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:60:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:65:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:66:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:81:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:85:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:90:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:92:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:96:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:101:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:104:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:112:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:113:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:116:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:117:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:118:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:204:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:206:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:226:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:232:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:237:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:250:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:256:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:260:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:274:13 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:278:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:282:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:284:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:288:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:292:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:295:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:303:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:304:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:307:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\services\storage_service.dart:308:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\app_button.dart:84:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\utils\app_button.dart:139:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\utils\app_button.dart:140:45 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\utils\app_button.dart:153:39 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\utils\app_button.dart:190:21 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\core\utils\carousel_setup.dart:15:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:64:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:72:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:75:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:77:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:96:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:110:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:112:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:136:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\carousel_setup.dart:138:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:15:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:63:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:64:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:67:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:71:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:74:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:75:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:76:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:77:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:79:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:82:15 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:86:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:89:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:90:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:91:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:92:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:101:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:102:35 - The parameter name 'count' matches a visible type name. Try adding a name for the parameter or changing the parameter name to not match an existing type. - avoid_types_as_parameter_names
+   info - lib\core\utils\check_missing_fields.dart:103:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:107:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:108:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:122:9 - Use 'isNotEmpty' instead of 'length' to test whether the collection is empty. Try rewriting the expression to use 'isNotEmpty'. - prefer_is_empty
+   info - lib\core\utils\check_missing_fields.dart:131:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:178:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:182:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:185:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\check_missing_fields.dart:186:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\core\utils\success_dialog.dart:63:15 - Use a 'SizedBox' to add whitespace to a layout. Try using a 'SizedBox' rather than a 'Container'. - sized_box_for_whitespace
+   info - lib\core\utils\tap_wrapper.dart:30:28 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - lib\main.dart:20:3 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:27:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:31:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:33:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:35:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:38:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:43:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:45:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:48:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:53:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:56:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:58:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:61:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:64:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:66:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:70:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:74:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:77:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:85:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:91:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main.dart:94:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - lib\main_minimal.dart:20:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:12:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:17:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:23:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:32:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:33:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:40:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:44:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:47:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:50:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:52:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:56:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:98:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - test_carousel_firebase.dart:100:5 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+
+723 issues found.

@@ -1,0 +1,31 @@
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "cardealer-eb165",
+          "configurations": {
+            "web": "1:1073666893011:web:af51cb811070d1d9e66026"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+Analyzing home...
+
+warning - home_controller.dart:7:8 - Unused import: 'package:cloud_firestore/cloud_firestore.dart'. Try removing the import directive. - unused_import
+warning - home_controller.dart:11:8 - Unused import: '../../../core/utils/carousel_setup.dart'. Try removing the import directive. - unused_import
+   info - home_controller.dart:10:43 - The prefix 'CarModel' isn't a lower_case_with_underscores identifier. Try changing the prefix to follow the lower_case_with_underscores style. - library_prefixes
+   info - home_controller.dart:105:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:111:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:168:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:174:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:177:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:183:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:184:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:186:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:187:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:190:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:200:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:203:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:206:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:210:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:213:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:218:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:219:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:254:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:260:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:268:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:422:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:424:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:451:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:472:17 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:514:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:541:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:607:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:611:11 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:676:9 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:684:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_controller.dart:742:7 - Don't invoke 'print' in production code. Try using a logging framework. - avoid_print
+   info - home_screen.dart:367:40 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+   info - home_screen.dart:403:40 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+
+36 issues found.

@@ -441,9 +441,10 @@ class ShopController extends GetxController {
       );
     } catch (e) {
       isSaving.value = false;
+      String errorMessage = e.toString().replaceAll('Exception: ', '').trim();
       Get.snackbar(
         'Error',
-        'Failed to save shop info: ${e.toString()}',
+        errorMessage,
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:html' as html;
+import 'dart:ui_web' as ui_web;
 import '../../../core/services/admin_service.dart';
 import '../../../core/widgets/admin_layout.dart';
 import '../../routes/app_routes.dart';
@@ -25,6 +28,30 @@ class _UserDetailPageState extends State<UserDetailPage> {
     super.initState();
     _loadUserData();
   }
+
+  String? _getCarImage(Map<String, dynamic> car) {
+    if (car['imageUrl'] != null && car['imageUrl'].toString().isNotEmpty) return car['imageUrl'];
+    if (car['imageUrls'] is List && (car['imageUrls'] as List).isNotEmpty) return (car['imageUrls'] as List).first.toString();
+    if (car['imagePaths'] is List && (car['imagePaths'] as List).isNotEmpty) return (car['imagePaths'] as List).first.toString();
+    return null;
+  }
+
+  String _getShopName(Map<String, dynamic> car) {
+    if (car['shopName']?.toString().isNotEmpty == true) return car['shopName'];
+    if (car['sellerName']?.toString().isNotEmpty == true) return car['sellerName'];
+    if (_shops.isNotEmpty && _shops.first['shopName']?.toString().isNotEmpty == true) return _shops.first['shopName'];
+    return _user?['name'] ?? _user?['displayName'] ?? 'Unknown Shop';
+  }
+
+  String? _getDocumentValue(String type) {
+    if (_kyc == null) return null;
+    final urlVal = _kyc!['${type}Url'] ?? _kyc!['${type}URL'] ?? _kyc!['${type}ImageUrl'];
+    if (urlVal != null && urlVal.toString().isNotEmpty) return urlVal.toString();
+    final pathVal = _kyc!['${type}Path'];
+    if (pathVal != null && pathVal.toString().isNotEmpty) return pathVal.toString();
+    return null;
+  }
+
 
   Future<void> _loadUserData() async {
     setState(() => _isLoading = true);
@@ -538,15 +565,12 @@ class _UserDetailPageState extends State<UserDetailPage> {
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        if (_kyc!['panPath'] != null &&
-                            _kyc!['panPath'].toString().isNotEmpty)
-                          _buildDocumentBadge('PAN', Colors.blue, _kyc!['panPath'].toString()),
-                        if (_kyc!['aadhaarPath'] != null &&
-                            _kyc!['aadhaarPath'].toString().isNotEmpty)
-                          _buildDocumentBadge('Aadhaar', Colors.green, _kyc!['aadhaarPath'].toString()),
-                        if (_kyc!['addressProofPath'] != null &&
-                            _kyc!['addressProofPath'].toString().isNotEmpty)
-                          _buildDocumentBadge('Address', Colors.purple, _kyc!['addressProofPath'].toString()),
+                        if (_getDocumentValue('pan') != null)
+                          _buildDocumentBadge('PAN', Colors.blue, _getDocumentValue('pan')!),
+                        if (_getDocumentValue('aadhaar') != null)
+                          _buildDocumentBadge('Aadhaar', Colors.green, _getDocumentValue('aadhaar')!),
+                        if (_getDocumentValue('addressProof') != null)
+                          _buildDocumentBadge('Address', Colors.purple, _getDocumentValue('addressProof')!),
                       ],
                     ),
                 ],
@@ -587,7 +611,29 @@ class _UserDetailPageState extends State<UserDetailPage> {
     );
   }
 
-  void _showDocumentDialog(String title, String imageUrl) {
+  void _showDocumentDialog(String title, String imagePathOrUrl) async {
+    String? resolvedUrl;
+    Get.dialog(const Center(child: CircularProgressIndicator()), barrierDismissible: false);
+
+    try {
+      if (imagePathOrUrl.startsWith('http')) {
+        resolvedUrl = imagePathOrUrl;
+      } else if (imagePathOrUrl.startsWith('gs://')) {
+        resolvedUrl = await FirebaseStorage.instance.refFromURL(imagePathOrUrl).getDownloadURL();
+      } else {
+        resolvedUrl = await FirebaseStorage.instance.ref(imagePathOrUrl).getDownloadURL();
+      }
+    } catch (e) {
+      debugPrint('Error resolving document URL: $e');
+    }
+
+    if (Get.isDialogOpen == true) Get.back();
+
+    if (resolvedUrl == null) {
+      Get.snackbar('Error', 'Could not load the document.', backgroundColor: Colors.red, colorText: Colors.white);
+      return;
+    }
+
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -599,38 +645,106 @@ class _UserDetailPageState extends State<UserDetailPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '$title Document',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Get.back(),
-                  ),
+                  Text('$title Document', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  IconButton(icon: const Icon(Icons.close), onPressed: () => Get.back()),
                 ],
               ),
             ),
             Flexible(
-              child: InteractiveViewer(
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Padding(
-                        padding: EdgeInsets.all(32),
-                        child: Text('Failed to load image'),
-                      ),
-                ),
-              ),
+              child: WebDocumentViewer(url: resolvedUrl),
             ),
             const SizedBox(height: 16),
           ],
         ),
       ),
     );
+  }
+
+  void _showCarDetails(Map<String, dynamic> car) {
+    final excludedKeys = ['id', 'userid', 'shopid', 'createdat', 'updatedat', 'timestamp', 'sellername', 'shopname', 'isavailable'];
+    
+    final specs = car.entries.where((e) {
+      final key = e.key.toLowerCase();
+      if (excludedKeys.contains(key)) return false;
+      if (key.contains('image') || key.contains('url') || key.contains('path')) return false;
+      if (key.contains('time') || key.contains('date')) return false;
+      if (e.value == null || e.value.toString().trim().isEmpty) return false;
+      return true;
+    }).toList();
+
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Container(
+          width: 500,
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${car['make'] ?? ''} ${car['model'] ?? ''} - ${_getShopName(car)}'.trim().toUpperCase(),
+                      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
+                    ),
+                  ),
+                  IconButton(icon: const Icon(Icons.close_rounded, color: Colors.grey), onPressed: () => Get.back(), padding: EdgeInsets.zero, constraints: const BoxConstraints()),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  if (car['year'] != null)
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: Colors.blue.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: Text('${car['year']}', style: TextStyle(color: Colors.blue.shade700, fontWeight: FontWeight.bold))),
+                  const SizedBox(width: 8),
+                  if (car['price'] != null)
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: Colors.green.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: Text('₹${car['price']}', style: TextStyle(color: Colors.green.shade700, fontWeight: FontWeight.bold))),
+                ],
+              ),
+              const SizedBox(height: 24),
+              const Text('Vehicle Specifications', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
+              const SizedBox(height: 16),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: specs.map((e) {
+                      String formattedKey = e.key.replaceAll(RegExp(r'(?<=[a-z])(?=[A-Z])'), ' ');
+                      formattedKey = formattedKey[0].toUpperCase() + formattedKey.substring(1);
+                      return Container(
+                        width: 200,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(color: Colors.grey.shade50, borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.grey.shade200)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(formattedKey, style: TextStyle(fontSize: 12, color: Colors.grey.shade500, fontWeight: FontWeight.w600)),
+                            const SizedBox(height: 4),
+                            Text('${e.value}', style: const TextStyle(fontSize: 14, color: Color(0xFF334155), fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String? _getShopImage(Map<String, dynamic> shop) {
+    if (shop['logoUrl'] != null && shop['logoUrl'].toString().isNotEmpty) return shop['logoUrl'];
+    if (shop['imageUrl'] != null && shop['imageUrl'].toString().isNotEmpty) return shop['imageUrl'];
+    if (shop['shopImageUrl'] != null && shop['shopImageUrl'].toString().isNotEmpty) return shop['shopImageUrl'];
+    if (shop['image'] != null && shop['image'].toString().isNotEmpty) return shop['image'];
+    return null;
   }
 
   Widget _buildShopsSection() {
@@ -683,64 +797,117 @@ class _UserDetailPageState extends State<UserDetailPage> {
             ),
           )
         else
-          ..._shops.map((shop) => Card(
-                elevation: 0,
-                margin: const EdgeInsets.only(bottom: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: BorderSide(color: Colors.grey.shade200),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Icon(Icons.store_rounded,
-                                color: Colors.blue, size: 20),
+          ..._shops.map((shop) {
+            return Card(
+              elevation: 0,
+              margin: const EdgeInsets.only(bottom: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(color: Colors.grey.shade200),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.blue.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.blue.withOpacity(0.2)),
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Text(
-                              shop['shopName'] ?? 'Unnamed Shop',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF1E293B),
+                          child: _getShopImage(shop) != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: WebImageViewer(
+                                    url: _getShopImage(shop)!,
+                                  ),
+                                )
+                              : const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.broken_image_rounded, color: Colors.blue, size: 28),
+                                    SizedBox(height: 4),
+                                    Text('No Image', style: TextStyle(fontSize: 10, color: Colors.blue)),
+                                  ],
+                                ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                shop['shopName'] ?? 'Unnamed Shop',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF1E293B),
+                                ),
                               ),
-                            ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  Icon(Icons.calendar_today_rounded, size: 14, color: Colors.grey.shade500),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'Joined: ${shop['createdAt'] != null ? shop['createdAt'].toString().split(' ')[0] : 'Unknown'}',
+                                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      _buildInfoRow(Icons.person_rounded, 'Owner',
-                          shop['ownerName'] ?? 'N/A', Colors.purple),
-                      const SizedBox(height: 8),
-                      _buildInfoRow(Icons.phone_rounded, 'Phone',
-                          shop['phone'] ?? 'N/A', Colors.green),
-                      const SizedBox(height: 8),
-                      _buildInfoRow(Icons.email_rounded, 'Email',
-                          shop['email'] ?? 'N/A', Colors.blue),
-                      const SizedBox(height: 8),
-                      _buildInfoRow(Icons.location_on_rounded, 'Address',
-                          shop['address'] ?? 'N/A', Colors.red),
-                      const SizedBox(height: 8),
-                      _buildInfoRow(
-                          Icons.pin_drop_rounded,
-                          'Location',
-                          '${shop['city'] ?? ''}, ${shop['state'] ?? ''} - ${shop['pincode'] ?? ''}',
-                          Colors.orange),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    const Divider(),
+                    const SizedBox(height: 12),
+                    Wrap(
+                      spacing: 16,
+                      runSpacing: 16,
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: _buildInfoRow(Icons.person_rounded, 'Owner', shop['ownerName'] ?? 'N/A', Colors.purple),
+                        ),
+                        SizedBox(
+                          width: 200,
+                          child: _buildInfoRow(Icons.phone_rounded, 'Phone', shop['phone'] ?? 'N/A', Colors.green),
+                        ),
+                        SizedBox(
+                          width: 200,
+                          child: _buildInfoRow(Icons.email_rounded, 'Email', shop['email'] ?? 'N/A', Colors.blue),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    _buildInfoRow(Icons.location_on_rounded, 'Address', shop['address'] ?? 'N/A', Colors.red),
+                    const SizedBox(height: 8),
+                    _buildInfoRow(
+                        Icons.pin_drop_rounded,
+                        'Location',
+                        '${shop['city'] ?? ''}, ${shop['state'] ?? ''} - ${shop['pincode'] ?? ''}',
+                        Colors.orange),
+                    if (shop['description'] != null && shop['description'].toString().isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      const Divider(),
+                      const SizedBox(height: 12),
+                      const Text('Description', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+                      const SizedBox(height: 4),
+                      Text(shop['description'], style: const TextStyle(fontSize: 14)),
+                    ]
+                  ],
                 ),
-              )),
+              ),
+            );
+          }),
       ],
     );
   }
@@ -803,7 +970,10 @@ class _UserDetailPageState extends State<UserDetailPage> {
                   borderRadius: BorderRadius.circular(16),
                   side: BorderSide(color: Colors.grey.shade200),
                 ),
-                child: Padding(
+                child: InkWell(
+                  onTap: () => _showCarDetails(car),
+                  borderRadius: BorderRadius.circular(16),
+                  child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Row(
                     children: [
@@ -814,11 +984,11 @@ class _UserDetailPageState extends State<UserDetailPage> {
                           borderRadius: BorderRadius.circular(12),
                           color: Colors.grey.shade200,
                         ),
-                        child: car['imageUrl'] != null
+                        child: _getCarImage(car) != null
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
                                 child: Image.network(
-                                  car['imageUrl'],
+                                  _getCarImage(car)!,
                                   fit: BoxFit.cover,
                                   errorBuilder: (context, error, stackTrace) =>
                                       const Icon(Icons.directions_car_rounded,
@@ -834,7 +1004,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${car['make'] ?? ''} ${car['model'] ?? ''}',
+                              '${car['make'] ?? ''} ${car['model'] ?? ''} - ${_getShopName(car)}',
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -906,7 +1076,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                     ],
                   ),
                 ),
-              )),
+              ))),
       ],
     );
   }
@@ -961,5 +1131,67 @@ class _UserDetailPageState extends State<UserDetailPage> {
         ],
       ),
     );
+  }
+}
+
+class WebDocumentViewer extends StatelessWidget {
+  final String url;
+
+  WebDocumentViewer({super.key, required this.url}) {
+    final viewId = 'doc-view-${url.hashCode}';
+    
+    // Register the factory only once per URL
+    ui_web.platformViewRegistry.registerViewFactory(
+      viewId,
+      (int id) {
+        if (url.toLowerCase().contains('.pdf')) {
+          return html.IFrameElement()
+            ..src = url
+            ..style.border = 'none'
+            ..style.width = '100%'
+            ..style.height = '100%';
+        } else {
+          return html.ImageElement()
+            ..src = url
+            ..style.width = '100%'
+            ..style.height = '100%'
+            ..style.objectFit = 'contain';
+        }
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return HtmlElementView(viewType: 'doc-view-${url.hashCode}');
+  }
+}
+
+final Set<String> _registeredImageViews = {};
+
+class WebImageViewer extends StatelessWidget {
+  final String url;
+
+  WebImageViewer({super.key, required this.url}) {
+    final viewId = 'img-view-${url.hashCode}';
+    if (!_registeredImageViews.contains(viewId)) {
+      ui_web.platformViewRegistry.registerViewFactory(
+        viewId,
+        (int id) {
+          return html.ImageElement()
+            ..src = url
+            ..style.width = '100%'
+            ..style.height = '100%'
+            ..style.objectFit = 'cover'
+            ..style.border = 'none';
+        },
+      );
+      _registeredImageViews.add(viewId);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return HtmlElementView(viewType: 'img-view-${url.hashCode}');
   }
 }

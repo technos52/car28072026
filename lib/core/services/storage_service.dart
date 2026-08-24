@@ -64,8 +64,9 @@ class StorageService {
 
       print('Starting file upload...');
       print('Storage bucket: ${_storage.app.options.storageBucket}');
-      final UploadTask uploadTask = ref.putFile(
-        actualFile,
+      final data = await actualFile.readAsBytes();
+      final UploadTask uploadTask = ref.putData(
+        data,
         SettableMetadata(
           contentType: 'image/jpeg',
           cacheControl: 'max-age=3600',
@@ -116,52 +117,15 @@ class StorageService {
         print('Firebase error code: ${e.code}');
         print('Firebase error message: ${e.message}');
         print('Firebase storage bucket: ${_storage.app.options.storageBucket}');
-
-        // Provide helpful error messages
-        String errorHint = '';
-        switch (e.code) {
-          case 'object-not-found':
-          case 'bucket-not-found':
-            errorHint =
-                '\n\nHint: Please ensure:\n'
-                '1. Firebase Storage is enabled in Firebase Console\n'
-                '2. Storage bucket exists: ${_storage.app.options.storageBucket}\n'
-                '3. Storage security rules allow uploads';
-            break;
-          case 'permission-denied':
-          case 'unauthorized':
-            errorHint =
-                '\n\nHint: Please check Firebase Storage security rules in Firebase Console.\n'
-                'Rules should allow authenticated users to write: allow write: if request.auth != null;';
-            break;
-          case 'unauthenticated':
-            errorHint =
-                '\n\nHint: User is not authenticated. Please log in again.';
-            break;
-          default:
-            errorHint =
-                '\n\nPlease check:\n'
-                '1. Firebase Storage is enabled\n'
-                '2. Storage bucket: ${_storage.app.options.storageBucket}\n'
-                '3. Internet connection\n'
-                '4. Firebase Storage security rules';
-        }
-
-        throw Exception(
-          'Firebase Storage error: ${e.code} - ${e.message}$errorHint',
-        );
+        throw Exception('Upload failed. Please check your internet connection and try again.');
       }
 
       // Handle other exceptions
       if (e.toString().contains('404') || e.toString().contains('Not Found')) {
-        throw Exception(
-          'Storage bucket not found. Please ensure Firebase Storage is enabled in Firebase Console.\n'
-          'Bucket: ${_storage.app.options.storageBucket}\n'
-          'Error: $e',
-        );
+        throw Exception('Upload failed. Service unavailable.');
       }
 
-      rethrow;
+      throw Exception('An unexpected error occurred during upload. Please try again.');
     }
   }
 
@@ -258,8 +222,9 @@ class StorageService {
       final Reference ref = _storage.ref().child(storagePath);
 
       print('Starting file upload...');
-      final UploadTask uploadTask = ref.putFile(
-        actualFile,
+      final data = await actualFile.readAsBytes();
+      final UploadTask uploadTask = ref.putData(
+        data,
         SettableMetadata(
           contentType: 'application/pdf',
           cacheControl: 'max-age=3600',
@@ -306,50 +271,14 @@ class StorageService {
       if (e is FirebaseException) {
         print('Firebase error code: ${e.code}');
         print('Firebase error message: ${e.message}');
-
-        String errorHint = '';
-        switch (e.code) {
-          case 'object-not-found':
-          case 'bucket-not-found':
-            errorHint =
-                '\n\nHint: Please ensure:\n'
-                '1. Firebase Storage is enabled in Firebase Console\n'
-                '2. Storage bucket exists: ${_storage.app.options.storageBucket}\n'
-                '3. Storage security rules allow uploads';
-            break;
-          case 'permission-denied':
-          case 'unauthorized':
-            errorHint =
-                '\n\nHint: Please check Firebase Storage security rules in Firebase Console.\n'
-                'Rules should allow authenticated users to write: allow write: if request.auth != null;';
-            break;
-          case 'unauthenticated':
-            errorHint =
-                '\n\nHint: User is not authenticated. Please log in again.';
-            break;
-          default:
-            errorHint =
-                '\n\nPlease check:\n'
-                '1. Firebase Storage is enabled\n'
-                '2. Storage bucket: ${_storage.app.options.storageBucket}\n'
-                '3. Internet connection\n'
-                '4. Firebase Storage security rules';
-        }
-
-        throw Exception(
-          'Firebase Storage error: ${e.code} - ${e.message}$errorHint',
-        );
+        throw Exception('Upload failed. Please check your internet connection and try again.');
       }
 
       if (e.toString().contains('404') || e.toString().contains('Not Found')) {
-        throw Exception(
-          'Storage bucket not found. Please ensure Firebase Storage is enabled in Firebase Console.\n'
-          'Bucket: ${_storage.app.options.storageBucket}\n'
-          'Error: $e',
-        );
+        throw Exception('Upload failed. Service unavailable.');
       }
 
-      rethrow;
+      throw Exception('An unexpected error occurred during upload. Please try again.');
     }
   }
 }

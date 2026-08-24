@@ -3,6 +3,7 @@ import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../routes/app_routes.dart';
+import '../../../services/auth_service.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -89,8 +90,25 @@ class SplashController extends GetxController
         print('SplashController: No user found, navigating to auth');
         Get.offAllNamed(AppRoutes.auth);
       } else {
-        print('SplashController: User found (${user.uid}), navigating to root');
-        Get.offAllNamed(AppRoutes.root);
+        print('SplashController: User found (${user.uid}), checking if fully onboarded');
+        
+        bool existing = false;
+        if (Get.isRegistered<AuthService>()) {
+          final authService = Get.find<AuthService>();
+          existing = await authService.isExistingUser(user);
+        } else {
+          // Fallback if not registered, but normally it should be
+          final authService = Get.put(AuthService());
+          existing = await authService.isExistingUser(user);
+        }
+
+        if (existing) {
+          print('SplashController: User is fully onboarded, navigating to root');
+          Get.offAllNamed(AppRoutes.root);
+        } else {
+          print('SplashController: User not fully onboarded, navigating to profile');
+          Get.offAllNamed(AppRoutes.profile, arguments: {'onboarding': true});
+        }
       }
     } catch (e) {
       print('SplashController: Error in navigation: $e');

@@ -208,8 +208,8 @@ class ProfileController extends GetxController {
         Get.arguments as Map<String, dynamic>?;
     final bool isOnboarding = (arguments?['onboarding'] == true);
 
-    // Only require avatar for onboarding, not for editing
-    if (isOnboarding && avatarPath.value.isEmpty) {
+    // Require avatar for both onboarding and editing
+    if (avatarPath.value.isEmpty) {
       Get.snackbar(
         'Error',
         'Please upload a profile image',

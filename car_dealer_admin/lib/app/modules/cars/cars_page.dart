@@ -93,6 +93,151 @@ class _CarsPageState extends State<CarsPage> {
       }
     }
   }
+  void _showCarDetails(Map<String, dynamic> car) {
+    final excludedKeys = ['id', 'userid', 'shopid', 'createdat', 'updatedat', 'timestamp', 'sellername', 'shopname', 'isavailable'];
+    
+    final specs = car.entries.where((e) {
+      final key = e.key.toLowerCase();
+      if (excludedKeys.contains(key)) return false;
+      if (key.contains('image') || key.contains('url') || key.contains('path')) return false;
+      if (key.contains('time') || key.contains('date')) return false;
+      if (e.value == null || e.value.toString().trim().isEmpty) return false;
+      return true;
+    }).toList();
+
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Container(
+          width: 500,
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${car['make'] ?? ''} ${car['model'] ?? ''} - ${car['shopName'] ?? car['sellerName'] ?? 'Unknown Shop'}'.trim().toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1E293B),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close_rounded, color: Colors.grey),
+                    onPressed: () => Get.back(),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  if (car['year'] != null)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '${car['year']}',
+                        style: TextStyle(color: Colors.blue.shade700, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  const SizedBox(width: 8),
+                  if (car['price'] != null)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '₹${car['price']}',
+                        style: TextStyle(color: Colors.green.shade700, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Vehicle Specifications',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF64748B),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: specs.map((e) {
+                      String formattedKey = e.key.replaceAll(RegExp(r'(?<=[a-z])(?=[A-Z])'), ' ');
+                      formattedKey = formattedKey[0].toUpperCase() + formattedKey.substring(1);
+                      return Container(
+                        width: 200,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade50,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.grey.shade200),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              formattedKey,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey.shade500,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '${e.value}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF334155),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String? _getCarImage(Map<String, dynamic> car) {
+    if (car['imageUrl'] != null && car['imageUrl'].toString().isNotEmpty) {
+      return car['imageUrl'];
+    }
+    if (car['imageUrls'] is List && (car['imageUrls'] as List).isNotEmpty) {
+      return (car['imageUrls'] as List).first.toString();
+    }
+    if (car['imagePaths'] is List && (car['imagePaths'] as List).isNotEmpty) {
+      return (car['imagePaths'] as List).first.toString();
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,11 +328,12 @@ class _CarsPageState extends State<CarsPage> {
                               vertical: 8,
                             ),
                             child: ListTile(
-                              leading: car['imageUrl'] != null
+                              onTap: () => _showCarDetails(car),
+                              leading: _getCarImage(car) != null
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.network(
-                                        car['imageUrl'],
+                                        _getCarImage(car)!,
                                         width: 80,
                                         height: 80,
                                         fit: BoxFit.cover,
@@ -207,7 +353,7 @@ class _CarsPageState extends State<CarsPage> {
                                     )
                                   : const Icon(Icons.directions_car, size: 40),
                               title: Text(
-                                '${car['make'] ?? ''} ${car['model'] ?? ''}',
+                                '${car['make'] ?? ''} ${car['model'] ?? ''} - ${car['shopName'] ?? car['sellerName'] ?? 'Unknown Shop'}',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),

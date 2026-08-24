@@ -775,7 +775,8 @@ class AddCarController extends GetxController {
               );
 
               // Don't save with local path if upload fails - ask user to retry
-              throw Exception('Image upload failed: $e');
+              String cleanError = e.toString().replaceAll('Exception: ', '').trim();
+              throw Exception(cleanError);
             }
           }
         }

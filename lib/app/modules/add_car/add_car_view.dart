@@ -5,6 +5,8 @@ import 'controller/add_car_controller.dart';
 import '../home/home_controller.dart';
 import '../root/controller/root_controller.dart';
 import '../../../core/utils/price_formatter.dart';
+import '../../../core/utils/error_dialog.dart';
+import '../../../core/utils/success_dialog.dart';
 
 class AddCarView extends GetView<AddCarController> {
   const AddCarView({super.key});
@@ -736,6 +738,13 @@ class AddCarView extends GetView<AddCarController> {
 
     try {
       // Validation
+      if (controller.imagePaths.isEmpty) {
+        print('Validation failed: No image uploaded');
+        Get.back(); // Close loading dialog
+        _showErrorDialog('Please upload at least one car image');
+        return;
+      }
+
       if (controller.selectedOwner.value == null ||
           controller.selectedOwner.value!.isEmpty) {
         print('Validation failed: Owner not selected');
@@ -891,7 +900,8 @@ class AddCarView extends GetView<AddCarController> {
     } catch (e) {
       print('Error saving car: $e');
       Get.back(); // Close loading dialog
-      _showErrorDialog('Failed to save car: ${e.toString()}');
+      String errorMessage = e.toString().replaceAll('Exception: ', '').trim();
+      _showErrorDialog(errorMessage);
     }
   }
 
@@ -925,26 +935,11 @@ class AddCarView extends GetView<AddCarController> {
       }
     }
 
-    Get.dialog(
-      AlertDialog(
-        title: const Row(
-          children: [
-            Icon(Icons.check_circle, color: Colors.green, size: 24),
-            SizedBox(width: 8),
-            Text('Success'),
-          ],
-        ),
-        content: const Text(
-          'Car details saved successfully!\nYour new car will appear on the home screen.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: closeAndNavigate,
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-      barrierDismissible: false,
+    SuccessDialog.showGenericSuccess(
+      title: 'Success',
+      message: 'Car details saved successfully!\nYour new car will appear on the home screen.',
+      buttonText: 'OK',
+      onPressed: closeAndNavigate,
     );
 
     // Auto-dismiss after 3 seconds
@@ -954,20 +949,6 @@ class AddCarView extends GetView<AddCarController> {
   }
 
   void _showErrorDialog(String message) {
-    Get.dialog(
-      AlertDialog(
-        title: const Row(
-          children: [
-            Icon(Icons.error, color: Colors.red, size: 24),
-            SizedBox(width: 8),
-            Text('Error'),
-          ],
-        ),
-        content: Text(message),
-        actions: [
-          TextButton(onPressed: () => Get.back(), child: const Text('OK')),
-        ],
-      ),
-    );
+    ErrorDialog.show(message: message);
   }
 }

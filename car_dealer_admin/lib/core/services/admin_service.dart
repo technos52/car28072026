@@ -72,24 +72,77 @@ class AdminService {
 
   Future<List<Map<String, dynamic>>> getAllCars() async {
     final snapshot = await _db.collection('cars').get();
-    return snapshot.docs.map((doc) {
+    
+    final carsList = await Future.wait(snapshot.docs.map((doc) async {
       final data = doc.data();
-      return {'id': doc.id, ...data};
-    }).toList();
+      String? shopName = data['shopName']?.toString().isNotEmpty == true 
+          ? data['shopName'] 
+          : data['sellerName']?.toString().isNotEmpty == true 
+              ? data['sellerName'] 
+              : null;
+              
+      if (shopName == null && data['userId'] != null) {
+        final shopsSnapshot = await _db
+            .collection('users')
+            .doc(data['userId'])
+            .collection('shops')
+            .limit(1)
+            .get();
+            
+        if (shopsSnapshot.docs.isNotEmpty) {
+          shopName = shopsSnapshot.docs.first.data()['shopName'];
+        } else {
+          final userDoc = await _db.collection('users').doc(data['userId']).get();
+          if (userDoc.exists) {
+            shopName = userDoc.data()?['name'] ?? userDoc.data()?['displayName'];
+          }
+        }
+      }
+      
+      return {'id': doc.id, 'shopName': shopName, ...data};
+    }));
+    
+    return carsList.toList();
   }
 
   Future<void> deleteCar(String carId) async {
     final carDoc = await _db.collection('cars').doc(carId).get();
     if (carDoc.exists) {
-      final userId = carDoc.data()?['userId'];
+      final data = carDoc.data() ?? {};
+      final userId = data['userId'] ?? data['userid'] ?? data['sellerId'];
+      final shopId = data['shopId'] ?? data['shopid'];
+
       if (userId != null) {
-        await _db
-            .collection('users')
-            .doc(userId)
-            .collection('cars')
-            .doc(carId)
-            .delete();
+        // Delete from user's cars
+        try {
+          await _db
+              .collection('users')
+              .doc(userId)
+              .collection('cars')
+              .doc(carId)
+              .delete();
+        } catch (e) {
+          print('Error deleting from user subcollection: $e');
+        }
+
+        // Delete from shop's cars if applicable
+        if (shopId != null) {
+          try {
+            await _db
+                .collection('users')
+                .doc(userId)
+                .collection('shops')
+                .doc(shopId)
+                .collection('cars')
+                .doc(carId)
+                .delete();
+          } catch (e) {
+            print('Error deleting from shop subcollection: $e');
+          }
+        }
       }
+      
+      // Delete from global cars collection
       await _db.collection('cars').doc(carId).delete();
     }
   }
@@ -129,39 +182,35 @@ class AdminService {
         return {'id': doc.id, ...data};
       }).toList();
 
-      // Collect docs that are missing carImageUrl so we can resolve + backfill them
-      final docsNeedingImage = rawDocs.where((doc) {
-        final url = doc['carImageUrl']?.toString();
-        return (url == null || url.isEmpty) &&
-            doc['type'] == 'car_inquiry' &&
-            doc['carId'] != null &&
-            (doc['carId'] as String).isNotEmpty;
+      // Collect docs that are missing important details
+      final docsNeedingUpdate = rawDocs.where((doc) {
+        if (doc['type'] != 'car_inquiry') return false;
+        final hasImage = doc['carImageUrl']?.toString().isNotEmpty == true;
+        final hasCarName = doc['carName']?.toString().isNotEmpty == true;
+        final hasBuyerName = doc['buyerName']?.toString().isNotEmpty == true;
+        final hasSellerName = doc['sellerName']?.toString().isNotEmpty == true;
+        return !hasImage || !hasCarName || !hasBuyerName || !hasSellerName;
       }).toList();
 
-      if (docsNeedingImage.isEmpty) return rawDocs;
+      if (docsNeedingUpdate.isEmpty) return rawDocs;
 
-      // Fetch images in parallel for speed
+      // Fetch missing data in parallel
       final results = await Future.wait(
-        docsNeedingImage.map((doc) => _resolveCarImageUrl(
-              carId: doc['carId'] as String,
-              sellerId: doc['sellerId'] as String?,
-            )),
+        docsNeedingUpdate.map((doc) => _resolveEnquiryDetails(doc)),
       );
 
-      // Backfill found URLs into Firestore (batch write)
+      // Backfill found data into Firestore (batch write)
       final batch = _db.batch();
       bool hasBatchUpdates = false;
 
-      for (int i = 0; i < docsNeedingImage.length; i++) {
-        final url = results[i];
-        final docId = docsNeedingImage[i]['id'] as String;
-        docsNeedingImage[i]['carImageUrl'] = url;
-        // Persist to Firestore so next load is instant
-        if (url != null && url.isNotEmpty) {
-          batch.update(
-            _db.collection('admin_notifications').doc(docId),
-            {'carImageUrl': url},
-          );
+      for (int i = 0; i < docsNeedingUpdate.length; i++) {
+        final updates = results[i];
+        if (updates.isNotEmpty) {
+          final docId = docsNeedingUpdate[i]['id'] as String;
+          // Apply to local list immediately
+          docsNeedingUpdate[i].addAll(updates);
+          // Persist to Firestore
+          batch.update(_db.collection('admin_notifications').doc(docId), updates);
           hasBatchUpdates = true;
         }
       }
@@ -179,44 +228,71 @@ class AdminService {
     }
   }
 
-  /// Resolves the first available image URL for a car by checking:
-  /// 1. Root /cars/{carId}
-  /// 2. /users/{sellerId}/cars/{carId} (fallback)
-  Future<String?> _resolveCarImageUrl({
-    required String carId,
-    String? sellerId,
-  }) async {
-    // Try root cars collection first
-    try {
-      final doc = await _db.collection('cars').doc(carId).get();
-      if (doc.exists && doc.data() != null) {
-        final url = _extractFirstImageUrl(doc.data()!);
-        if (url != null && url.isNotEmpty) return url;
-      }
-    } catch (e) {
-      print('_resolveCarImageUrl root error: $e');
-    }
+  Future<Map<String, dynamic>> _resolveEnquiryDetails(Map<String, dynamic> doc) async {
+    final Map<String, dynamic> updates = {};
+    
+    // Resolve Car
+    if (doc['carId'] != null) {
+      final carId = doc['carId'] as String;
+      String? sellerId = doc['sellerId'] as String?;
+      
+      DocumentSnapshot<Map<String, dynamic>>? carDoc;
+      try { carDoc = await _db.collection('cars').doc(carId).get(); } catch (_) {}
 
-    // Fallback: seller's subcollection
-    if (sellerId != null && sellerId.isNotEmpty) {
-      try {
-        final doc = await _db
-            .collection('users')
-            .doc(sellerId)
-            .collection('cars')
-            .doc(carId)
-            .get();
-        if (doc.exists && doc.data() != null) {
-          final url = _extractFirstImageUrl(doc.data()!);
-          if (url != null && url.isNotEmpty) return url;
+      if (carDoc == null || !carDoc.exists) {
+        if (sellerId != null && sellerId.isNotEmpty) {
+          try { carDoc = await _db.collection('users').doc(sellerId).collection('cars').doc(carId).get(); } catch (_) {}
         }
-      } catch (e) {
-        print('_resolveCarImageUrl seller error: $e');
+      }
+
+      if (carDoc != null && carDoc.exists && carDoc.data() != null) {
+        final data = carDoc.data()!;
+        if (doc['carImageUrl']?.toString().isNotEmpty != true) {
+          final url = _extractFirstImageUrl(data);
+          if (url != null) updates['carImageUrl'] = url;
+        }
+        if (doc['carName']?.toString().isNotEmpty != true) {
+          updates['carName'] = data['make'] ?? 'Unknown Make';
+        }
+        if (doc['carModel']?.toString().isNotEmpty != true) {
+          updates['carModel'] = data['model'] ?? '';
+        }
+        if (doc['carPrice']?.toString().isNotEmpty != true) {
+          updates['carPrice'] = data['price']?.toString() ?? '';
+        }
       }
     }
 
-    return null;
+    // Resolve Buyer
+    if (doc['buyerId'] != null && doc['buyerName']?.toString().isNotEmpty != true) {
+      try {
+        final userDoc = await _db.collection('users').doc(doc['buyerId']).get();
+        if (userDoc.exists && userDoc.data() != null) {
+          updates['buyerName'] = userDoc.data()!['name'] ?? userDoc.data()!['displayName'] ?? 'Unknown Buyer';
+          updates['buyerEmail'] = userDoc.data()!['email'] ?? '';
+        }
+      } catch (_) {}
+    }
+
+    // Resolve Seller
+    if (doc['sellerId'] != null && doc['sellerName']?.toString().isNotEmpty != true) {
+      try {
+        final shopDoc = await _db.collection('users').doc(doc['sellerId']).collection('shops').limit(1).get();
+        if (shopDoc.docs.isNotEmpty) {
+          updates['sellerName'] = shopDoc.docs.first.data()['shopName'] ?? 'Unknown Shop';
+        } else {
+          final userDoc = await _db.collection('users').doc(doc['sellerId']).get();
+          if (userDoc.exists && userDoc.data() != null) {
+            updates['sellerName'] = userDoc.data()!['name'] ?? userDoc.data()!['displayName'] ?? 'Unknown Seller';
+          }
+        }
+      } catch (_) {}
+    }
+
+    return updates;
   }
+
+
 
   /// Extracts the first image URL from a Firestore car document.
   String? _extractFirstImageUrl(Map<String, dynamic> data) {

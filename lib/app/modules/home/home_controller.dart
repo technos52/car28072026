@@ -413,6 +413,15 @@ class HomeController extends GetxController {
           final firestoreCars = await remoteService.getUserCars(user.uid);
           print('Found ${firestoreCars.length} cars in Firestore');
 
+          // Delete cars that are no longer in Firestore
+          final firestoreCarIds = firestoreCars.map((c) => c['id'] as String).toList();
+          final localUserCars = await databaseService.getUserCars(user.uid);
+          for (var localCar in localUserCars) {
+            if (!firestoreCarIds.contains(localCar.id)) {
+              await databaseService.deleteCar(localCar.id);
+            }
+          }
+
           // Sync Firestore cars to local database
           for (var carData in firestoreCars) {
             // Handle imageUrls array or single imageUrl
@@ -502,6 +511,15 @@ class HomeController extends GetxController {
             excludeUserId: user.uid,
           );
           print('Found ${firestoreOtherCars.length} other cars in Firestore');
+
+          // Delete other cars that are no longer in Firestore
+          final firestoreOtherCarIds = firestoreOtherCars.map((c) => c['id'] as String).toList();
+          final localAllCars = await databaseService.getAllCars();
+          for (var localCar in localAllCars) {
+            if (localCar.userId != user.uid && !firestoreOtherCarIds.contains(localCar.id)) {
+              await databaseService.deleteCar(localCar.id);
+            }
+          }
 
           // Sync other cars to local DB
           for (var carData in firestoreOtherCars) {

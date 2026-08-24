@@ -69,56 +69,35 @@ class AdminLayout extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            width: double.infinity,
             padding: const EdgeInsets.all(28),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xFF6366F1),
-                  const Color(0xFF8B5CF6),
-                  const Color(0xFFA855F7),
-                ],
-                stops: const [0.0, 0.5, 1.0],
-              ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.25),
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.admin_panel_settings_rounded,
-                    size: 36,
-                    color: Colors.white,
-                  ),
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 96,
+                  height: 96,
+                  fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 20),
                 const Text(
                   'Admin Panel',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF1E293B),
                     fontSize: 26,
                     fontWeight: FontWeight.w800,
                     letterSpacing: -0.5,
                   ),
                 ),
                 const SizedBox(height: 6),
-                Text(
+                const Text(
                   'Car Dealer Management',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.95),
+                    color: Color(0xFF64748B),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.2,
@@ -224,46 +203,34 @@ class AdminLayout extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            width: double.infinity,
             padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xFF6366F1),
-                  const Color(0xFF8B5CF6),
-                ],
-              ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Icon(
-                    Icons.admin_panel_settings_rounded,
-                    size: 32,
-                    color: Colors.white,
-                  ),
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 16),
                 const Text(
                   'Admin Panel',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF1E293B),
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
+                const Text(
                   'Car Dealer Management',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Color(0xFF64748B),
                     fontSize: 14,
                   ),
                 ),

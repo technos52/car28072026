@@ -140,10 +140,13 @@ class _WishlistViewState extends State<WishlistView>
                     return _WishlistCard(
                       car: car,
                       isAvailable: isAvailable,
-                      onTap: () => Get.toNamed(
-                        AppRoutes.carDetail,
-                        arguments: {'car': car, 'carId': carId},
-                      ),
+                      onTap: () async {
+                        await Get.toNamed(
+                          AppRoutes.carDetail,
+                          arguments: {'car': car, 'carId': carId},
+                        );
+                        controller.refreshWishlist();
+                      },
                       onRemove: () => controller.removeFromWishlist(car),
                     );
                   },

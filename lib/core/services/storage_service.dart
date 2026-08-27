@@ -213,8 +213,9 @@ class StorageService {
       final fileSize = await actualFile.length();
       print('File exists. Size: $fileSize bytes');
 
+      final String extension = normalizedPath.split('.').last.toLowerCase();
       final String fileName =
-          '${documentType}_${DateTime.now().millisecondsSinceEpoch}.pdf';
+          '${documentType}_${DateTime.now().millisecondsSinceEpoch}.$extension';
       final String storagePath = 'users/$userId/kyc_documents/$fileName';
 
       print('Uploading to Firebase Storage path: $storagePath');
@@ -223,10 +224,18 @@ class StorageService {
 
       print('Starting file upload...');
       final data = await actualFile.readAsBytes();
+      
+      String contentType = 'application/pdf';
+      if (extension == 'jpg' || extension == 'jpeg') {
+        contentType = 'image/jpeg';
+      } else if (extension == 'png') {
+        contentType = 'image/png';
+      }
+
       final UploadTask uploadTask = ref.putData(
         data,
         SettableMetadata(
-          contentType: 'application/pdf',
+          contentType: contentType,
           cacheControl: 'max-age=3600',
         ),
       );

@@ -202,7 +202,23 @@ class ProfileView extends GetView<ProfileController> {
                 ],
               ),
             ),
-            const Hbox(40),
+            const Hbox(12),
+            // Profile Photo mandatory label
+            Center(
+              child: Text.rich(
+                const TextSpan(
+                  text: 'Profile Photo',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xFF0B409C)),
+                  children: [
+                    TextSpan(
+                      text: ' *',
+                      style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Hbox(8),
 
             // Full name field
             AppText(
@@ -253,12 +269,22 @@ class ProfileView extends GetView<ProfileController> {
                   Icons.phone_outlined,
                   color: AppColor.secondary,
                 ),
-                enabled: !isOnboarding || !isPhonePrefilled,
+                enabled: !isPhonePrefilled,
               );
             }),
             const Hbox(20),
             // Email field
-            AppText('Email', style: Ts.regular14(color: AppColor.secondary)),
+            AppText(
+              'Email',
+              style: Ts.regular14(color: AppColor.secondary),
+              isRich: true,
+              spans: [
+                TextSpan(
+                  text: ' *',
+                  style: Ts.regular14(color: Colors.red),
+                ),
+              ],
+            ),
             const Hbox(8),
             Obx(() {
               final isEmailPrefilled = controller.isEmailPrefilled.value;
@@ -270,13 +296,23 @@ class ProfileView extends GetView<ProfileController> {
                   Icons.email_outlined,
                   color: AppColor.secondary,
                 ),
-                enabled: !isOnboarding || !isEmailPrefilled,
+                enabled: !isEmailPrefilled,
               );
             }),
             const Hbox(20),
 
             // Gender dropdown
-            AppText('Gender', style: Ts.regular14(color: AppColor.secondary)),
+            AppText(
+              'Gender',
+              style: Ts.regular14(color: AppColor.secondary),
+              isRich: true,
+              spans: [
+                TextSpan(
+                  text: ' *',
+                  style: Ts.regular14(color: Colors.red),
+                ),
+              ],
+            ),
             const Hbox(8),
             Container(
               height: 56,
@@ -289,7 +325,9 @@ class ProfileView extends GetView<ProfileController> {
               child: Obx(
                 () => DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: controller.selectedGender.value,
+                    value: controller.selectedGender.value.isEmpty
+                        ? null
+                        : controller.selectedGender.value,
                     isExpanded: true,
                     icon: const Icon(
                       Icons.keyboard_arrow_down_rounded,
@@ -299,8 +337,8 @@ class ProfileView extends GetView<ProfileController> {
                     dropdownColor: Colors.white,
                     style: Ts.regular16(color: AppColor.secondary),
                     hint: AppText(
-                      'Gender',
-                      style: Ts.regular16(color: AppColor.secondary),
+                      'Select Gender',
+                      style: Ts.regular16(color: AppColor.gray400),
                     ),
                     items: controller.genders
                         .map(

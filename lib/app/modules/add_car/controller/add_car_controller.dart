@@ -334,10 +334,22 @@ class AddCarController extends GetxController {
           selectedColour.value = color;
           print('Set color: $color');
         } else {
-          selectedColour.value = 'Other';
-          customColour.value = color;
-          customColourController.text = color;
-          print('Set color as Other: $color');
+          final matchingColour = colours.firstWhere(
+            (c) =>
+                c.toLowerCase() == color.toLowerCase() ||
+                c.toLowerCase().contains(color.toLowerCase()) ||
+                color.toLowerCase().contains(c.toLowerCase()),
+            orElse: () => '',
+          );
+          if (matchingColour.isNotEmpty) {
+            selectedColour.value = matchingColour;
+            print('Set color mapped from $color to $matchingColour');
+          } else {
+            selectedColour.value = 'Other';
+            customColour.value = color;
+            customColourController.text = color;
+            print('Set color as Other: $color');
+          }
         }
       }
     }
@@ -349,10 +361,21 @@ class AddCarController extends GetxController {
           selectedFuelType.value = fuelType;
           print('Set fuelType: $fuelType');
         } else {
-          selectedFuelType.value = 'Other';
-          customFuelType.value = fuelType;
-          customFuelTypeController.text = fuelType;
-          print('Set fuelType as Other: $fuelType');
+          final matchingFuel = fuelTypes.firstWhere(
+            (f) =>
+                f.toLowerCase() == fuelType.toLowerCase() ||
+                f.toLowerCase().startsWith('${fuelType.toLowerCase()} ('),
+            orElse: () => '',
+          );
+          if (matchingFuel.isNotEmpty) {
+            selectedFuelType.value = matchingFuel;
+            print('Set fuelType mapped from $fuelType to $matchingFuel');
+          } else {
+            selectedFuelType.value = 'Other';
+            customFuelType.value = fuelType;
+            customFuelTypeController.text = fuelType;
+            print('Set fuelType as Other: $fuelType');
+          }
         }
       }
     }
@@ -509,7 +532,7 @@ class AddCarController extends GetxController {
       states.assignAll(await _catalogService.fetchStates());
 
       // Load default variants (will be updated when brand is selected)
-      variants.assignAll(['Base', 'Mid', 'Top', 'Premium']);
+      variants.clear();
     } finally {
       isLoading.value = false;
     }
@@ -836,6 +859,8 @@ class AddCarController extends GetxController {
         state: car.state.isNotEmpty ? car.state : null,
         city: car.city.isNotEmpty ? car.city : null,
         pincode: car.pincode.isNotEmpty ? car.pincode : null,
+        seatType: car.seatType.isNotEmpty ? car.seatType : null,
+        licenseType: car.licenseType.isNotEmpty ? car.licenseType : null,
       );
 
       print('Car saved successfully to local database and Firestore');

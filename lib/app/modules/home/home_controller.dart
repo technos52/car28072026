@@ -12,13 +12,21 @@ import '../../../core/utils/carousel_setup.dart';
 import '../../routes/app_routes.dart';
 import '../search/controller/search_controller.dart' as search_ctrl;
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with WidgetsBindingObserver {
   final RxInt currentIndex = 0.obs;
   void setIndex(int i) => currentIndex.value = i;
 
   final RxList<String> carouselImages = <String>[].obs;
   final RxInt currentCarouselImage = 0.obs;
-  final PageController carouselController = PageController(initialPage: 0);
+  PageController _carouselController = PageController(initialPage: 1000);
+  PageController get carouselController {
+    try {
+      final _ = _carouselController.hasClients;
+    } catch (_) {
+      _carouselController = PageController(initialPage: 1000);
+    }
+    return _carouselController;
+  }
   Timer? _carouselTimer;
   bool _isCarouselAnimating = false;
 
@@ -45,12 +53,29 @@ class HomeController extends GetxController {
   final RxList<CarModel.Car> topDealsCars = <CarModel.Car>[].obs;
   final RxList<String> brands = <String>[].obs;
   final RxString selectedBrand = ''.obs;
-  final TextEditingController searchController = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
+  TextEditingController get searchController {
+    try {
+      final _ = _searchController.text;
+    } catch (_) {
+      _searchController = TextEditingController(text: searchQuery.value);
+    }
+    return _searchController;
+  }
   final RxString searchQuery = ''.obs;
   final RxList<String> filteredBrandSuggestions = <String>[].obs;
+  final RxList<String> filteredDealerSuggestions = <String>[].obs;
   final RxList<Map<String, dynamic>> carSuggestions =
       <Map<String, dynamic>>[].obs;
-  final ScrollController brandsScrollController = ScrollController();
+  ScrollController _brandsScrollController = ScrollController();
+  ScrollController get brandsScrollController {
+    try {
+      final _ = _brandsScrollController.hasClients;
+    } catch (_) {
+      _brandsScrollController = ScrollController();
+    }
+    return _brandsScrollController;
+  }
   Timer? _brandsScrollTimer;
 
   final Map<String, String> carIdMap = {};
@@ -69,11 +94,20 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    WidgetsBinding.instance.addObserver(this);
     _loadUserData();
     _loadCars();
     _loadWishlist();
     _loadCarouselImages();
     _startCarouselAutoPlay();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      refreshCars();
+    }
   }
 
   Future<void> _loadCarouselImages() async {
@@ -101,7 +135,7 @@ class HomeController extends GetxController {
 
   void _startCarouselAutoPlay() {
     _carouselTimer?.cancel();
-    if (carouselImages.isEmpty) {
+    if (carouselImages.length <= 1) {
       return;
     }
     _carouselTimer = Timer.periodic(const Duration(milliseconds: 4000), (
@@ -111,8 +145,8 @@ class HomeController extends GetxController {
         return;
       }
       try {
-        final nextPage =
-            (currentCarouselImage.value + 1) % carouselImages.length;
+        final currentPosition = carouselController.page?.round() ?? 1000;
+        final nextPage = currentPosition + 1;
         _isCarouselAnimating = true;
         carouselController
             .animateToPage(
@@ -123,7 +157,7 @@ class HomeController extends GetxController {
             .then((_) {
               if (!isClosed) {
                 _isCarouselAnimating = false;
-                currentCarouselImage.value = nextPage;
+                currentCarouselImage.value = nextPage % carouselImages.length;
               }
             })
             .catchError((error) {
@@ -158,25 +192,18 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> toggleWishlist(CarModel.Car car) async {
+  Future<void> toggleWishlistById(String carId) async {
     try {
-      print('toggleWishlist called for car: ${car.name} ${car.model}');
+      print('toggleWishlistById called for carId: $carId');
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) {
-        print('User is null, cannot toggle wishlist');
-        return;
-      }
-
-      final carKey = _getCarKey(car);
-      final carId = carIdMap[carKey];
-      print('Car key: $carKey');
-      print('Car ID from map: $carId');
-      if (carId == null) {
-        print('Car ID is null, cannot toggle wishlist');
-        print(
-          'Car details: name=${car.name}, model=${car.model}, year=${car.yearOfManufacture}, price=${car.demandPrice}',
+        Get.snackbar(
+          'Login Required',
+          'Please sign in to save cars to your wishlist',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.black87,
+          colorText: Colors.white,
         );
-        print('Available car keys in map: ${carIdMap.keys.take(5).toList()}');
         return;
       }
 
@@ -186,23 +213,48 @@ class HomeController extends GetxController {
       final remoteService = Get.find<RemoteService>();
 
       final isCurrentlyWishlisted = wishlistCarIds.contains(carId);
-      print('Currently wishlisted: $isCurrentlyWishlisted');
 
       if (isCurrentlyWishlisted) {
-        print('Removing from wishlist...');
+        print('Removing $carId from wishlist...');
         await remoteService.removeFromWishlist(user.uid, carId);
         wishlistCarIds.remove(carId);
-        print(
-          'Removed from wishlist. Current wishlist: ${wishlistCarIds.toList()}',
+        Get.snackbar(
+          'Wishlist',
+          'Removed from wishlist',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.black87,
+          colorText: Colors.white,
+          duration: const Duration(seconds: 2),
         );
       } else {
-        print('Adding to wishlist...');
+        print('Adding $carId to wishlist...');
         await remoteService.addToWishlist(user.uid, carId);
         wishlistCarIds.add(carId);
-        print(
-          'Added to wishlist. Current wishlist: ${wishlistCarIds.toList()}',
+        Get.snackbar(
+          'Wishlist',
+          'Added to wishlist',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.black87,
+          colorText: Colors.white,
+          duration: const Duration(seconds: 2),
         );
       }
+    } catch (e, stackTrace) {
+      print('Error toggling wishlist by ID: $e');
+      print('Stack trace: $stackTrace');
+    }
+  }
+
+  Future<void> toggleWishlist(CarModel.Car car) async {
+    try {
+      print('toggleWishlist called for car: ${car.name} ${car.model}');
+      final carKey = _getCarKey(car);
+      final carId = carIdMap[carKey];
+      if (carId == null || carId.isEmpty) {
+        print('Car ID is null or empty, cannot toggle wishlist');
+        return;
+      }
+      await toggleWishlistById(carId);
     } catch (e, stackTrace) {
       print('Error toggling wishlist: $e');
       print('Stack trace: $stackTrace');
@@ -258,10 +310,11 @@ class HomeController extends GetxController {
     }
   }
 
-  void selectBrand(String brand) {
+  Future<void> selectBrand(String brand) async {
     final brandTrimmed = brand.trim();
     // Navigate to Search page as a separate route since Search tab is now My Cars
-    Get.toNamed(AppRoutes.search, arguments: {'brand': brandTrimmed});
+    await Get.toNamed(AppRoutes.search, arguments: {'brand': brandTrimmed});
+    refreshCars();
   }
 
   void onSearchChanged(String query) {
@@ -270,6 +323,7 @@ class HomeController extends GetxController {
     // Clear suggestions if query is empty
     if (query.isEmpty) {
       filteredBrandSuggestions.clear();
+      filteredDealerSuggestions.clear();
       carSuggestions.clear();
       selectedBrand.value = '';
       return;
@@ -286,10 +340,22 @@ class HomeController extends GetxController {
     filteredBrandSuggestions.clear();
     filteredBrandSuggestions.addAll(brandSuggestions);
 
-    // Filter car suggestions from all available cars
-    final allCars = <CarModel.Car>[];
-    allCars.addAll(userCars);
-    allCars.addAll(allOtherCars);
+    // Combine all cars
+    final allCars = <CarModel.Car>[...userCars, ...allOtherCars];
+
+    // Filter dealer suggestions
+    final uniqueDealers = allCars
+        .map((car) => car.dealerName)
+        .where((name) => name.isNotEmpty)
+        .toSet()
+        .toList();
+
+    final dealerSuggestionsList = uniqueDealers
+        .where((dealer) => dealer.toLowerCase().contains(queryLower))
+        .toList();
+
+    filteredDealerSuggestions.clear();
+    filteredDealerSuggestions.addAll(dealerSuggestionsList);
 
     final matchingCars = allCars
         .where((car) {
@@ -310,10 +376,11 @@ class HomeController extends GetxController {
       final carKey = _getCarKey(car);
       final carId = carIdMap[carKey];
       if (carId != null) {
+        final dealerSuffix = car.dealerName.isNotEmpty ? ' by ${car.dealerName}' : '';
         carSuggestions.add({
           'car': car,
           'carId': carId,
-          'displayText': '${car.name} ${car.model} (${car.yearOfManufacture})',
+          'displayText': '${car.name} ${car.model} (${car.yearOfManufacture})$dealerSuffix',
         });
       }
     }
@@ -345,6 +412,7 @@ class HomeController extends GetxController {
     searchController.text = brand;
     searchQuery.value = brand;
     filteredBrandSuggestions.clear();
+    filteredDealerSuggestions.clear();
     carSuggestions.clear();
     _filterCars();
 
@@ -355,7 +423,21 @@ class HomeController extends GetxController {
     }
   }
 
-  void selectCarFromSuggestions(Map<String, dynamic> carSuggestion) {
+  void selectDealerFromSearch(String dealer) {
+    searchController.text = dealer;
+    searchQuery.value = dealer;
+    filteredBrandSuggestions.clear();
+    filteredDealerSuggestions.clear();
+    carSuggestions.clear();
+
+    if (Get.isRegistered<search_ctrl.SearchController>()) {
+      final searchCtrl = Get.find<search_ctrl.SearchController>();
+      searchCtrl.query.value = dealer;
+      searchCtrl.applyFilters();
+    }
+  }
+
+  Future<void> selectCarFromSuggestions(Map<String, dynamic> carSuggestion) async {
     // Navigate to car detail page
     final car = carSuggestion['car'] as CarModel.Car;
     final carId = carSuggestion['carId'] as String;
@@ -365,7 +447,8 @@ class HomeController extends GetxController {
     filteredBrandSuggestions.clear();
 
     // Navigate to car detail
-    Get.toNamed(AppRoutes.carDetail, arguments: {'car': car, 'carId': carId});
+    await Get.toNamed(AppRoutes.carDetail, arguments: {'car': car, 'carId': carId});
+    refreshCars();
   }
 
   void clearSearch() {
@@ -373,6 +456,7 @@ class HomeController extends GetxController {
     searchQuery.value = '';
     selectedBrand.value = '';
     filteredBrandSuggestions.clear();
+    filteredDealerSuggestions.clear();
     carSuggestions.clear();
     _filterCars();
   }
@@ -396,6 +480,7 @@ class HomeController extends GetxController {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
+        await refreshUserData(); // Ensure user data is loaded before building cars
         // Ensure services are registered only once
         if (!Get.isRegistered<DatabaseService>()) {
           await Get.putAsync<DatabaseService>(() async => DatabaseService());
@@ -408,9 +493,10 @@ class HomeController extends GetxController {
         final remoteService = Get.find<RemoteService>();
 
         // Load from Firestore first (cloud), then sync to local DB
+        List<Map<String, dynamic>> firestoreCars = [];
         try {
           print('Loading cars from Firestore...');
-          final firestoreCars = await remoteService.getUserCars(user.uid);
+          firestoreCars = await remoteService.getUserCars(user.uid);
           print('Found ${firestoreCars.length} cars in Firestore');
 
           // Delete cars that are no longer in Firestore
@@ -450,58 +536,109 @@ class HomeController extends GetxController {
           print('Error loading from Firestore, using local DB: $e');
         }
 
-        // Load from local database
-        final dbCars = await databaseService.getUserCars(user.uid);
-
-        // Sort dbCars by ID in descending order (newest first)
-        dbCars.sort((a, b) => b.id.compareTo(a.id));
-
         userCars.clear();
-        for (var dbCar in dbCars) {
-          // Parse image URLs - can be JSON array string or single URL
-          List<String> imageUrls = [];
-          if (dbCar.imageUrl != null && dbCar.imageUrl!.isNotEmpty) {
-            if (dbCar.imageUrl!.startsWith('[') &&
-                dbCar.imageUrl!.endsWith(']')) {
-              // JSON array string
-              try {
-                final List<dynamic> parsed = jsonDecode(dbCar.imageUrl!);
-                imageUrls = parsed.cast<String>();
-              } catch (e) {
-                print('Error parsing image URLs JSON: $e');
+
+        if (firestoreCars.isNotEmpty) {
+          for (var carData in firestoreCars) {
+            List<String> imageUrls = [];
+            if (carData['imageUrls'] != null && carData['imageUrls'] is List) {
+              imageUrls = (carData['imageUrls'] as List).cast<String>();
+            } else if (carData['imageUrl'] != null) {
+              final imageUrl = carData['imageUrl'] as String;
+              if (imageUrl.startsWith('[') && imageUrl.endsWith(']')) {
+                try {
+                  final List<dynamic> parsed = jsonDecode(imageUrl);
+                  imageUrls = parsed.cast<String>();
+                } catch (e) {
+                  imageUrls = [imageUrl];
+                }
+              } else {
+                imageUrls = [imageUrl];
+              }
+            }
+
+            final car = CarModel.Car(
+              name: carData['make'] as String? ?? '',
+              variant: carData['variant'] as String? ?? '',
+              yearOfManufacture: carData['year'] as String? ?? '',
+              owner: carData['owner'] as String? ?? '',
+              color: _parseColorFromData(carData),
+              model: carData['model'] as String? ?? '',
+              fuelType: carData['fuelType'] as String? ?? '',
+              insurance: carData['insurance'] as String? ?? '',
+              transmission: carData['transmission'] as String? ?? '',
+              demandPrice: carData['price'] as String? ?? '',
+              kmsDriven: carData['kmsDriven'] as String? ?? '',
+              mileage: carData['mileage'] as String? ?? '',
+              tankCapacity: carData['tankCapacity'] as String? ?? '',
+              imagePaths: imageUrls,
+              dealerName: carData['dealerName'] as String? ?? (shopName.value.isNotEmpty ? shopName.value : userName.value),
+              seatType: carData['seatType'] as String? ?? '5',
+              licenseType: carData['licenseType']?.toString() ??
+                  carData['license_type']?.toString() ??
+                  carData['license']?.toString() ??
+                  'Non Commercial',
+              state: carData['state'] as String? ?? '',
+              city: carData['city'] as String? ?? '',
+              pincode: carData['pincode'] as String? ?? '',
+            );
+
+            final carId = carData['id'] as String;
+            final isAvailable = carData['isAvailable'] as bool? ?? true;
+            final carKey = _getCarKey(car);
+            userCars.add(car);
+            carIdMap[carKey] = carId;
+            carAvailabilityMap[carId] = isAvailable;
+            carKeyAvailabilityMap[carKey] = isAvailable;
+          }
+        } else {
+          // Load from local database if Firestore returned no cars or error
+          final dbCars = await databaseService.getUserCars(user.uid);
+          dbCars.sort((a, b) => b.id.compareTo(a.id));
+
+          for (var dbCar in dbCars) {
+            List<String> imageUrls = [];
+            if (dbCar.imageUrl != null && dbCar.imageUrl!.isNotEmpty) {
+              if (dbCar.imageUrl!.startsWith('[') &&
+                  dbCar.imageUrl!.endsWith(']')) {
+                try {
+                  final List<dynamic> parsed = jsonDecode(dbCar.imageUrl!);
+                  imageUrls = parsed.cast<String>();
+                } catch (e) {
+                  imageUrls = [dbCar.imageUrl!];
+                }
+              } else {
                 imageUrls = [dbCar.imageUrl!];
               }
-            } else {
-              // Single URL
-              imageUrls = [dbCar.imageUrl!];
             }
-          }
 
-          final car = CarModel.Car(
-            name: dbCar.make,
-            variant: '',
-            yearOfManufacture: dbCar.year,
-            owner: '',
-            color: '',
-            model: dbCar.model,
-            fuelType: '',
-            insurance: '',
-            transmission: '',
-            demandPrice: dbCar.price,
-            kmsDriven: '',
-            mileage: '',
-            tankCapacity: '',
-            imagePaths: imageUrls,
-            seatType: '5', // Default to 5 seater
-            licenseType: 'Non Commercial', // Default to Non Commercial
-          );
-          final carKey = _getCarKey(car);
-          final carId = dbCar.id;
-          final isAvailable = dbCar.isAvailable;
-          userCars.add(car);
-          carIdMap[carKey] = carId;
-          carAvailabilityMap[carId] = isAvailable;
-          carKeyAvailabilityMap[carKey] = isAvailable;
+            final car = CarModel.Car(
+              name: dbCar.make,
+              variant: '',
+              yearOfManufacture: dbCar.year,
+              owner: '',
+              color: '',
+              model: dbCar.model,
+              fuelType: '',
+              insurance: '',
+              transmission: '',
+              demandPrice: dbCar.price,
+              kmsDriven: '',
+              mileage: '',
+              tankCapacity: '',
+              imagePaths: imageUrls,
+              dealerName: shopName.value.isNotEmpty ? shopName.value : userName.value,
+              seatType: '5',
+              licenseType: 'Non Commercial',
+            );
+            final carKey = _getCarKey(car);
+            final carId = dbCar.id;
+            final isAvailable = dbCar.isAvailable;
+            userCars.add(car);
+            carIdMap[carKey] = carId;
+            carAvailabilityMap[carId] = isAvailable;
+            carKeyAvailabilityMap[carKey] = isAvailable;
+          }
         }
 
         // Load other cars from Firestore
@@ -577,24 +714,28 @@ class HomeController extends GetxController {
 
           final car = CarModel.Car(
             name: carData['make'] as String? ?? '',
-            variant: '',
+            variant: carData['variant'] as String? ?? '',
             yearOfManufacture: carData['year'] as String? ?? '',
-            owner: '',
-            color: '',
+            owner: carData['owner'] as String? ?? '',
+            color: _parseColorFromData(carData),
             model: carData['model'] as String? ?? '',
-            fuelType: '',
-            insurance: '',
-            transmission: '',
+            fuelType: carData['fuelType'] as String? ?? '',
+            insurance: carData['insurance'] as String? ?? '',
+            transmission: carData['transmission'] as String? ?? '',
             demandPrice: carData['price'] as String? ?? '',
-            kmsDriven: '',
-            mileage: '',
-            tankCapacity: '',
+            kmsDriven: carData['kmsDriven'] as String? ?? '',
+            mileage: carData['mileage'] as String? ?? '',
+            tankCapacity: carData['tankCapacity'] as String? ?? '',
             imagePaths: imageUrls,
-            seatType:
-                carData['seatType'] as String? ?? '5', // Default to 5 seater
-            licenseType:
-                carData['licenseType'] as String? ??
-                'Non Commercial', // Default to Non Commercial
+            dealerName: carData['dealerName'] as String? ?? '',
+            seatType: carData['seatType'] as String? ?? '5',
+            licenseType: carData['licenseType']?.toString() ??
+                carData['license_type']?.toString() ??
+                carData['license']?.toString() ??
+                'Non Commercial',
+            state: carData['state'] as String? ?? '',
+            city: carData['city'] as String? ?? '',
+            pincode: carData['pincode'] as String? ?? '',
           );
 
           final carId = carData['id'] as String;
@@ -623,58 +764,60 @@ class HomeController extends GetxController {
 
         topDealsCars.addAll(soldCars.take(topDealsCount));
 
-        final allCars = await databaseService.getAllCars();
-        for (var dbCar in allCars) {
-          if (dbCar.userId != user.uid) {
-            bool alreadyAdded = allOtherCars.any(
-              (car) =>
-                  car.name == dbCar.make &&
-                  car.model == dbCar.model &&
-                  car.demandPrice == dbCar.price,
-            );
-
-            if (!alreadyAdded) {
-              List<String> imageUrls = [];
-              if (dbCar.imageUrl != null && dbCar.imageUrl!.isNotEmpty) {
-                if (dbCar.imageUrl!.startsWith('[') &&
-                    dbCar.imageUrl!.endsWith(']')) {
-                  try {
-                    final List<dynamic> parsed = jsonDecode(dbCar.imageUrl!);
-                    imageUrls = parsed.cast<String>();
-                  } catch (e) {
-                    imageUrls = [dbCar.imageUrl!];
-                  }
-                } else {
-                  imageUrls = [dbCar.imageUrl!];
-                }
-              }
-
-              final car = CarModel.Car(
-                name: dbCar.make,
-                variant: '',
-                yearOfManufacture: dbCar.year,
-                owner: '',
-                color: '',
-                model: dbCar.model,
-                fuelType: '',
-                insurance: '',
-                transmission: '',
-                demandPrice: dbCar.price,
-                kmsDriven: '',
-                mileage: '',
-                tankCapacity: '',
-                imagePaths: imageUrls,
-                seatType: '5', // Default to 5 seater
-                licenseType: 'Non Commercial', // Default to Non Commercial
+        if (firestoreOtherCars.isEmpty) {
+          final allCars = await databaseService.getAllCars();
+          for (var dbCar in allCars) {
+            if (dbCar.userId != user.uid) {
+              bool alreadyAdded = allOtherCars.any(
+                (car) =>
+                    car.name == dbCar.make &&
+                    car.model == dbCar.model &&
+                    car.demandPrice == dbCar.price,
               );
 
-              final carKey = _getCarKey(car);
-              final carId = dbCar.id;
-              final isAvailable = dbCar.isAvailable;
-              allOtherCars.add(car);
-              carIdMap[carKey] = carId;
-              carAvailabilityMap[carId] = isAvailable;
-              carKeyAvailabilityMap[carKey] = isAvailable;
+              if (!alreadyAdded) {
+                List<String> imageUrls = [];
+                if (dbCar.imageUrl != null && dbCar.imageUrl!.isNotEmpty) {
+                  if (dbCar.imageUrl!.startsWith('[') &&
+                      dbCar.imageUrl!.endsWith(']')) {
+                    try {
+                      final List<dynamic> parsed = jsonDecode(dbCar.imageUrl!);
+                      imageUrls = parsed.cast<String>();
+                    } catch (e) {
+                      imageUrls = [dbCar.imageUrl!];
+                    }
+                  } else {
+                    imageUrls = [dbCar.imageUrl!];
+                  }
+                }
+
+                final car = CarModel.Car(
+                  name: dbCar.make,
+                  variant: '',
+                  yearOfManufacture: dbCar.year,
+                  owner: '',
+                  color: '',
+                  model: dbCar.model,
+                  fuelType: '',
+                  insurance: '',
+                  transmission: '',
+                  demandPrice: dbCar.price,
+                  kmsDriven: '',
+                  mileage: '',
+                  tankCapacity: '',
+                  imagePaths: imageUrls,
+                  seatType: '5',
+                  licenseType: 'Non Commercial',
+                );
+
+                final carKey = _getCarKey(car);
+                final carId = dbCar.id;
+                final isAvailable = dbCar.isAvailable;
+                allOtherCars.add(car);
+                carIdMap[carKey] = carId;
+                carAvailabilityMap[carId] = isAvailable;
+                carKeyAvailabilityMap[carKey] = isAvailable;
+              }
             }
           }
         }
@@ -687,6 +830,9 @@ class HomeController extends GetxController {
 
         await _loadBrands();
         _filterCars();
+        if (Get.isRegistered<search_ctrl.SearchController>()) {
+          Get.find<search_ctrl.SearchController>().refreshSearchData();
+        }
       }
     } catch (e) {
       print('Error loading cars: $e');
@@ -814,11 +960,81 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
     _stopBrandsAutoScroll();
     _stopCarouselAutoPlay();
-    brandsScrollController.dispose();
-    carouselController.dispose();
-    searchController.dispose();
+    try {
+      _brandsScrollController.dispose();
+    } catch (_) {}
+    try {
+      _carouselController.dispose();
+    } catch (_) {}
+    try {
+      _searchController.dispose();
+    } catch (_) {}
     super.onClose();
+  }
+
+  static String _parseColorFromData(Map<String, dynamic> carData) {
+    String direct = carData['color']?.toString().trim() ??
+        carData['colour']?.toString().trim() ??
+        carData['carColor']?.toString().trim() ??
+        '';
+
+    final invalidValues = {
+      'null',
+      'n/a',
+      'none',
+      'select',
+      'default',
+      'undefined',
+      'unknown',
+      ''
+    };
+    if (invalidValues.contains(direct.toLowerCase())) {
+      direct = '';
+    }
+
+    if (direct.isNotEmpty) return direct;
+
+    final desc = carData['description']?.toString().trim() ?? '';
+    final variant = carData['variant']?.toString().trim() ?? '';
+    final model = carData['model']?.toString().trim() ?? '';
+    final make = carData['make']?.toString().trim() ?? '';
+    final combinedText = '$desc $variant $model $make'.toLowerCase();
+
+    final knownColors = [
+      'black',
+      'white',
+      'silver',
+      'grey',
+      'gray',
+      'red',
+      'blue',
+      'brown',
+      'gold',
+      'green',
+      'orange',
+      'yellow',
+      'bronze',
+      'maroon',
+      'beige',
+      'burgundy',
+      'purple'
+    ];
+
+    for (var color in knownColors) {
+      if (combinedText.contains(color)) {
+        return color[0].toUpperCase() + color.substring(1);
+      }
+    }
+
+    if (combinedText.contains('sliver') || combinedText.contains('slvr')) {
+      return 'Silver';
+    }
+    if (combinedText.contains('blk')) return 'Black';
+    if (combinedText.contains('wht')) return 'White';
+
+    return '';
   }
 }

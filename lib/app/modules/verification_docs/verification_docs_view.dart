@@ -157,7 +157,7 @@ class VerificationDocsView extends GetView<VerificationDocsController> {
                   const Wbox(6),
                   Expanded(
                     child: AppText(
-                      'Only PDF file is supported',
+                      'PDF, JPG, PNG files are supported',
                       style: Ts.regular10(color: AppColor.gray500),
                     ),
                   ),

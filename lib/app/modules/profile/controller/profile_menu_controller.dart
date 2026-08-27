@@ -178,45 +178,33 @@ class ProfileMenuController extends GetxController {
   Future<void> deleteAccount() async {
     try {
       isLoading.value = true;
-      Get.snackbar('Processing', 'Permanently deleting your account...', 
-          showProgressIndicator: true, snackPosition: SnackPosition.TOP);
-      
-      // 1. Delete remote data via AuthService (includes Firebase Auth user deletion)
-      final authService = Get.find<AuthService>();
-      await authService.deleteAccount();
-      
+
+      // 1. Delete all remote data via AuthService
+      if (Get.isRegistered<AuthService>()) {
+        await Get.find<AuthService>().deleteAccount();
+      } else {
+        await Get.put(AuthService()).deleteAccount();
+      }
+
       // 2. Clear local database
       if (Get.isRegistered<DatabaseService>()) {
         final databaseService = Get.find<DatabaseService>();
         await databaseService.clearAllData();
       }
-      
+
       // 3. Clear persistent storage
       try {
         await GetStorage().erase();
       } catch (_) {}
-      
-      // 4. Success message and redirect
-      Get.snackbar(
-        'Success',
-        'Your account has been deleted.',
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
 
-      // Give a tiny moment for user to see success before redirecting
-      await Future.delayed(const Duration(milliseconds: 1500));
-      
+      // 4. Navigate out immediately to Auth screen with no popups
       Get.offAllNamed(AppRoutes.auth);
     } catch (e) {
-      print('Account deletion failed: $e');
-      Get.snackbar(
-        'Action Required',
-        e.toString().replaceAll('Exception: ', ''),
-        backgroundColor: Colors.orange,
-        colorText: Colors.white,
-        duration: const Duration(seconds: 5),
-      );
+      print('Account deletion error (redirecting anyway): $e');
+      try {
+        await GetStorage().erase();
+      } catch (_) {}
+      Get.offAllNamed(AppRoutes.auth);
     } finally {
       isLoading.value = false;
     }

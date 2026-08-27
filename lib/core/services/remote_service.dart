@@ -292,6 +292,8 @@ class RemoteService {
     String? state,
     String? city,
     String? pincode,
+    String? seatType,
+    String? licenseType,
     bool isAvailable = true,
   }) async {
     final publicCarRef = _db.collection('cars').doc(id);
@@ -316,6 +318,8 @@ class RemoteService {
       'state': state ?? '',
       'city': city ?? '',
       'pincode': pincode ?? '',
+      'seatType': seatType ?? '5',
+      'licenseType': licenseType ?? 'Non Commercial',
       'isAvailable': isAvailable,
       'updatedAt': FieldValue.serverTimestamp(),
     };
@@ -371,7 +375,7 @@ class RemoteService {
 
   Future<List<Map<String, dynamic>>> getAllCars({String? excludeUserId}) async {
     final snapshot = await _db.collection('cars').get();
-    final allCars = snapshot.docs.map((doc) {
+    final allCars = await Future.wait(snapshot.docs.map((doc) async {
       final data = doc.data() as Map<String, dynamic>?;
       final result = <String, dynamic>{'id': doc.id};
       if (data != null) {
@@ -379,9 +383,35 @@ class RemoteService {
         if (result['soldCount'] == null) {
           result['soldCount'] = 0;
         }
+        
+        // Fetch dealer/shop name for searching
+        String? shopName;
+        final userId = data['userId'];
+        if (userId != null) {
+          try {
+            final shopsSnapshot = await _db
+                .collection('users')
+                .doc(userId)
+                .collection('shops')
+                .limit(1)
+                .get();
+                
+            if (shopsSnapshot.docs.isNotEmpty) {
+              shopName = shopsSnapshot.docs.first.data()['shopName'];
+            } else {
+              final userDoc = await _db.collection('users').doc(userId).get();
+              if (userDoc.exists) {
+                shopName = userDoc.data()?['name'] ?? userDoc.data()?['displayName'];
+              }
+            }
+          } catch (e) {
+            // Ignore if fails
+          }
+        }
+        result['dealerName'] = shopName ?? '';
       }
       return result;
-    }).toList();
+    }).toList());
 
     // Filter out user's own cars if excludeUserId is provided
     if (excludeUserId != null) {

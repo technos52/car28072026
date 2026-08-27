@@ -108,6 +108,7 @@ class AdminMessagesController extends GetxController {
           final data = doc.data();
           data['id'] = doc.id;
           data['notificationType'] = data['type'] ?? 'admin_message';
+          data['sourceCollection'] = 'adminMessages';
           adminMessages.add(data);
         }
         mergeAndUpdate();
@@ -138,6 +139,7 @@ class AdminMessagesController extends GetxController {
           } else {
             data['notificationType'] = 'user_notification';
           }
+          data['sourceCollection'] = 'notifications';
           userNotifications.add(data);
         }
         mergeAndUpdate();
@@ -157,7 +159,11 @@ class AdminMessagesController extends GetxController {
     _startRealtimeListeners();
   }
 
-  Future<void> markAsRead(String messageId, String notificationType) async {
+  Future<void> markAsRead(
+    String messageId,
+    String notificationType, {
+    String? sourceCollection,
+  }) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) return;
@@ -167,17 +173,45 @@ class AdminMessagesController extends GetxController {
       }
       final remoteService = Get.find<RemoteService>();
 
-      if (notificationType == 'admin_message') {
-        await remoteService.markAdminMessageAsRead(user.uid, messageId);
-      } else if (notificationType == 'car_inquiry' ||
-          notificationType == 'kyc_upload' ||
-          notificationType == 'admin_notification') {
-        await remoteService.markAdminNotificationAsRead(messageId);
-      } else {
-        await remoteService.markUserNotificationAsRead(user.uid, messageId);
+      String? source = sourceCollection;
+      if (source == null) {
+        for (var m in messages) {
+          if (m['id'] == messageId) {
+            source = m['sourceCollection'] as String?;
+            break;
+          }
+        }
       }
 
-      // Local state update is automatic via Firestore snapshot listener
+      if (source == 'adminMessages') {
+        await remoteService.markAdminMessageAsRead(user.uid, messageId);
+      } else if (source == 'admin_notifications') {
+        await remoteService.markAdminNotificationAsRead(messageId);
+      } else if (source == 'notifications') {
+        await remoteService.markUserNotificationAsRead(user.uid, messageId);
+      } else {
+        if (notificationType == 'admin_message') {
+          await remoteService.markAdminMessageAsRead(user.uid, messageId);
+        } else {
+          await remoteService.markUserNotificationAsRead(user.uid, messageId);
+        }
+      }
+
+      // Optimistically update local state so UI updates instantly
+      final index = messages.indexWhere((m) => m['id'] == messageId);
+      if (index != -1) {
+        final updatedMsg = Map<String, dynamic>.from(messages[index]);
+        updatedMsg['isRead'] = true;
+        messages[index] = updatedMsg;
+
+        int unread = 0;
+        for (var m in messages) {
+          if (m['isRead'] == false || m['isRead'] == null) {
+            unread++;
+          }
+        }
+        unreadCount.value = unread;
+      }
     } catch (e) {
       print('Error marking message as read: $e');
     }
@@ -193,26 +227,45 @@ class AdminMessagesController extends GetxController {
       }
       final remoteService = Get.find<RemoteService>();
 
-      for (var message in messages) {
+      final currentMessages = List<Map<String, dynamic>>.from(messages);
+
+      // Optimistically mark all as read locally
+      final updatedList = currentMessages.map((message) {
+        final newMsg = Map<String, dynamic>.from(message);
+        newMsg['isRead'] = true;
+        return newMsg;
+      }).toList();
+      messages.assignAll(updatedList);
+      unreadCount.value = 0;
+
+      for (var message in currentMessages) {
         if (message['isRead'] == false || message['isRead'] == null) {
+          final messageId = message['id'];
+          final source = message['sourceCollection'];
           final notificationType =
               message['notificationType'] ?? 'user_notification';
-          if (notificationType == 'admin_message') {
-            await remoteService.markAdminMessageAsRead(user.uid, message['id']);
-          } else if (notificationType == 'car_inquiry' ||
-              notificationType == 'kyc_upload' ||
-              notificationType == 'admin_notification') {
-            await remoteService.markAdminNotificationAsRead(message['id']);
-          } else {
+
+          if (source == 'adminMessages') {
+            await remoteService.markAdminMessageAsRead(user.uid, messageId);
+          } else if (source == 'admin_notifications') {
+            await remoteService.markAdminNotificationAsRead(messageId);
+          } else if (source == 'notifications') {
             await remoteService.markUserNotificationAsRead(
               user.uid,
-              message['id'],
+              messageId,
             );
+          } else {
+            if (notificationType == 'admin_message') {
+              await remoteService.markAdminMessageAsRead(user.uid, messageId);
+            } else {
+              await remoteService.markUserNotificationAsRead(
+                user.uid,
+                messageId,
+              );
+            }
           }
         }
       }
-
-      // Local state update is automatic via Firestore snapshot listener
     } catch (e) {
       print('Error marking all messages as read: $e');
     }

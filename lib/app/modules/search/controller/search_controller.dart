@@ -9,7 +9,15 @@ import '../../root/controller/root_controller.dart';
 import '../../../../core/utils/price_formatter.dart';
 
 class SearchController extends GetxController {
-  final TextEditingController searchTextController = TextEditingController();
+  TextEditingController _searchTextController = TextEditingController();
+  TextEditingController get searchTextController {
+    try {
+      final _ = _searchTextController.text;
+    } catch (_) {
+      _searchTextController = TextEditingController(text: query.value);
+    }
+    return _searchTextController;
+  }
   final RxString query = ''.obs;
   final RxList<String> recent = <String>[].obs;
   final RxList<CarModel.Car> allCars = <CarModel.Car>[].obs;
@@ -133,6 +141,9 @@ class SearchController extends GetxController {
 
       final seatTypes = ['2', '5', '7'];
       for (var s in seatTypes) if (!availableSeatTypes.contains(s)) availableSeatTypes.add(s);
+
+      final licenseTypes = ['Commercial', 'Non Commercial'];
+      for (var l in licenseTypes) if (!availableLicenseTypes.contains(l)) availableLicenseTypes.add(l);
     } catch (e) {
       print('Error loading default options: $e');
     }
@@ -140,7 +151,9 @@ class SearchController extends GetxController {
 
   @override
   void onClose() {
-    searchTextController.dispose();
+    try {
+      _searchTextController.dispose();
+    } catch (_) {}
     super.onClose();
   }
 
@@ -178,13 +191,15 @@ class SearchController extends GetxController {
           }
         }
 
+        final carColor = _parseColorFromData(carData);
+
         final car = CarModel.Car(
           name: carData['make']?.toString() ?? '',
           model: carData['model']?.toString() ?? '',
           variant: carData['variant']?.toString() ?? '',
           yearOfManufacture: carData['year']?.toString() ?? '',
           owner: carData['owner']?.toString() ?? '',
-          color: carData['color']?.toString() ?? '',
+          color: carColor,
           fuelType: carData['fuelType']?.toString() ?? '',
           insurance: carData['insurance']?.toString() ?? '',
           transmission: carData['transmission']?.toString() ?? '',
@@ -194,10 +209,14 @@ class SearchController extends GetxController {
           tankCapacity: carData['tankCapacity']?.toString() ?? '',
           imagePaths: imageUrls,
           seatType: carData['seatType']?.toString() ?? '5',
-          licenseType: carData['licenseType']?.toString() ?? 'Non Commercial',
+          licenseType: carData['licenseType']?.toString() ??
+              carData['license_type']?.toString() ??
+              carData['license']?.toString() ??
+              'Non Commercial',
           state: carData['state']?.toString() ?? '',
           city: carData['city']?.toString() ?? '',
           pincode: carData['pincode']?.toString() ?? '',
+          dealerName: carData['dealerName']?.toString() ?? '',
           createdAt: carData['createdAt'] != null
               ? (carData['createdAt'] as Timestamp).toDate()
               : null,
@@ -212,7 +231,10 @@ class SearchController extends GetxController {
 
       allCars.value = cars;
       _loadFilterOptions();
-      print('Loaded ${cars.length} cars for search');
+      print('Loaded ${cars.length} cars for search:');
+      for (var c in cars) {
+        print('  - Car: "${c.name} ${c.model}", color: "${c.color}", licenseType: "${c.licenseType}"');
+      }
       isLoading.value = false;
 
       if (initialBrand != null && initialBrand.isNotEmpty) {
@@ -276,9 +298,11 @@ class SearchController extends GetxController {
     availableModels.assignAll(modelsSet.toList()..sort());
     availableVariants.assignAll(variantsSet.toList()..sort());
     availableYears.assignAll(yearsSet.toList()..sort((a, b) => b.compareTo(a)));
+    colorsSet.addAll(availableColors);
     availableColors.assignAll(colorsSet.toList()..sort());
-    fuelTypesSet.add('Petrol');
+    fuelTypesSet.addAll(availableFuelTypes);
     availableFuelTypes.assignAll(fuelTypesSet.toList()..sort());
+    transmissionsSet.addAll(availableTransmissions);
     availableTransmissions.assignAll(transmissionsSet.toList()..sort());
     availableInsurances.assignAll(insurancesSet.toList()..sort());
     licenseTypesSet.addAll(['Commercial', 'Non Commercial']);
@@ -376,6 +400,10 @@ class SearchController extends GetxController {
 
     List<CarModel.Car> filtered = List<CarModel.Car>.from(allCars);
 
+    print('DEBUG: --- Starting _performSearch ---');
+    print('DEBUG: Active Filters: query="${query.value}", brand="${selectedBrandFilter.value}", model="${selectedModelFilter.value}", color="${selectedColorFilter.value}", license="${selectedLicenseTypeFilter.value}", fuel="${selectedFuelTypes.join(',')}", price=${minPrice.value}-${maxPrice.value}');
+    print('DEBUG: Total cars before filtering: ${allCars.length}');
+
     if (query.value.trim().isNotEmpty) {
       final searchTerm = query.value.toLowerCase().trim();
       print('Search term: "$searchTerm"');
@@ -396,6 +424,7 @@ class SearchController extends GetxController {
           searchTerm,
         );
         final colorMatch = car.color.toLowerCase().trim().contains(searchTerm);
+        final dealerMatch = car.dealerName.toLowerCase().trim().contains(searchTerm);
         final combinedMatch = '${car.name} ${car.model}'
             .toLowerCase()
             .trim()
@@ -412,6 +441,7 @@ class SearchController extends GetxController {
             yearMatch ||
             fuelMatch ||
             colorMatch ||
+            dealerMatch ||
             combinedMatch ||
             fullMatch;
 
@@ -447,21 +477,39 @@ class SearchController extends GetxController {
 
     if (selectedColorFilter.value.isNotEmpty &&
         selectedColorFilter.value != 'All') {
-      filtered = filtered
-          .where(
-            (car) =>
-                car.color.toLowerCase().trim() ==
-                selectedColorFilter.value.toLowerCase().trim(),
-          )
-          .toList();
+      final selectedColor = selectedColorFilter.value.toLowerCase().trim();
+      print('DEBUG: Color filter active: "$selectedColor". Cars before: ${filtered.length}');
+      filtered = filtered.where((car) {
+        final carColor = car.color.toLowerCase().trim();
+        print('DEBUG: Checking car "${car.name} ${car.model}" color: "$carColor" against "$selectedColor"');
+        if (carColor == selectedColor) return true;
+        if (carColor.isNotEmpty &&
+            (carColor.contains(selectedColor) ||
+                selectedColor.contains(carColor))) {
+          return true;
+        }
+        if ((selectedColor == 'grey' || selectedColor == 'gray') &&
+            (carColor == 'grey' || carColor == 'gray')) {
+          return true;
+        }
+        return false;
+      }).toList();
+      print('DEBUG: Cars after color filter: ${filtered.length}');
     }
 
     if (selectedFuelTypes.isNotEmpty) {
       filtered = filtered.where((car) {
         final carFuel = car.fuelType.toLowerCase().trim();
-        return selectedFuelTypes.any(
-          (selected) => carFuel == selected.toLowerCase().trim(),
-        );
+        return selectedFuelTypes.any((selected) {
+          final selLower = selected.toLowerCase().trim();
+          if (carFuel == selLower) return true;
+          if (carFuel.isNotEmpty &&
+              (selLower.startsWith('$carFuel (') ||
+                  carFuel.startsWith('$selLower ('))) {
+            return true;
+          }
+          return false;
+        });
       }).toList();
     }
 
@@ -511,13 +559,46 @@ class SearchController extends GetxController {
 
     if (selectedLicenseTypeFilter.value.isNotEmpty &&
         selectedLicenseTypeFilter.value != 'All') {
-      filtered = filtered
-          .where(
-            (car) =>
-                car.licenseType.toLowerCase().trim() ==
-                selectedLicenseTypeFilter.value.toLowerCase().trim(),
-          )
-          .toList();
+      final selectedLicense = selectedLicenseTypeFilter.value.toLowerCase().trim();
+      print('DEBUG: License filter active: "$selectedLicense". Total before: ${filtered.length}');
+      filtered = filtered.where((car) {
+        final carLicense = car.licenseType.toLowerCase().trim();
+        print('DEBUG: Checking car "${car.name} ${car.model}" with licenseType: "$carLicense" against "$selectedLicense"');
+        if (carLicense == selectedLicense) return true;
+
+        final isSelectedNonCommercial = selectedLicense.contains('non') ||
+            selectedLicense.contains('personal') ||
+            selectedLicense.contains('private') ||
+            selectedLicense.contains('white');
+
+        final isSelectedCommercial = !isSelectedNonCommercial &&
+            (selectedLicense.contains('commercial') ||
+                selectedLicense.contains('yellow') ||
+                selectedLicense.contains('taxi'));
+
+        final isCarNonCommercial = carLicense.contains('non') ||
+            carLicense.contains('personal') ||
+            carLicense.contains('private') ||
+            carLicense.contains('white') ||
+            carLicense.isEmpty ||
+            carLicense == 'n/a';
+
+        final isCarCommercial = !isCarNonCommercial &&
+            (carLicense.contains('commercial') ||
+                carLicense.contains('yellow') ||
+                carLicense.contains('taxi'));
+
+        if (isSelectedNonCommercial) {
+          return isCarNonCommercial;
+        }
+
+        if (isSelectedCommercial) {
+          return isCarCommercial;
+        }
+
+        return carLicense == selectedLicense;
+      }).toList();
+      print('DEBUG: License filter complete. Total matching: ${filtered.length}');
     }
 
     if (selectedStateFilter.value.isNotEmpty &&
@@ -564,13 +645,17 @@ class SearchController extends GetxController {
           .toList();
     }
 
-    final minPriceInLakhs = minPrice.value * 100000;
-    final maxPriceInLakhs = maxPrice.value * 100000;
+    final minPriceInLakhs = minPrice.value <= 0.30 ? 0.0 : minPrice.value * 100000;
+    final maxPriceInLakhs = maxPrice.value >= 200.0 ? double.infinity : maxPrice.value * 100000;
+
+    print('DEBUG: Price range filter: ₹$minPriceInLakhs to ₹$maxPriceInLakhs. Total before price filter: ${filtered.length}');
 
     filtered = filtered.where((car) {
-      if (car.demandPrice.isEmpty) return false;
+      if (car.demandPrice.isEmpty) return true;
       final price = PriceFormatter.parsePriceToDouble(car.demandPrice);
-      return price >= minPriceInLakhs && price <= maxPriceInLakhs;
+      final matches = price >= minPriceInLakhs && price <= maxPriceInLakhs;
+      print('DEBUG: Car "${car.name} ${car.model}" price: "${car.demandPrice}" -> ₹$price. Matches price filter: $matches');
+      return matches;
     }).toList();
 
     if (selectedSortBy.value.isNotEmpty) {
@@ -647,5 +732,68 @@ class SearchController extends GetxController {
       return [];
     }
     return searchResults;
+  }
+
+  static String _parseColorFromData(Map<String, dynamic> carData) {
+    String direct = carData['color']?.toString().trim() ??
+        carData['colour']?.toString().trim() ??
+        carData['carColor']?.toString().trim() ??
+        '';
+
+    final invalidValues = {
+      'null',
+      'n/a',
+      'none',
+      'select',
+      'default',
+      'undefined',
+      'unknown',
+      ''
+    };
+    if (invalidValues.contains(direct.toLowerCase())) {
+      direct = '';
+    }
+
+    if (direct.isNotEmpty) return direct;
+
+    final desc = carData['description']?.toString().trim() ?? '';
+    final variant = carData['variant']?.toString().trim() ?? '';
+    final model = carData['model']?.toString().trim() ?? '';
+    final make = carData['make']?.toString().trim() ?? '';
+    final combinedText = '$desc $variant $model $make'.toLowerCase();
+
+    final knownColors = [
+      'black',
+      'white',
+      'silver',
+      'grey',
+      'gray',
+      'red',
+      'blue',
+      'brown',
+      'gold',
+      'green',
+      'orange',
+      'yellow',
+      'bronze',
+      'maroon',
+      'beige',
+      'burgundy',
+      'purple'
+    ];
+
+    for (var color in knownColors) {
+      if (combinedText.contains(color)) {
+        return color[0].toUpperCase() + color.substring(1);
+      }
+    }
+
+    if (combinedText.contains('sliver') || combinedText.contains('slvr')) {
+      return 'Silver';
+    }
+    if (combinedText.contains('blk')) return 'Black';
+    if (combinedText.contains('wht')) return 'White';
+
+    return '';
   }
 }

@@ -9,6 +9,7 @@ import '../../../core/utils/cached_image.dart';
 import '../../../core/services/remote_service.dart';
 import '../../routes/app_routes.dart';
 import '../../../core/utils/price_formatter.dart';
+import '../home/home_controller.dart';
 
 bool _isLocalFile(String url) {
   return url.startsWith('/') ||
@@ -150,6 +151,19 @@ class _DealerViewState extends State<DealerView> {
   }
 
   Widget _buildCarCard(dynamic car) {
+    final homeController = Get.isRegistered<HomeController>()
+        ? Get.find<HomeController>()
+        : Get.put(HomeController());
+
+    String? carId;
+    if (car is Map<String, dynamic>) {
+      carId = car['id']?.toString() ?? car['carId']?.toString();
+    } else if (car != null) {
+      try {
+        carId = car.id;
+      } catch (_) {}
+    }
+
     return GestureDetector(
       onTap: () {
         // Navigate to car detail page
@@ -157,7 +171,7 @@ class _DealerViewState extends State<DealerView> {
           AppRoutes.carDetail,
           arguments: {
             'car': car,
-            'carId': car['id'] ?? '',
+            'carId': carId ?? '',
             'dealerId': dealerId,
           },
         );
@@ -202,27 +216,36 @@ class _DealerViewState extends State<DealerView> {
                       top: 6,
                       right: 6,
                       child: GestureDetector(
-                        onTap: () {
-                          // Add wishlist functionality here if needed
-                          // For now, just show a snackbar
-                          Get.snackbar(
-                            'Wishlist',
-                            'Wishlist feature coming soon!',
-                            snackPosition: SnackPosition.BOTTOM,
-                          );
+                        onTap: () async {
+                          if (carId != null && carId.isNotEmpty) {
+                            await homeController.toggleWishlistById(carId);
+                          } else {
+                            Get.snackbar(
+                              'Wishlist',
+                              'Car details unavailable for wishlist',
+                              snackPosition: SnackPosition.BOTTOM,
+                            );
+                          }
                         },
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.9),
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.favorite_border,
-                            color: Colors.grey,
-                            size: 14,
-                          ),
-                        ),
+                        child: Obx(() {
+                          final isWishlisted =
+                              carId != null &&
+                              homeController.wishlistCarIds.contains(carId);
+                          return Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.9),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              isWishlisted
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isWishlisted ? Colors.red : Colors.grey[700],
+                              size: 15,
+                            ),
+                          );
+                        }),
                       ),
                     ),
                   ],
@@ -628,7 +651,7 @@ class _DealerViewState extends State<DealerView> {
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.9, // Match home page aspect ratio
+                    childAspectRatio: 0.78, // Adjusted to fix bottom overflow on cards
                     crossAxisSpacing: 10, // Match home page spacing
                     mainAxisSpacing: 10, // Match home page spacing
                   ),

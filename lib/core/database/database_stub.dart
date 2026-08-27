@@ -1,71 +1,72 @@
-import 'package:drift/drift.dart' as drift;
+import 'package:drift/drift.dart';
 
 part 'database_stub.g.dart';
 
-class Users extends drift.Table {
-  drift.TextColumn get id => text()();
-  drift.TextColumn get name => text()();
-  drift.TextColumn get email => text()();
-  drift.TextColumn get phone => text()();
-  drift.TextColumn get gender => text()();
-  drift.TextColumn get avatarUrl => text().nullable()();
-  drift.DateTimeColumn get createdAt => dateTime()();
-  drift.DateTimeColumn get updatedAt => dateTime()();
+class Users extends Table {
+  TextColumn get id => text()();
+  TextColumn get name => text()();
+  TextColumn get email => text()();
+  TextColumn get phone => text()();
+  TextColumn get gender => text()();
+  TextColumn get avatarUrl => text().nullable()();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
 
   @override
-  Set<drift.Column> get primaryKey => {id};
+  Set<Column> get primaryKey => {id};
 }
 
-class Shops extends drift.Table {
-  drift.TextColumn get id => text()();
-  drift.TextColumn get userId => text()();
-  drift.TextColumn get shopName => text()();
-  drift.TextColumn get ownerName => text()();
-  drift.TextColumn get phone => text()();
-  drift.TextColumn get email => text()();
-  drift.TextColumn get address => text()();
-  drift.TextColumn get city => text()();
-  drift.TextColumn get state => text()();
-  drift.TextColumn get pincode => text()();
-  drift.DateTimeColumn get createdAt => dateTime()();
-  drift.DateTimeColumn get updatedAt => dateTime()();
+class Shops extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get shopName => text()();
+  TextColumn get ownerName => text()();
+  TextColumn get phone => text()();
+  TextColumn get email => text()();
+  TextColumn get address => text()();
+  TextColumn get city => text()();
+  TextColumn get state => text()();
+  TextColumn get pincode => text()();
+  TextColumn get logoUrl => text().nullable()();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
 
   @override
-  Set<drift.Column> get primaryKey => {id};
+  Set<Column> get primaryKey => {id};
 }
 
-class KycDocuments extends drift.Table {
-  drift.TextColumn get id => text()();
-  drift.TextColumn get userId => text()();
-  drift.TextColumn get panPath => text().nullable()();
-  drift.TextColumn get aadhaarPath => text().nullable()();
-  drift.TextColumn get addressProofPath => text().nullable()();
-  drift.BoolColumn get isVerified => boolean().withDefault(const drift.Constant(false))();
-  drift.DateTimeColumn get createdAt => dateTime()();
-  drift.DateTimeColumn get updatedAt => dateTime()();
+class KycDocuments extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get panPath => text().nullable()();
+  TextColumn get aadhaarPath => text().nullable()();
+  TextColumn get addressProofPath => text().nullable()();
+  BoolColumn get isVerified => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
 
   @override
-  Set<drift.Column> get primaryKey => {id};
+  Set<Column> get primaryKey => {id};
 }
 
-class Cars extends drift.Table {
-  drift.TextColumn get id => text()();
-  drift.TextColumn get userId => text()();
-  drift.TextColumn get make => text()();
-  drift.TextColumn get model => text()();
-  drift.TextColumn get year => text()();
-  drift.TextColumn get price => text()();
-  drift.TextColumn get imageUrl => text().nullable()();
-  drift.TextColumn get description => text().nullable()();
-  drift.BoolColumn get isAvailable => boolean().withDefault(const drift.Constant(true))();
-  drift.DateTimeColumn get createdAt => dateTime()();
-  drift.DateTimeColumn get updatedAt => dateTime()();
+class Cars extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get make => text()();
+  TextColumn get model => text()();
+  TextColumn get year => text()();
+  TextColumn get price => text()();
+  TextColumn get imageUrl => text().nullable()();
+  TextColumn get description => text().nullable()();
+  BoolColumn get isAvailable => boolean().withDefault(const Constant(true))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
 
   @override
-  Set<drift.Column> get primaryKey => {id};
+  Set<Column> get primaryKey => {id};
 }
 
-@drift.DriftDatabase(tables: [Users, Shops, KycDocuments, Cars])
+@DriftDatabase(tables: [Users, Shops, KycDocuments, Cars])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
@@ -84,12 +85,14 @@ class AppDatabase extends _$AppDatabase {
   Future<List<Car>> getAllCars() async => [];
   Future<void> clearAllData() async {}
   Future<void> deleteCar(String carId) async {}
-  void close() {}
+  @override
+  Future<void> close() async {}
 }
 
-drift.LazyDatabase _openConnection() {
-  return drift.LazyDatabase(() async {
+LazyDatabase _openConnection() {
+  return LazyDatabase(() async {
     throw UnsupportedError('Database not supported on web');
   });
 }
+
 

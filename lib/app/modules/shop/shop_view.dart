@@ -205,7 +205,23 @@ class ShopView extends GetView<ShopController> {
                 ],
               ),
             ),
-            const Hbox(24),
+            const Hbox(8),
+            // Shop logo mandatory label
+            Center(
+              child: Text.rich(
+                const TextSpan(
+                  text: 'Shop Logo',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xFF0B409C)),
+                  children: [
+                    TextSpan(
+                      text: ' *',
+                      style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Hbox(16),
             AppText(
               'Shop Name',
               style: Ts.medium12(color: AppColor.secondary),
@@ -279,11 +295,21 @@ class ShopView extends GetView<ShopController> {
                   Icons.phone_outlined,
                   color: AppColor.secondary.withValues(alpha: 0.5),
                 ),
-                enabled: isEdit || !isOnboarding || !isPhonePrefilled,
+                enabled: !isPhonePrefilled,
               );
             }),
             const Hbox(16),
-            AppText('Email', style: Ts.medium12(color: AppColor.secondary)),
+            AppText(
+              'Email',
+              style: Ts.medium12(color: AppColor.secondary),
+              isRich: true,
+              spans: [
+                TextSpan(
+                  text: ' *',
+                  style: Ts.medium12(color: Colors.red),
+                ),
+              ],
+            ),
             const Hbox(8),
             Obx(() {
               final isEmailPrefilled = controller.isEmailPrefilled.value;
@@ -295,13 +321,20 @@ class ShopView extends GetView<ShopController> {
                   Icons.email_outlined,
                   color: AppColor.secondary.withValues(alpha: 0.5),
                 ),
-                enabled: isEdit || !isOnboarding || !isEmailPrefilled,
+                enabled: !isEmailPrefilled,
               );
             }),
             const Hbox(16),
             AppText(
               'Shop Address',
               style: Ts.medium12(color: AppColor.secondary),
+              isRich: true,
+              spans: [
+                TextSpan(
+                  text: ' *',
+                  style: Ts.medium12(color: Colors.red),
+                ),
+              ],
             ),
             const Hbox(8),
             AppTextField(

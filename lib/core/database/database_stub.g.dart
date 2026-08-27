@@ -3,103 +3,91 @@
 part of 'database_stub.dart';
 
 // ignore_for_file: type=lint
-class $UsersTable extends Users with drift.TableInfo<$UsersTable, User> {
+class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   @override
-  final drift.GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $UsersTable(this.attachedDatabase, [this._alias]);
-  static const drift.VerificationMeta _idMeta = const drift.VerificationMeta(
-    'id',
-  );
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final drift.GeneratedColumn<String> id = drift.GeneratedColumn<String>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
     'id',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const drift.VerificationMeta _nameMeta = const drift.VerificationMeta(
-    'name',
-  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
-  late final drift.GeneratedColumn<String> name = drift.GeneratedColumn<String>(
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
     'name',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const drift.VerificationMeta _emailMeta = const drift.VerificationMeta(
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
+  @override
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
     'email',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
   );
+  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
   @override
-  late final drift.GeneratedColumn<String> email =
-      drift.GeneratedColumn<String>(
-        'email',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _phoneMeta = const drift.VerificationMeta(
+  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
     'phone',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _genderMeta = const VerificationMeta('gender');
+  @override
+  late final GeneratedColumn<String> gender = GeneratedColumn<String>(
+    'gender',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _avatarUrlMeta = const VerificationMeta(
+    'avatarUrl',
   );
   @override
-  late final drift.GeneratedColumn<String> phone =
-      drift.GeneratedColumn<String>(
-        'phone',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _genderMeta =
-      const drift.VerificationMeta('gender');
+  late final GeneratedColumn<String> avatarUrl = GeneratedColumn<String>(
+    'avatar_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
-  late final drift.GeneratedColumn<String> gender =
-      drift.GeneratedColumn<String>(
-        'gender',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _avatarUrlMeta =
-      const drift.VerificationMeta('avatarUrl');
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
-  late final drift.GeneratedColumn<String> avatarUrl =
-      drift.GeneratedColumn<String>(
-        'avatar_url',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      );
-  static const drift.VerificationMeta _createdAtMeta =
-      const drift.VerificationMeta('createdAt');
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  late final drift.GeneratedColumn<DateTime> createdAt =
-      drift.GeneratedColumn<DateTime>(
-        'created_at',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _updatedAtMeta =
-      const drift.VerificationMeta('updatedAt');
-  @override
-  late final drift.GeneratedColumn<DateTime> updatedAt =
-      drift.GeneratedColumn<DateTime>(
-        'updated_at',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: true,
-      );
-  @override
-  List<drift.GeneratedColumn> get $columns => [
+  List<GeneratedColumn> get $columns => [
     id,
     name,
     email,
@@ -115,11 +103,11 @@ class $UsersTable extends Users with drift.TableInfo<$UsersTable, User> {
   String get actualTableName => $name;
   static const String $name = 'users';
   @override
-  drift.VerificationContext validateIntegrity(
-    drift.Insertable<User> instance, {
+  VerificationContext validateIntegrity(
+    Insertable<User> instance, {
     bool isInserting = false,
   }) {
-    final context = drift.VerificationContext();
+    final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
@@ -184,7 +172,7 @@ class $UsersTable extends Users with drift.TableInfo<$UsersTable, User> {
   }
 
   @override
-  Set<drift.GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   User map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -230,7 +218,7 @@ class $UsersTable extends Users with drift.TableInfo<$UsersTable, User> {
   }
 }
 
-class User extends drift.DataClass implements drift.Insertable<User> {
+class User extends DataClass implements Insertable<User> {
   final String id;
   final String name;
   final String email;
@@ -250,33 +238,33 @@ class User extends drift.DataClass implements drift.Insertable<User> {
     required this.updatedAt,
   });
   @override
-  Map<String, drift.Expression> toColumns(bool nullToAbsent) {
-    final map = <String, drift.Expression>{};
-    map['id'] = drift.Variable<String>(id);
-    map['name'] = drift.Variable<String>(name);
-    map['email'] = drift.Variable<String>(email);
-    map['phone'] = drift.Variable<String>(phone);
-    map['gender'] = drift.Variable<String>(gender);
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['email'] = Variable<String>(email);
+    map['phone'] = Variable<String>(phone);
+    map['gender'] = Variable<String>(gender);
     if (!nullToAbsent || avatarUrl != null) {
-      map['avatar_url'] = drift.Variable<String>(avatarUrl);
+      map['avatar_url'] = Variable<String>(avatarUrl);
     }
-    map['created_at'] = drift.Variable<DateTime>(createdAt);
-    map['updated_at'] = drift.Variable<DateTime>(updatedAt);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
   UsersCompanion toCompanion(bool nullToAbsent) {
     return UsersCompanion(
-      id: drift.Value(id),
-      name: drift.Value(name),
-      email: drift.Value(email),
-      phone: drift.Value(phone),
-      gender: drift.Value(gender),
+      id: Value(id),
+      name: Value(name),
+      email: Value(email),
+      phone: Value(phone),
+      gender: Value(gender),
       avatarUrl: avatarUrl == null && nullToAbsent
-          ? const drift.Value.absent()
-          : drift.Value(avatarUrl),
-      createdAt: drift.Value(createdAt),
-      updatedAt: drift.Value(updatedAt),
+          ? const Value.absent()
+          : Value(avatarUrl),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -284,7 +272,7 @@ class User extends drift.DataClass implements drift.Insertable<User> {
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
-    serializer ??= drift.driftRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return User(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
@@ -298,7 +286,7 @@ class User extends drift.DataClass implements drift.Insertable<User> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= drift.driftRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
@@ -317,7 +305,7 @@ class User extends drift.DataClass implements drift.Insertable<User> {
     String? email,
     String? phone,
     String? gender,
-    drift.Value<String?> avatarUrl = const drift.Value.absent(),
+    Value<String?> avatarUrl = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => User(
@@ -383,26 +371,26 @@ class User extends drift.DataClass implements drift.Insertable<User> {
           other.updatedAt == this.updatedAt);
 }
 
-class UsersCompanion extends drift.UpdateCompanion<User> {
-  final drift.Value<String> id;
-  final drift.Value<String> name;
-  final drift.Value<String> email;
-  final drift.Value<String> phone;
-  final drift.Value<String> gender;
-  final drift.Value<String?> avatarUrl;
-  final drift.Value<DateTime> createdAt;
-  final drift.Value<DateTime> updatedAt;
-  final drift.Value<int> rowid;
+class UsersCompanion extends UpdateCompanion<User> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> email;
+  final Value<String> phone;
+  final Value<String> gender;
+  final Value<String?> avatarUrl;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
   const UsersCompanion({
-    this.id = const drift.Value.absent(),
-    this.name = const drift.Value.absent(),
-    this.email = const drift.Value.absent(),
-    this.phone = const drift.Value.absent(),
-    this.gender = const drift.Value.absent(),
-    this.avatarUrl = const drift.Value.absent(),
-    this.createdAt = const drift.Value.absent(),
-    this.updatedAt = const drift.Value.absent(),
-    this.rowid = const drift.Value.absent(),
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.email = const Value.absent(),
+    this.phone = const Value.absent(),
+    this.gender = const Value.absent(),
+    this.avatarUrl = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   UsersCompanion.insert({
     required String id,
@@ -410,29 +398,29 @@ class UsersCompanion extends drift.UpdateCompanion<User> {
     required String email,
     required String phone,
     required String gender,
-    this.avatarUrl = const drift.Value.absent(),
+    this.avatarUrl = const Value.absent(),
     required DateTime createdAt,
     required DateTime updatedAt,
-    this.rowid = const drift.Value.absent(),
-  }) : id = drift.Value(id),
-       name = drift.Value(name),
-       email = drift.Value(email),
-       phone = drift.Value(phone),
-       gender = drift.Value(gender),
-       createdAt = drift.Value(createdAt),
-       updatedAt = drift.Value(updatedAt);
-  static drift.Insertable<User> custom({
-    drift.Expression<String>? id,
-    drift.Expression<String>? name,
-    drift.Expression<String>? email,
-    drift.Expression<String>? phone,
-    drift.Expression<String>? gender,
-    drift.Expression<String>? avatarUrl,
-    drift.Expression<DateTime>? createdAt,
-    drift.Expression<DateTime>? updatedAt,
-    drift.Expression<int>? rowid,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       email = Value(email),
+       phone = Value(phone),
+       gender = Value(gender),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<User> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? email,
+    Expression<String>? phone,
+    Expression<String>? gender,
+    Expression<String>? avatarUrl,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
   }) {
-    return drift.RawValuesInsertable({
+    return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (email != null) 'email': email,
@@ -446,15 +434,15 @@ class UsersCompanion extends drift.UpdateCompanion<User> {
   }
 
   UsersCompanion copyWith({
-    drift.Value<String>? id,
-    drift.Value<String>? name,
-    drift.Value<String>? email,
-    drift.Value<String>? phone,
-    drift.Value<String>? gender,
-    drift.Value<String?>? avatarUrl,
-    drift.Value<DateTime>? createdAt,
-    drift.Value<DateTime>? updatedAt,
-    drift.Value<int>? rowid,
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? email,
+    Value<String>? phone,
+    Value<String>? gender,
+    Value<String?>? avatarUrl,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
   }) {
     return UsersCompanion(
       id: id ?? this.id,
@@ -470,34 +458,34 @@ class UsersCompanion extends drift.UpdateCompanion<User> {
   }
 
   @override
-  Map<String, drift.Expression> toColumns(bool nullToAbsent) {
-    final map = <String, drift.Expression>{};
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = drift.Variable<String>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (name.present) {
-      map['name'] = drift.Variable<String>(name.value);
+      map['name'] = Variable<String>(name.value);
     }
     if (email.present) {
-      map['email'] = drift.Variable<String>(email.value);
+      map['email'] = Variable<String>(email.value);
     }
     if (phone.present) {
-      map['phone'] = drift.Variable<String>(phone.value);
+      map['phone'] = Variable<String>(phone.value);
     }
     if (gender.present) {
-      map['gender'] = drift.Variable<String>(gender.value);
+      map['gender'] = Variable<String>(gender.value);
     }
     if (avatarUrl.present) {
-      map['avatar_url'] = drift.Variable<String>(avatarUrl.value);
+      map['avatar_url'] = Variable<String>(avatarUrl.value);
     }
     if (createdAt.present) {
-      map['created_at'] = drift.Variable<DateTime>(createdAt.value);
+      map['created_at'] = Variable<DateTime>(createdAt.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = drift.Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
     if (rowid.present) {
-      map['rowid'] = drift.Variable<int>(rowid.value);
+      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
@@ -519,159 +507,144 @@ class UsersCompanion extends drift.UpdateCompanion<User> {
   }
 }
 
-class $ShopsTable extends Shops with drift.TableInfo<$ShopsTable, Shop> {
+class $ShopsTable extends Shops with TableInfo<$ShopsTable, Shop> {
   @override
-  final drift.GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $ShopsTable(this.attachedDatabase, [this._alias]);
-  static const drift.VerificationMeta _idMeta = const drift.VerificationMeta(
-    'id',
-  );
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final drift.GeneratedColumn<String> id = drift.GeneratedColumn<String>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
     'id',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const drift.VerificationMeta _userIdMeta =
-      const drift.VerificationMeta('userId');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
-  late final drift.GeneratedColumn<String> userId =
-      drift.GeneratedColumn<String>(
-        'user_id',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _shopNameMeta =
-      const drift.VerificationMeta('shopName');
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _shopNameMeta = const VerificationMeta(
+    'shopName',
+  );
   @override
-  late final drift.GeneratedColumn<String> shopName =
-      drift.GeneratedColumn<String>(
-        'shop_name',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _ownerNameMeta =
-      const drift.VerificationMeta('ownerName');
+  late final GeneratedColumn<String> shopName = GeneratedColumn<String>(
+    'shop_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _ownerNameMeta = const VerificationMeta(
+    'ownerName',
+  );
   @override
-  late final drift.GeneratedColumn<String> ownerName =
-      drift.GeneratedColumn<String>(
-        'owner_name',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _phoneMeta = const drift.VerificationMeta(
+  late final GeneratedColumn<String> ownerName = GeneratedColumn<String>(
+    'owner_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
+  @override
+  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
     'phone',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
   );
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
-  late final drift.GeneratedColumn<String> phone =
-      drift.GeneratedColumn<String>(
-        'phone',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _emailMeta = const drift.VerificationMeta(
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
     'email',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _addressMeta = const VerificationMeta(
+    'address',
   );
   @override
-  late final drift.GeneratedColumn<String> email =
-      drift.GeneratedColumn<String>(
-        'email',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _addressMeta =
-      const drift.VerificationMeta('address');
-  @override
-  late final drift.GeneratedColumn<String> address =
-      drift.GeneratedColumn<String>(
-        'address',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _cityMeta = const drift.VerificationMeta(
-    'city',
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+    'address',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
   );
+  static const VerificationMeta _cityMeta = const VerificationMeta('city');
   @override
-  late final drift.GeneratedColumn<String> city = drift.GeneratedColumn<String>(
+  late final GeneratedColumn<String> city = GeneratedColumn<String>(
     'city',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const drift.VerificationMeta _stateMeta = const drift.VerificationMeta(
+  static const VerificationMeta _stateMeta = const VerificationMeta('state');
+  @override
+  late final GeneratedColumn<String> state = GeneratedColumn<String>(
     'state',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _pincodeMeta = const VerificationMeta(
+    'pincode',
   );
   @override
-  late final drift.GeneratedColumn<String> state =
-      drift.GeneratedColumn<String>(
-        'state',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _pincodeMeta =
-      const drift.VerificationMeta('pincode');
+  late final GeneratedColumn<String> pincode = GeneratedColumn<String>(
+    'pincode',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _logoUrlMeta = const VerificationMeta(
+    'logoUrl',
+  );
   @override
-  late final drift.GeneratedColumn<String> pincode =
-      drift.GeneratedColumn<String>(
-        'pincode',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _logoUrlMeta =
-      const drift.VerificationMeta('logoUrl');
+  late final GeneratedColumn<String> logoUrl = GeneratedColumn<String>(
+    'logo_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
-  late final drift.GeneratedColumn<String> logoUrl =
-      drift.GeneratedColumn<String>(
-        'logo_url',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      );
-  static const drift.VerificationMeta _createdAtMeta =
-      const drift.VerificationMeta('createdAt');
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
-  late final drift.GeneratedColumn<DateTime> createdAt =
-      drift.GeneratedColumn<DateTime>(
-        'created_at',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _updatedAtMeta =
-      const drift.VerificationMeta('updatedAt');
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  late final drift.GeneratedColumn<DateTime> updatedAt =
-      drift.GeneratedColumn<DateTime>(
-        'updated_at',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: true,
-      );
-  @override
-  List<drift.GeneratedColumn> get $columns => [
+  List<GeneratedColumn> get $columns => [
     id,
     userId,
     shopName,
@@ -692,11 +665,11 @@ class $ShopsTable extends Shops with drift.TableInfo<$ShopsTable, Shop> {
   String get actualTableName => $name;
   static const String $name = 'shops';
   @override
-  drift.VerificationContext validateIntegrity(
-    drift.Insertable<Shop> instance, {
+  VerificationContext validateIntegrity(
+    Insertable<Shop> instance, {
     bool isInserting = false,
   }) {
-    final context = drift.VerificationContext();
+    final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
@@ -801,7 +774,7 @@ class $ShopsTable extends Shops with drift.TableInfo<$ShopsTable, Shop> {
   }
 
   @override
-  Set<drift.GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Shop map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -867,7 +840,7 @@ class $ShopsTable extends Shops with drift.TableInfo<$ShopsTable, Shop> {
   }
 }
 
-class Shop extends drift.DataClass implements drift.Insertable<Shop> {
+class Shop extends DataClass implements Insertable<Shop> {
   final String id;
   final String userId;
   final String shopName;
@@ -897,43 +870,43 @@ class Shop extends drift.DataClass implements drift.Insertable<Shop> {
     required this.updatedAt,
   });
   @override
-  Map<String, drift.Expression> toColumns(bool nullToAbsent) {
-    final map = <String, drift.Expression>{};
-    map['id'] = drift.Variable<String>(id);
-    map['user_id'] = drift.Variable<String>(userId);
-    map['shop_name'] = drift.Variable<String>(shopName);
-    map['owner_name'] = drift.Variable<String>(ownerName);
-    map['phone'] = drift.Variable<String>(phone);
-    map['email'] = drift.Variable<String>(email);
-    map['address'] = drift.Variable<String>(address);
-    map['city'] = drift.Variable<String>(city);
-    map['state'] = drift.Variable<String>(state);
-    map['pincode'] = drift.Variable<String>(pincode);
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['shop_name'] = Variable<String>(shopName);
+    map['owner_name'] = Variable<String>(ownerName);
+    map['phone'] = Variable<String>(phone);
+    map['email'] = Variable<String>(email);
+    map['address'] = Variable<String>(address);
+    map['city'] = Variable<String>(city);
+    map['state'] = Variable<String>(state);
+    map['pincode'] = Variable<String>(pincode);
     if (!nullToAbsent || logoUrl != null) {
-      map['logo_url'] = drift.Variable<String>(logoUrl);
+      map['logo_url'] = Variable<String>(logoUrl);
     }
-    map['created_at'] = drift.Variable<DateTime>(createdAt);
-    map['updated_at'] = drift.Variable<DateTime>(updatedAt);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
   ShopsCompanion toCompanion(bool nullToAbsent) {
     return ShopsCompanion(
-      id: drift.Value(id),
-      userId: drift.Value(userId),
-      shopName: drift.Value(shopName),
-      ownerName: drift.Value(ownerName),
-      phone: drift.Value(phone),
-      email: drift.Value(email),
-      address: drift.Value(address),
-      city: drift.Value(city),
-      state: drift.Value(state),
-      pincode: drift.Value(pincode),
+      id: Value(id),
+      userId: Value(userId),
+      shopName: Value(shopName),
+      ownerName: Value(ownerName),
+      phone: Value(phone),
+      email: Value(email),
+      address: Value(address),
+      city: Value(city),
+      state: Value(state),
+      pincode: Value(pincode),
       logoUrl: logoUrl == null && nullToAbsent
-          ? const drift.Value.absent()
-          : drift.Value(logoUrl),
-      createdAt: drift.Value(createdAt),
-      updatedAt: drift.Value(updatedAt),
+          ? const Value.absent()
+          : Value(logoUrl),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -941,7 +914,7 @@ class Shop extends drift.DataClass implements drift.Insertable<Shop> {
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
-    serializer ??= drift.driftRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Shop(
       id: serializer.fromJson<String>(json['id']),
       userId: serializer.fromJson<String>(json['userId']),
@@ -960,7 +933,7 @@ class Shop extends drift.DataClass implements drift.Insertable<Shop> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= drift.driftRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'userId': serializer.toJson<String>(userId),
@@ -989,7 +962,7 @@ class Shop extends drift.DataClass implements drift.Insertable<Shop> {
     String? city,
     String? state,
     String? pincode,
-    drift.Value<String?> logoUrl = const drift.Value.absent(),
+    Value<String?> logoUrl = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => Shop(
@@ -1080,36 +1053,36 @@ class Shop extends drift.DataClass implements drift.Insertable<Shop> {
           other.updatedAt == this.updatedAt);
 }
 
-class ShopsCompanion extends drift.UpdateCompanion<Shop> {
-  final drift.Value<String> id;
-  final drift.Value<String> userId;
-  final drift.Value<String> shopName;
-  final drift.Value<String> ownerName;
-  final drift.Value<String> phone;
-  final drift.Value<String> email;
-  final drift.Value<String> address;
-  final drift.Value<String> city;
-  final drift.Value<String> state;
-  final drift.Value<String> pincode;
-  final drift.Value<String?> logoUrl;
-  final drift.Value<DateTime> createdAt;
-  final drift.Value<DateTime> updatedAt;
-  final drift.Value<int> rowid;
+class ShopsCompanion extends UpdateCompanion<Shop> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> shopName;
+  final Value<String> ownerName;
+  final Value<String> phone;
+  final Value<String> email;
+  final Value<String> address;
+  final Value<String> city;
+  final Value<String> state;
+  final Value<String> pincode;
+  final Value<String?> logoUrl;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
   const ShopsCompanion({
-    this.id = const drift.Value.absent(),
-    this.userId = const drift.Value.absent(),
-    this.shopName = const drift.Value.absent(),
-    this.ownerName = const drift.Value.absent(),
-    this.phone = const drift.Value.absent(),
-    this.email = const drift.Value.absent(),
-    this.address = const drift.Value.absent(),
-    this.city = const drift.Value.absent(),
-    this.state = const drift.Value.absent(),
-    this.pincode = const drift.Value.absent(),
-    this.logoUrl = const drift.Value.absent(),
-    this.createdAt = const drift.Value.absent(),
-    this.updatedAt = const drift.Value.absent(),
-    this.rowid = const drift.Value.absent(),
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.shopName = const Value.absent(),
+    this.ownerName = const Value.absent(),
+    this.phone = const Value.absent(),
+    this.email = const Value.absent(),
+    this.address = const Value.absent(),
+    this.city = const Value.absent(),
+    this.state = const Value.absent(),
+    this.pincode = const Value.absent(),
+    this.logoUrl = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   ShopsCompanion.insert({
     required String id,
@@ -1122,39 +1095,39 @@ class ShopsCompanion extends drift.UpdateCompanion<Shop> {
     required String city,
     required String state,
     required String pincode,
-    this.logoUrl = const drift.Value.absent(),
+    this.logoUrl = const Value.absent(),
     required DateTime createdAt,
     required DateTime updatedAt,
-    this.rowid = const drift.Value.absent(),
-  }) : id = drift.Value(id),
-       userId = drift.Value(userId),
-       shopName = drift.Value(shopName),
-       ownerName = drift.Value(ownerName),
-       phone = drift.Value(phone),
-       email = drift.Value(email),
-       address = drift.Value(address),
-       city = drift.Value(city),
-       state = drift.Value(state),
-       pincode = drift.Value(pincode),
-       createdAt = drift.Value(createdAt),
-       updatedAt = drift.Value(updatedAt);
-  static drift.Insertable<Shop> custom({
-    drift.Expression<String>? id,
-    drift.Expression<String>? userId,
-    drift.Expression<String>? shopName,
-    drift.Expression<String>? ownerName,
-    drift.Expression<String>? phone,
-    drift.Expression<String>? email,
-    drift.Expression<String>? address,
-    drift.Expression<String>? city,
-    drift.Expression<String>? state,
-    drift.Expression<String>? pincode,
-    drift.Expression<String>? logoUrl,
-    drift.Expression<DateTime>? createdAt,
-    drift.Expression<DateTime>? updatedAt,
-    drift.Expression<int>? rowid,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       userId = Value(userId),
+       shopName = Value(shopName),
+       ownerName = Value(ownerName),
+       phone = Value(phone),
+       email = Value(email),
+       address = Value(address),
+       city = Value(city),
+       state = Value(state),
+       pincode = Value(pincode),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<Shop> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? shopName,
+    Expression<String>? ownerName,
+    Expression<String>? phone,
+    Expression<String>? email,
+    Expression<String>? address,
+    Expression<String>? city,
+    Expression<String>? state,
+    Expression<String>? pincode,
+    Expression<String>? logoUrl,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
   }) {
-    return drift.RawValuesInsertable({
+    return RawValuesInsertable({
       if (id != null) 'id': id,
       if (userId != null) 'user_id': userId,
       if (shopName != null) 'shop_name': shopName,
@@ -1173,20 +1146,20 @@ class ShopsCompanion extends drift.UpdateCompanion<Shop> {
   }
 
   ShopsCompanion copyWith({
-    drift.Value<String>? id,
-    drift.Value<String>? userId,
-    drift.Value<String>? shopName,
-    drift.Value<String>? ownerName,
-    drift.Value<String>? phone,
-    drift.Value<String>? email,
-    drift.Value<String>? address,
-    drift.Value<String>? city,
-    drift.Value<String>? state,
-    drift.Value<String>? pincode,
-    drift.Value<String?>? logoUrl,
-    drift.Value<DateTime>? createdAt,
-    drift.Value<DateTime>? updatedAt,
-    drift.Value<int>? rowid,
+    Value<String>? id,
+    Value<String>? userId,
+    Value<String>? shopName,
+    Value<String>? ownerName,
+    Value<String>? phone,
+    Value<String>? email,
+    Value<String>? address,
+    Value<String>? city,
+    Value<String>? state,
+    Value<String>? pincode,
+    Value<String?>? logoUrl,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
   }) {
     return ShopsCompanion(
       id: id ?? this.id,
@@ -1207,49 +1180,49 @@ class ShopsCompanion extends drift.UpdateCompanion<Shop> {
   }
 
   @override
-  Map<String, drift.Expression> toColumns(bool nullToAbsent) {
-    final map = <String, drift.Expression>{};
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = drift.Variable<String>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (userId.present) {
-      map['user_id'] = drift.Variable<String>(userId.value);
+      map['user_id'] = Variable<String>(userId.value);
     }
     if (shopName.present) {
-      map['shop_name'] = drift.Variable<String>(shopName.value);
+      map['shop_name'] = Variable<String>(shopName.value);
     }
     if (ownerName.present) {
-      map['owner_name'] = drift.Variable<String>(ownerName.value);
+      map['owner_name'] = Variable<String>(ownerName.value);
     }
     if (phone.present) {
-      map['phone'] = drift.Variable<String>(phone.value);
+      map['phone'] = Variable<String>(phone.value);
     }
     if (email.present) {
-      map['email'] = drift.Variable<String>(email.value);
+      map['email'] = Variable<String>(email.value);
     }
     if (address.present) {
-      map['address'] = drift.Variable<String>(address.value);
+      map['address'] = Variable<String>(address.value);
     }
     if (city.present) {
-      map['city'] = drift.Variable<String>(city.value);
+      map['city'] = Variable<String>(city.value);
     }
     if (state.present) {
-      map['state'] = drift.Variable<String>(state.value);
+      map['state'] = Variable<String>(state.value);
     }
     if (pincode.present) {
-      map['pincode'] = drift.Variable<String>(pincode.value);
+      map['pincode'] = Variable<String>(pincode.value);
     }
     if (logoUrl.present) {
-      map['logo_url'] = drift.Variable<String>(logoUrl.value);
+      map['logo_url'] = Variable<String>(logoUrl.value);
     }
     if (createdAt.present) {
-      map['created_at'] = drift.Variable<DateTime>(createdAt.value);
+      map['created_at'] = Variable<DateTime>(createdAt.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = drift.Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
     if (rowid.present) {
-      map['rowid'] = drift.Variable<int>(rowid.value);
+      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
@@ -1277,105 +1250,101 @@ class ShopsCompanion extends drift.UpdateCompanion<Shop> {
 }
 
 class $KycDocumentsTable extends KycDocuments
-    with drift.TableInfo<$KycDocumentsTable, KycDocument> {
+    with TableInfo<$KycDocumentsTable, KycDocument> {
   @override
-  final drift.GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $KycDocumentsTable(this.attachedDatabase, [this._alias]);
-  static const drift.VerificationMeta _idMeta = const drift.VerificationMeta(
-    'id',
-  );
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final drift.GeneratedColumn<String> id = drift.GeneratedColumn<String>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
     'id',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const drift.VerificationMeta _userIdMeta =
-      const drift.VerificationMeta('userId');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
-  late final drift.GeneratedColumn<String> userId =
-      drift.GeneratedColumn<String>(
-        'user_id',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _panPathMeta =
-      const drift.VerificationMeta('panPath');
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _panPathMeta = const VerificationMeta(
+    'panPath',
+  );
   @override
-  late final drift.GeneratedColumn<String> panPath =
-      drift.GeneratedColumn<String>(
-        'pan_path',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      );
-  static const drift.VerificationMeta _aadhaarPathMeta =
-      const drift.VerificationMeta('aadhaarPath');
+  late final GeneratedColumn<String> panPath = GeneratedColumn<String>(
+    'pan_path',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _aadhaarPathMeta = const VerificationMeta(
+    'aadhaarPath',
+  );
   @override
-  late final drift.GeneratedColumn<String> aadhaarPath =
-      drift.GeneratedColumn<String>(
-        'aadhaar_path',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      );
-  static const drift.VerificationMeta _addressProofPathMeta =
-      const drift.VerificationMeta('addressProofPath');
+  late final GeneratedColumn<String> aadhaarPath = GeneratedColumn<String>(
+    'aadhaar_path',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _addressProofPathMeta = const VerificationMeta(
+    'addressProofPath',
+  );
   @override
-  late final drift.GeneratedColumn<String> addressProofPath =
-      drift.GeneratedColumn<String>(
-        'address_proof_path',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      );
-  static const drift.VerificationMeta _isVerifiedMeta =
-      const drift.VerificationMeta('isVerified');
+  late final GeneratedColumn<String> addressProofPath = GeneratedColumn<String>(
+    'address_proof_path',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isVerifiedMeta = const VerificationMeta(
+    'isVerified',
+  );
   @override
-  late final drift.GeneratedColumn<bool> isVerified =
-      drift.GeneratedColumn<bool>(
-        'is_verified',
-        aliasedName,
-        false,
-        type: DriftSqlType.bool,
-        requiredDuringInsert: false,
-        defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_verified" IN (0, 1))',
-        ),
-        defaultValue: const drift.Constant(false),
-      );
-  static const drift.VerificationMeta _createdAtMeta =
-      const drift.VerificationMeta('createdAt');
+  late final GeneratedColumn<bool> isVerified = GeneratedColumn<bool>(
+    'is_verified',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_verified" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
-  late final drift.GeneratedColumn<DateTime> createdAt =
-      drift.GeneratedColumn<DateTime>(
-        'created_at',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _updatedAtMeta =
-      const drift.VerificationMeta('updatedAt');
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
-  late final drift.GeneratedColumn<DateTime> updatedAt =
-      drift.GeneratedColumn<DateTime>(
-        'updated_at',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: true,
-      );
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  List<drift.GeneratedColumn> get $columns => [
+  List<GeneratedColumn> get $columns => [
     id,
     userId,
     panPath,
@@ -1391,11 +1360,11 @@ class $KycDocumentsTable extends KycDocuments
   String get actualTableName => $name;
   static const String $name = 'kyc_documents';
   @override
-  drift.VerificationContext validateIntegrity(
-    drift.Insertable<KycDocument> instance, {
+  VerificationContext validateIntegrity(
+    Insertable<KycDocument> instance, {
     bool isInserting = false,
   }) {
-    final context = drift.VerificationContext();
+    final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
@@ -1460,7 +1429,7 @@ class $KycDocumentsTable extends KycDocuments
   }
 
   @override
-  Set<drift.GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   KycDocument map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -1506,8 +1475,7 @@ class $KycDocumentsTable extends KycDocuments
   }
 }
 
-class KycDocument extends drift.DataClass
-    implements drift.Insertable<KycDocument> {
+class KycDocument extends DataClass implements Insertable<KycDocument> {
   final String id;
   final String userId;
   final String? panPath;
@@ -1527,41 +1495,41 @@ class KycDocument extends drift.DataClass
     required this.updatedAt,
   });
   @override
-  Map<String, drift.Expression> toColumns(bool nullToAbsent) {
-    final map = <String, drift.Expression>{};
-    map['id'] = drift.Variable<String>(id);
-    map['user_id'] = drift.Variable<String>(userId);
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
     if (!nullToAbsent || panPath != null) {
-      map['pan_path'] = drift.Variable<String>(panPath);
+      map['pan_path'] = Variable<String>(panPath);
     }
     if (!nullToAbsent || aadhaarPath != null) {
-      map['aadhaar_path'] = drift.Variable<String>(aadhaarPath);
+      map['aadhaar_path'] = Variable<String>(aadhaarPath);
     }
     if (!nullToAbsent || addressProofPath != null) {
-      map['address_proof_path'] = drift.Variable<String>(addressProofPath);
+      map['address_proof_path'] = Variable<String>(addressProofPath);
     }
-    map['is_verified'] = drift.Variable<bool>(isVerified);
-    map['created_at'] = drift.Variable<DateTime>(createdAt);
-    map['updated_at'] = drift.Variable<DateTime>(updatedAt);
+    map['is_verified'] = Variable<bool>(isVerified);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
   KycDocumentsCompanion toCompanion(bool nullToAbsent) {
     return KycDocumentsCompanion(
-      id: drift.Value(id),
-      userId: drift.Value(userId),
+      id: Value(id),
+      userId: Value(userId),
       panPath: panPath == null && nullToAbsent
-          ? const drift.Value.absent()
-          : drift.Value(panPath),
+          ? const Value.absent()
+          : Value(panPath),
       aadhaarPath: aadhaarPath == null && nullToAbsent
-          ? const drift.Value.absent()
-          : drift.Value(aadhaarPath),
+          ? const Value.absent()
+          : Value(aadhaarPath),
       addressProofPath: addressProofPath == null && nullToAbsent
-          ? const drift.Value.absent()
-          : drift.Value(addressProofPath),
-      isVerified: drift.Value(isVerified),
-      createdAt: drift.Value(createdAt),
-      updatedAt: drift.Value(updatedAt),
+          ? const Value.absent()
+          : Value(addressProofPath),
+      isVerified: Value(isVerified),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -1569,7 +1537,7 @@ class KycDocument extends drift.DataClass
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
-    serializer ??= drift.driftRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return KycDocument(
       id: serializer.fromJson<String>(json['id']),
       userId: serializer.fromJson<String>(json['userId']),
@@ -1583,7 +1551,7 @@ class KycDocument extends drift.DataClass
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= drift.driftRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'userId': serializer.toJson<String>(userId),
@@ -1599,9 +1567,9 @@ class KycDocument extends drift.DataClass
   KycDocument copyWith({
     String? id,
     String? userId,
-    drift.Value<String?> panPath = const drift.Value.absent(),
-    drift.Value<String?> aadhaarPath = const drift.Value.absent(),
-    drift.Value<String?> addressProofPath = const drift.Value.absent(),
+    Value<String?> panPath = const Value.absent(),
+    Value<String?> aadhaarPath = const Value.absent(),
+    Value<String?> addressProofPath = const Value.absent(),
     bool? isVerified,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -1676,53 +1644,53 @@ class KycDocument extends drift.DataClass
           other.updatedAt == this.updatedAt);
 }
 
-class KycDocumentsCompanion extends drift.UpdateCompanion<KycDocument> {
-  final drift.Value<String> id;
-  final drift.Value<String> userId;
-  final drift.Value<String?> panPath;
-  final drift.Value<String?> aadhaarPath;
-  final drift.Value<String?> addressProofPath;
-  final drift.Value<bool> isVerified;
-  final drift.Value<DateTime> createdAt;
-  final drift.Value<DateTime> updatedAt;
-  final drift.Value<int> rowid;
+class KycDocumentsCompanion extends UpdateCompanion<KycDocument> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String?> panPath;
+  final Value<String?> aadhaarPath;
+  final Value<String?> addressProofPath;
+  final Value<bool> isVerified;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
   const KycDocumentsCompanion({
-    this.id = const drift.Value.absent(),
-    this.userId = const drift.Value.absent(),
-    this.panPath = const drift.Value.absent(),
-    this.aadhaarPath = const drift.Value.absent(),
-    this.addressProofPath = const drift.Value.absent(),
-    this.isVerified = const drift.Value.absent(),
-    this.createdAt = const drift.Value.absent(),
-    this.updatedAt = const drift.Value.absent(),
-    this.rowid = const drift.Value.absent(),
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.panPath = const Value.absent(),
+    this.aadhaarPath = const Value.absent(),
+    this.addressProofPath = const Value.absent(),
+    this.isVerified = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   KycDocumentsCompanion.insert({
     required String id,
     required String userId,
-    this.panPath = const drift.Value.absent(),
-    this.aadhaarPath = const drift.Value.absent(),
-    this.addressProofPath = const drift.Value.absent(),
-    this.isVerified = const drift.Value.absent(),
+    this.panPath = const Value.absent(),
+    this.aadhaarPath = const Value.absent(),
+    this.addressProofPath = const Value.absent(),
+    this.isVerified = const Value.absent(),
     required DateTime createdAt,
     required DateTime updatedAt,
-    this.rowid = const drift.Value.absent(),
-  }) : id = drift.Value(id),
-       userId = drift.Value(userId),
-       createdAt = drift.Value(createdAt),
-       updatedAt = drift.Value(updatedAt);
-  static drift.Insertable<KycDocument> custom({
-    drift.Expression<String>? id,
-    drift.Expression<String>? userId,
-    drift.Expression<String>? panPath,
-    drift.Expression<String>? aadhaarPath,
-    drift.Expression<String>? addressProofPath,
-    drift.Expression<bool>? isVerified,
-    drift.Expression<DateTime>? createdAt,
-    drift.Expression<DateTime>? updatedAt,
-    drift.Expression<int>? rowid,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       userId = Value(userId),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<KycDocument> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? panPath,
+    Expression<String>? aadhaarPath,
+    Expression<String>? addressProofPath,
+    Expression<bool>? isVerified,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
   }) {
-    return drift.RawValuesInsertable({
+    return RawValuesInsertable({
       if (id != null) 'id': id,
       if (userId != null) 'user_id': userId,
       if (panPath != null) 'pan_path': panPath,
@@ -1736,15 +1704,15 @@ class KycDocumentsCompanion extends drift.UpdateCompanion<KycDocument> {
   }
 
   KycDocumentsCompanion copyWith({
-    drift.Value<String>? id,
-    drift.Value<String>? userId,
-    drift.Value<String?>? panPath,
-    drift.Value<String?>? aadhaarPath,
-    drift.Value<String?>? addressProofPath,
-    drift.Value<bool>? isVerified,
-    drift.Value<DateTime>? createdAt,
-    drift.Value<DateTime>? updatedAt,
-    drift.Value<int>? rowid,
+    Value<String>? id,
+    Value<String>? userId,
+    Value<String?>? panPath,
+    Value<String?>? aadhaarPath,
+    Value<String?>? addressProofPath,
+    Value<bool>? isVerified,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
   }) {
     return KycDocumentsCompanion(
       id: id ?? this.id,
@@ -1760,36 +1728,34 @@ class KycDocumentsCompanion extends drift.UpdateCompanion<KycDocument> {
   }
 
   @override
-  Map<String, drift.Expression> toColumns(bool nullToAbsent) {
-    final map = <String, drift.Expression>{};
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = drift.Variable<String>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (userId.present) {
-      map['user_id'] = drift.Variable<String>(userId.value);
+      map['user_id'] = Variable<String>(userId.value);
     }
     if (panPath.present) {
-      map['pan_path'] = drift.Variable<String>(panPath.value);
+      map['pan_path'] = Variable<String>(panPath.value);
     }
     if (aadhaarPath.present) {
-      map['aadhaar_path'] = drift.Variable<String>(aadhaarPath.value);
+      map['aadhaar_path'] = Variable<String>(aadhaarPath.value);
     }
     if (addressProofPath.present) {
-      map['address_proof_path'] = drift.Variable<String>(
-        addressProofPath.value,
-      );
+      map['address_proof_path'] = Variable<String>(addressProofPath.value);
     }
     if (isVerified.present) {
-      map['is_verified'] = drift.Variable<bool>(isVerified.value);
+      map['is_verified'] = Variable<bool>(isVerified.value);
     }
     if (createdAt.present) {
-      map['created_at'] = drift.Variable<DateTime>(createdAt.value);
+      map['created_at'] = Variable<DateTime>(createdAt.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = drift.Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
     if (rowid.present) {
-      map['rowid'] = drift.Variable<int>(rowid.value);
+      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
@@ -1811,140 +1777,126 @@ class KycDocumentsCompanion extends drift.UpdateCompanion<KycDocument> {
   }
 }
 
-class $CarsTable extends Cars with drift.TableInfo<$CarsTable, Car> {
+class $CarsTable extends Cars with TableInfo<$CarsTable, Car> {
   @override
-  final drift.GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $CarsTable(this.attachedDatabase, [this._alias]);
-  static const drift.VerificationMeta _idMeta = const drift.VerificationMeta(
-    'id',
-  );
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final drift.GeneratedColumn<String> id = drift.GeneratedColumn<String>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
     'id',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const drift.VerificationMeta _userIdMeta =
-      const drift.VerificationMeta('userId');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
-  late final drift.GeneratedColumn<String> userId =
-      drift.GeneratedColumn<String>(
-        'user_id',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _makeMeta = const drift.VerificationMeta(
-    'make',
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+    'user_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
   );
+  static const VerificationMeta _makeMeta = const VerificationMeta('make');
   @override
-  late final drift.GeneratedColumn<String> make = drift.GeneratedColumn<String>(
+  late final GeneratedColumn<String> make = GeneratedColumn<String>(
     'make',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const drift.VerificationMeta _modelMeta = const drift.VerificationMeta(
+  static const VerificationMeta _modelMeta = const VerificationMeta('model');
+  @override
+  late final GeneratedColumn<String> model = GeneratedColumn<String>(
     'model',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
   );
+  static const VerificationMeta _yearMeta = const VerificationMeta('year');
   @override
-  late final drift.GeneratedColumn<String> model =
-      drift.GeneratedColumn<String>(
-        'model',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _yearMeta = const drift.VerificationMeta(
-    'year',
-  );
-  @override
-  late final drift.GeneratedColumn<String> year = drift.GeneratedColumn<String>(
+  late final GeneratedColumn<String> year = GeneratedColumn<String>(
     'year',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const drift.VerificationMeta _priceMeta = const drift.VerificationMeta(
+  static const VerificationMeta _priceMeta = const VerificationMeta('price');
+  @override
+  late final GeneratedColumn<String> price = GeneratedColumn<String>(
     'price',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _imageUrlMeta = const VerificationMeta(
+    'imageUrl',
   );
   @override
-  late final drift.GeneratedColumn<String> price =
-      drift.GeneratedColumn<String>(
-        'price',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _imageUrlMeta =
-      const drift.VerificationMeta('imageUrl');
+  late final GeneratedColumn<String> imageUrl = GeneratedColumn<String>(
+    'image_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
   @override
-  late final drift.GeneratedColumn<String> imageUrl =
-      drift.GeneratedColumn<String>(
-        'image_url',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      );
-  static const drift.VerificationMeta _descriptionMeta =
-      const drift.VerificationMeta('description');
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isAvailableMeta = const VerificationMeta(
+    'isAvailable',
+  );
   @override
-  late final drift.GeneratedColumn<String> description =
-      drift.GeneratedColumn<String>(
-        'description',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      );
-  static const drift.VerificationMeta _isAvailableMeta =
-      const drift.VerificationMeta('isAvailable');
+  late final GeneratedColumn<bool> isAvailable = GeneratedColumn<bool>(
+    'is_available',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_available" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
-  late final drift.GeneratedColumn<bool> isAvailable =
-      drift.GeneratedColumn<bool>(
-        'is_available',
-        aliasedName,
-        false,
-        type: DriftSqlType.bool,
-        requiredDuringInsert: false,
-        defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_available" IN (0, 1))',
-        ),
-        defaultValue: const drift.Constant(true),
-      );
-  static const drift.VerificationMeta _createdAtMeta =
-      const drift.VerificationMeta('createdAt');
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
-  late final drift.GeneratedColumn<DateTime> createdAt =
-      drift.GeneratedColumn<DateTime>(
-        'created_at',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: true,
-      );
-  static const drift.VerificationMeta _updatedAtMeta =
-      const drift.VerificationMeta('updatedAt');
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
   @override
-  late final drift.GeneratedColumn<DateTime> updatedAt =
-      drift.GeneratedColumn<DateTime>(
-        'updated_at',
-        aliasedName,
-        false,
-        type: DriftSqlType.dateTime,
-        requiredDuringInsert: true,
-      );
-  @override
-  List<drift.GeneratedColumn> get $columns => [
+  List<GeneratedColumn> get $columns => [
     id,
     userId,
     make,
@@ -1963,11 +1915,11 @@ class $CarsTable extends Cars with drift.TableInfo<$CarsTable, Car> {
   String get actualTableName => $name;
   static const String $name = 'cars';
   @override
-  drift.VerificationContext validateIntegrity(
-    drift.Insertable<Car> instance, {
+  VerificationContext validateIntegrity(
+    Insertable<Car> instance, {
     bool isInserting = false,
   }) {
-    final context = drift.VerificationContext();
+    final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
@@ -2058,7 +2010,7 @@ class $CarsTable extends Cars with drift.TableInfo<$CarsTable, Car> {
   }
 
   @override
-  Set<drift.GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Car map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -2116,7 +2068,7 @@ class $CarsTable extends Cars with drift.TableInfo<$CarsTable, Car> {
   }
 }
 
-class Car extends drift.DataClass implements drift.Insertable<Car> {
+class Car extends DataClass implements Insertable<Car> {
   final String id;
   final String userId;
   final String make;
@@ -2142,43 +2094,43 @@ class Car extends drift.DataClass implements drift.Insertable<Car> {
     required this.updatedAt,
   });
   @override
-  Map<String, drift.Expression> toColumns(bool nullToAbsent) {
-    final map = <String, drift.Expression>{};
-    map['id'] = drift.Variable<String>(id);
-    map['user_id'] = drift.Variable<String>(userId);
-    map['make'] = drift.Variable<String>(make);
-    map['model'] = drift.Variable<String>(model);
-    map['year'] = drift.Variable<String>(year);
-    map['price'] = drift.Variable<String>(price);
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['make'] = Variable<String>(make);
+    map['model'] = Variable<String>(model);
+    map['year'] = Variable<String>(year);
+    map['price'] = Variable<String>(price);
     if (!nullToAbsent || imageUrl != null) {
-      map['image_url'] = drift.Variable<String>(imageUrl);
+      map['image_url'] = Variable<String>(imageUrl);
     }
     if (!nullToAbsent || description != null) {
-      map['description'] = drift.Variable<String>(description);
+      map['description'] = Variable<String>(description);
     }
-    map['is_available'] = drift.Variable<bool>(isAvailable);
-    map['created_at'] = drift.Variable<DateTime>(createdAt);
-    map['updated_at'] = drift.Variable<DateTime>(updatedAt);
+    map['is_available'] = Variable<bool>(isAvailable);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
   CarsCompanion toCompanion(bool nullToAbsent) {
     return CarsCompanion(
-      id: drift.Value(id),
-      userId: drift.Value(userId),
-      make: drift.Value(make),
-      model: drift.Value(model),
-      year: drift.Value(year),
-      price: drift.Value(price),
+      id: Value(id),
+      userId: Value(userId),
+      make: Value(make),
+      model: Value(model),
+      year: Value(year),
+      price: Value(price),
       imageUrl: imageUrl == null && nullToAbsent
-          ? const drift.Value.absent()
-          : drift.Value(imageUrl),
+          ? const Value.absent()
+          : Value(imageUrl),
       description: description == null && nullToAbsent
-          ? const drift.Value.absent()
-          : drift.Value(description),
-      isAvailable: drift.Value(isAvailable),
-      createdAt: drift.Value(createdAt),
-      updatedAt: drift.Value(updatedAt),
+          ? const Value.absent()
+          : Value(description),
+      isAvailable: Value(isAvailable),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
     );
   }
 
@@ -2186,7 +2138,7 @@ class Car extends drift.DataClass implements drift.Insertable<Car> {
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
-    serializer ??= drift.driftRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return Car(
       id: serializer.fromJson<String>(json['id']),
       userId: serializer.fromJson<String>(json['userId']),
@@ -2203,7 +2155,7 @@ class Car extends drift.DataClass implements drift.Insertable<Car> {
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= drift.driftRuntimeOptions.defaultSerializer;
+    serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'userId': serializer.toJson<String>(userId),
@@ -2226,8 +2178,8 @@ class Car extends drift.DataClass implements drift.Insertable<Car> {
     String? model,
     String? year,
     String? price,
-    drift.Value<String?> imageUrl = const drift.Value.absent(),
-    drift.Value<String?> description = const drift.Value.absent(),
+    Value<String?> imageUrl = const Value.absent(),
+    Value<String?> description = const Value.absent(),
     bool? isAvailable,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -2313,32 +2265,32 @@ class Car extends drift.DataClass implements drift.Insertable<Car> {
           other.updatedAt == this.updatedAt);
 }
 
-class CarsCompanion extends drift.UpdateCompanion<Car> {
-  final drift.Value<String> id;
-  final drift.Value<String> userId;
-  final drift.Value<String> make;
-  final drift.Value<String> model;
-  final drift.Value<String> year;
-  final drift.Value<String> price;
-  final drift.Value<String?> imageUrl;
-  final drift.Value<String?> description;
-  final drift.Value<bool> isAvailable;
-  final drift.Value<DateTime> createdAt;
-  final drift.Value<DateTime> updatedAt;
-  final drift.Value<int> rowid;
+class CarsCompanion extends UpdateCompanion<Car> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> make;
+  final Value<String> model;
+  final Value<String> year;
+  final Value<String> price;
+  final Value<String?> imageUrl;
+  final Value<String?> description;
+  final Value<bool> isAvailable;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
   const CarsCompanion({
-    this.id = const drift.Value.absent(),
-    this.userId = const drift.Value.absent(),
-    this.make = const drift.Value.absent(),
-    this.model = const drift.Value.absent(),
-    this.year = const drift.Value.absent(),
-    this.price = const drift.Value.absent(),
-    this.imageUrl = const drift.Value.absent(),
-    this.description = const drift.Value.absent(),
-    this.isAvailable = const drift.Value.absent(),
-    this.createdAt = const drift.Value.absent(),
-    this.updatedAt = const drift.Value.absent(),
-    this.rowid = const drift.Value.absent(),
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.make = const Value.absent(),
+    this.model = const Value.absent(),
+    this.year = const Value.absent(),
+    this.price = const Value.absent(),
+    this.imageUrl = const Value.absent(),
+    this.description = const Value.absent(),
+    this.isAvailable = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   CarsCompanion.insert({
     required String id,
@@ -2347,35 +2299,35 @@ class CarsCompanion extends drift.UpdateCompanion<Car> {
     required String model,
     required String year,
     required String price,
-    this.imageUrl = const drift.Value.absent(),
-    this.description = const drift.Value.absent(),
-    this.isAvailable = const drift.Value.absent(),
+    this.imageUrl = const Value.absent(),
+    this.description = const Value.absent(),
+    this.isAvailable = const Value.absent(),
     required DateTime createdAt,
     required DateTime updatedAt,
-    this.rowid = const drift.Value.absent(),
-  }) : id = drift.Value(id),
-       userId = drift.Value(userId),
-       make = drift.Value(make),
-       model = drift.Value(model),
-       year = drift.Value(year),
-       price = drift.Value(price),
-       createdAt = drift.Value(createdAt),
-       updatedAt = drift.Value(updatedAt);
-  static drift.Insertable<Car> custom({
-    drift.Expression<String>? id,
-    drift.Expression<String>? userId,
-    drift.Expression<String>? make,
-    drift.Expression<String>? model,
-    drift.Expression<String>? year,
-    drift.Expression<String>? price,
-    drift.Expression<String>? imageUrl,
-    drift.Expression<String>? description,
-    drift.Expression<bool>? isAvailable,
-    drift.Expression<DateTime>? createdAt,
-    drift.Expression<DateTime>? updatedAt,
-    drift.Expression<int>? rowid,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       userId = Value(userId),
+       make = Value(make),
+       model = Value(model),
+       year = Value(year),
+       price = Value(price),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<Car> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? make,
+    Expression<String>? model,
+    Expression<String>? year,
+    Expression<String>? price,
+    Expression<String>? imageUrl,
+    Expression<String>? description,
+    Expression<bool>? isAvailable,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
   }) {
-    return drift.RawValuesInsertable({
+    return RawValuesInsertable({
       if (id != null) 'id': id,
       if (userId != null) 'user_id': userId,
       if (make != null) 'make': make,
@@ -2392,18 +2344,18 @@ class CarsCompanion extends drift.UpdateCompanion<Car> {
   }
 
   CarsCompanion copyWith({
-    drift.Value<String>? id,
-    drift.Value<String>? userId,
-    drift.Value<String>? make,
-    drift.Value<String>? model,
-    drift.Value<String>? year,
-    drift.Value<String>? price,
-    drift.Value<String?>? imageUrl,
-    drift.Value<String?>? description,
-    drift.Value<bool>? isAvailable,
-    drift.Value<DateTime>? createdAt,
-    drift.Value<DateTime>? updatedAt,
-    drift.Value<int>? rowid,
+    Value<String>? id,
+    Value<String>? userId,
+    Value<String>? make,
+    Value<String>? model,
+    Value<String>? year,
+    Value<String>? price,
+    Value<String?>? imageUrl,
+    Value<String?>? description,
+    Value<bool>? isAvailable,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
   }) {
     return CarsCompanion(
       id: id ?? this.id,
@@ -2422,43 +2374,43 @@ class CarsCompanion extends drift.UpdateCompanion<Car> {
   }
 
   @override
-  Map<String, drift.Expression> toColumns(bool nullToAbsent) {
-    final map = <String, drift.Expression>{};
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = drift.Variable<String>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (userId.present) {
-      map['user_id'] = drift.Variable<String>(userId.value);
+      map['user_id'] = Variable<String>(userId.value);
     }
     if (make.present) {
-      map['make'] = drift.Variable<String>(make.value);
+      map['make'] = Variable<String>(make.value);
     }
     if (model.present) {
-      map['model'] = drift.Variable<String>(model.value);
+      map['model'] = Variable<String>(model.value);
     }
     if (year.present) {
-      map['year'] = drift.Variable<String>(year.value);
+      map['year'] = Variable<String>(year.value);
     }
     if (price.present) {
-      map['price'] = drift.Variable<String>(price.value);
+      map['price'] = Variable<String>(price.value);
     }
     if (imageUrl.present) {
-      map['image_url'] = drift.Variable<String>(imageUrl.value);
+      map['image_url'] = Variable<String>(imageUrl.value);
     }
     if (description.present) {
-      map['description'] = drift.Variable<String>(description.value);
+      map['description'] = Variable<String>(description.value);
     }
     if (isAvailable.present) {
-      map['is_available'] = drift.Variable<bool>(isAvailable.value);
+      map['is_available'] = Variable<bool>(isAvailable.value);
     }
     if (createdAt.present) {
-      map['created_at'] = drift.Variable<DateTime>(createdAt.value);
+      map['created_at'] = Variable<DateTime>(createdAt.value);
     }
     if (updatedAt.present) {
-      map['updated_at'] = drift.Variable<DateTime>(updatedAt.value);
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
     if (rowid.present) {
-      map['rowid'] = drift.Variable<int>(rowid.value);
+      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
@@ -2483,7 +2435,7 @@ class CarsCompanion extends drift.UpdateCompanion<Car> {
   }
 }
 
-abstract class _$AppDatabase extends drift.GeneratedDatabase {
+abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $UsersTable users = $UsersTable(this);
@@ -2491,10 +2443,10 @@ abstract class _$AppDatabase extends drift.GeneratedDatabase {
   late final $KycDocumentsTable kycDocuments = $KycDocumentsTable(this);
   late final $CarsTable cars = $CarsTable(this);
   @override
-  Iterable<drift.TableInfo<drift.Table, Object?>> get allTables =>
-      allSchemaEntities.whereType<drift.TableInfo<drift.Table, Object?>>();
+  Iterable<TableInfo<Table, Object?>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<drift.DatabaseSchemaEntity> get allSchemaEntities => [
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
     users,
     shops,
     kycDocuments,
@@ -2509,26 +2461,25 @@ typedef $$UsersTableCreateCompanionBuilder =
       required String email,
       required String phone,
       required String gender,
-      drift.Value<String?> avatarUrl,
+      Value<String?> avatarUrl,
       required DateTime createdAt,
       required DateTime updatedAt,
-      drift.Value<int> rowid,
+      Value<int> rowid,
     });
 typedef $$UsersTableUpdateCompanionBuilder =
     UsersCompanion Function({
-      drift.Value<String> id,
-      drift.Value<String> name,
-      drift.Value<String> email,
-      drift.Value<String> phone,
-      drift.Value<String> gender,
-      drift.Value<String?> avatarUrl,
-      drift.Value<DateTime> createdAt,
-      drift.Value<DateTime> updatedAt,
-      drift.Value<int> rowid,
+      Value<String> id,
+      Value<String> name,
+      Value<String> email,
+      Value<String> phone,
+      Value<String> gender,
+      Value<String?> avatarUrl,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
     });
 
-class $$UsersTableFilterComposer
-    extends drift.Composer<_$AppDatabase, $UsersTable> {
+class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
   $$UsersTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -2536,49 +2487,49 @@ class $$UsersTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.ColumnFilters<String> get id => $composableBuilder(
+  ColumnFilters<String> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get name => $composableBuilder(
+  ColumnFilters<String> get name => $composableBuilder(
     column: $table.name,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get email => $composableBuilder(
+  ColumnFilters<String> get email => $composableBuilder(
     column: $table.email,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get phone => $composableBuilder(
+  ColumnFilters<String> get phone => $composableBuilder(
     column: $table.phone,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get gender => $composableBuilder(
+  ColumnFilters<String> get gender => $composableBuilder(
     column: $table.gender,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get avatarUrl => $composableBuilder(
+  ColumnFilters<String> get avatarUrl => $composableBuilder(
     column: $table.avatarUrl,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<DateTime> get createdAt => $composableBuilder(
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 }
 
 class $$UsersTableOrderingComposer
-    extends drift.Composer<_$AppDatabase, $UsersTable> {
+    extends Composer<_$AppDatabase, $UsersTable> {
   $$UsersTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -2586,49 +2537,49 @@ class $$UsersTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.ColumnOrderings<String> get id => $composableBuilder(
+  ColumnOrderings<String> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get name => $composableBuilder(
+  ColumnOrderings<String> get name => $composableBuilder(
     column: $table.name,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get email => $composableBuilder(
+  ColumnOrderings<String> get email => $composableBuilder(
     column: $table.email,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get phone => $composableBuilder(
+  ColumnOrderings<String> get phone => $composableBuilder(
     column: $table.phone,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get gender => $composableBuilder(
+  ColumnOrderings<String> get gender => $composableBuilder(
     column: $table.gender,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get avatarUrl => $composableBuilder(
+  ColumnOrderings<String> get avatarUrl => $composableBuilder(
     column: $table.avatarUrl,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 }
 
 class $$UsersTableAnnotationComposer
-    extends drift.Composer<_$AppDatabase, $UsersTable> {
+    extends Composer<_$AppDatabase, $UsersTable> {
   $$UsersTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -2636,34 +2587,34 @@ class $$UsersTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.GeneratedColumn<String> get id =>
+  GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get name =>
+  GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get email =>
+  GeneratedColumn<String> get email =>
       $composableBuilder(column: $table.email, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get phone =>
+  GeneratedColumn<String> get phone =>
       $composableBuilder(column: $table.phone, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get gender =>
+  GeneratedColumn<String> get gender =>
       $composableBuilder(column: $table.gender, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get avatarUrl =>
+  GeneratedColumn<String> get avatarUrl =>
       $composableBuilder(column: $table.avatarUrl, builder: (column) => column);
 
-  drift.GeneratedColumn<DateTime> get createdAt =>
+  GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
-  drift.GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
 
 class $$UsersTableTableManager
     extends
-        drift.RootTableManager<
+        RootTableManager<
           _$AppDatabase,
           $UsersTable,
           User,
@@ -2672,13 +2623,13 @@ class $$UsersTableTableManager
           $$UsersTableAnnotationComposer,
           $$UsersTableCreateCompanionBuilder,
           $$UsersTableUpdateCompanionBuilder,
-          (User, drift.BaseReferences<_$AppDatabase, $UsersTable, User>),
+          (User, BaseReferences<_$AppDatabase, $UsersTable, User>),
           User,
-          drift.PrefetchHooks Function()
+          PrefetchHooks Function()
         > {
   $$UsersTableTableManager(_$AppDatabase db, $UsersTable table)
     : super(
-        drift.TableManagerState(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -2689,15 +2640,15 @@ class $$UsersTableTableManager
               $$UsersTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                drift.Value<String> id = const drift.Value.absent(),
-                drift.Value<String> name = const drift.Value.absent(),
-                drift.Value<String> email = const drift.Value.absent(),
-                drift.Value<String> phone = const drift.Value.absent(),
-                drift.Value<String> gender = const drift.Value.absent(),
-                drift.Value<String?> avatarUrl = const drift.Value.absent(),
-                drift.Value<DateTime> createdAt = const drift.Value.absent(),
-                drift.Value<DateTime> updatedAt = const drift.Value.absent(),
-                drift.Value<int> rowid = const drift.Value.absent(),
+                Value<String> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> email = const Value.absent(),
+                Value<String> phone = const Value.absent(),
+                Value<String> gender = const Value.absent(),
+                Value<String?> avatarUrl = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
               }) => UsersCompanion(
                 id: id,
                 name: name,
@@ -2716,10 +2667,10 @@ class $$UsersTableTableManager
                 required String email,
                 required String phone,
                 required String gender,
-                drift.Value<String?> avatarUrl = const drift.Value.absent(),
+                Value<String?> avatarUrl = const Value.absent(),
                 required DateTime createdAt,
                 required DateTime updatedAt,
-                drift.Value<int> rowid = const drift.Value.absent(),
+                Value<int> rowid = const Value.absent(),
               }) => UsersCompanion.insert(
                 id: id,
                 name: name,
@@ -2732,9 +2683,7 @@ class $$UsersTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (e.readTable(table), drift.BaseReferences(db, table, e)),
-              )
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -2742,7 +2691,7 @@ class $$UsersTableTableManager
 }
 
 typedef $$UsersTableProcessedTableManager =
-    drift.ProcessedTableManager<
+    ProcessedTableManager<
       _$AppDatabase,
       $UsersTable,
       User,
@@ -2751,9 +2700,9 @@ typedef $$UsersTableProcessedTableManager =
       $$UsersTableAnnotationComposer,
       $$UsersTableCreateCompanionBuilder,
       $$UsersTableUpdateCompanionBuilder,
-      (User, drift.BaseReferences<_$AppDatabase, $UsersTable, User>),
+      (User, BaseReferences<_$AppDatabase, $UsersTable, User>),
       User,
-      drift.PrefetchHooks Function()
+      PrefetchHooks Function()
     >;
 typedef $$ShopsTableCreateCompanionBuilder =
     ShopsCompanion Function({
@@ -2767,31 +2716,30 @@ typedef $$ShopsTableCreateCompanionBuilder =
       required String city,
       required String state,
       required String pincode,
-      drift.Value<String?> logoUrl,
+      Value<String?> logoUrl,
       required DateTime createdAt,
       required DateTime updatedAt,
-      drift.Value<int> rowid,
+      Value<int> rowid,
     });
 typedef $$ShopsTableUpdateCompanionBuilder =
     ShopsCompanion Function({
-      drift.Value<String> id,
-      drift.Value<String> userId,
-      drift.Value<String> shopName,
-      drift.Value<String> ownerName,
-      drift.Value<String> phone,
-      drift.Value<String> email,
-      drift.Value<String> address,
-      drift.Value<String> city,
-      drift.Value<String> state,
-      drift.Value<String> pincode,
-      drift.Value<String?> logoUrl,
-      drift.Value<DateTime> createdAt,
-      drift.Value<DateTime> updatedAt,
-      drift.Value<int> rowid,
+      Value<String> id,
+      Value<String> userId,
+      Value<String> shopName,
+      Value<String> ownerName,
+      Value<String> phone,
+      Value<String> email,
+      Value<String> address,
+      Value<String> city,
+      Value<String> state,
+      Value<String> pincode,
+      Value<String?> logoUrl,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
     });
 
-class $$ShopsTableFilterComposer
-    extends drift.Composer<_$AppDatabase, $ShopsTable> {
+class $$ShopsTableFilterComposer extends Composer<_$AppDatabase, $ShopsTable> {
   $$ShopsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -2799,74 +2747,74 @@ class $$ShopsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.ColumnFilters<String> get id => $composableBuilder(
+  ColumnFilters<String> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get userId => $composableBuilder(
+  ColumnFilters<String> get userId => $composableBuilder(
     column: $table.userId,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get shopName => $composableBuilder(
+  ColumnFilters<String> get shopName => $composableBuilder(
     column: $table.shopName,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get ownerName => $composableBuilder(
+  ColumnFilters<String> get ownerName => $composableBuilder(
     column: $table.ownerName,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get phone => $composableBuilder(
+  ColumnFilters<String> get phone => $composableBuilder(
     column: $table.phone,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get email => $composableBuilder(
+  ColumnFilters<String> get email => $composableBuilder(
     column: $table.email,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get address => $composableBuilder(
+  ColumnFilters<String> get address => $composableBuilder(
     column: $table.address,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get city => $composableBuilder(
+  ColumnFilters<String> get city => $composableBuilder(
     column: $table.city,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get state => $composableBuilder(
+  ColumnFilters<String> get state => $composableBuilder(
     column: $table.state,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get pincode => $composableBuilder(
+  ColumnFilters<String> get pincode => $composableBuilder(
     column: $table.pincode,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get logoUrl => $composableBuilder(
+  ColumnFilters<String> get logoUrl => $composableBuilder(
     column: $table.logoUrl,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<DateTime> get createdAt => $composableBuilder(
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 }
 
 class $$ShopsTableOrderingComposer
-    extends drift.Composer<_$AppDatabase, $ShopsTable> {
+    extends Composer<_$AppDatabase, $ShopsTable> {
   $$ShopsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -2874,74 +2822,74 @@ class $$ShopsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.ColumnOrderings<String> get id => $composableBuilder(
+  ColumnOrderings<String> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get userId => $composableBuilder(
+  ColumnOrderings<String> get userId => $composableBuilder(
     column: $table.userId,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get shopName => $composableBuilder(
+  ColumnOrderings<String> get shopName => $composableBuilder(
     column: $table.shopName,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get ownerName => $composableBuilder(
+  ColumnOrderings<String> get ownerName => $composableBuilder(
     column: $table.ownerName,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get phone => $composableBuilder(
+  ColumnOrderings<String> get phone => $composableBuilder(
     column: $table.phone,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get email => $composableBuilder(
+  ColumnOrderings<String> get email => $composableBuilder(
     column: $table.email,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get address => $composableBuilder(
+  ColumnOrderings<String> get address => $composableBuilder(
     column: $table.address,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get city => $composableBuilder(
+  ColumnOrderings<String> get city => $composableBuilder(
     column: $table.city,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get state => $composableBuilder(
+  ColumnOrderings<String> get state => $composableBuilder(
     column: $table.state,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get pincode => $composableBuilder(
+  ColumnOrderings<String> get pincode => $composableBuilder(
     column: $table.pincode,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get logoUrl => $composableBuilder(
+  ColumnOrderings<String> get logoUrl => $composableBuilder(
     column: $table.logoUrl,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 }
 
 class $$ShopsTableAnnotationComposer
-    extends drift.Composer<_$AppDatabase, $ShopsTable> {
+    extends Composer<_$AppDatabase, $ShopsTable> {
   $$ShopsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -2949,49 +2897,49 @@ class $$ShopsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.GeneratedColumn<String> get id =>
+  GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get userId =>
+  GeneratedColumn<String> get userId =>
       $composableBuilder(column: $table.userId, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get shopName =>
+  GeneratedColumn<String> get shopName =>
       $composableBuilder(column: $table.shopName, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get ownerName =>
+  GeneratedColumn<String> get ownerName =>
       $composableBuilder(column: $table.ownerName, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get phone =>
+  GeneratedColumn<String> get phone =>
       $composableBuilder(column: $table.phone, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get email =>
+  GeneratedColumn<String> get email =>
       $composableBuilder(column: $table.email, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get address =>
+  GeneratedColumn<String> get address =>
       $composableBuilder(column: $table.address, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get city =>
+  GeneratedColumn<String> get city =>
       $composableBuilder(column: $table.city, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get state =>
+  GeneratedColumn<String> get state =>
       $composableBuilder(column: $table.state, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get pincode =>
+  GeneratedColumn<String> get pincode =>
       $composableBuilder(column: $table.pincode, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get logoUrl =>
+  GeneratedColumn<String> get logoUrl =>
       $composableBuilder(column: $table.logoUrl, builder: (column) => column);
 
-  drift.GeneratedColumn<DateTime> get createdAt =>
+  GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
-  drift.GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
 
 class $$ShopsTableTableManager
     extends
-        drift.RootTableManager<
+        RootTableManager<
           _$AppDatabase,
           $ShopsTable,
           Shop,
@@ -3000,13 +2948,13 @@ class $$ShopsTableTableManager
           $$ShopsTableAnnotationComposer,
           $$ShopsTableCreateCompanionBuilder,
           $$ShopsTableUpdateCompanionBuilder,
-          (Shop, drift.BaseReferences<_$AppDatabase, $ShopsTable, Shop>),
+          (Shop, BaseReferences<_$AppDatabase, $ShopsTable, Shop>),
           Shop,
-          drift.PrefetchHooks Function()
+          PrefetchHooks Function()
         > {
   $$ShopsTableTableManager(_$AppDatabase db, $ShopsTable table)
     : super(
-        drift.TableManagerState(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -3017,20 +2965,20 @@ class $$ShopsTableTableManager
               $$ShopsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                drift.Value<String> id = const drift.Value.absent(),
-                drift.Value<String> userId = const drift.Value.absent(),
-                drift.Value<String> shopName = const drift.Value.absent(),
-                drift.Value<String> ownerName = const drift.Value.absent(),
-                drift.Value<String> phone = const drift.Value.absent(),
-                drift.Value<String> email = const drift.Value.absent(),
-                drift.Value<String> address = const drift.Value.absent(),
-                drift.Value<String> city = const drift.Value.absent(),
-                drift.Value<String> state = const drift.Value.absent(),
-                drift.Value<String> pincode = const drift.Value.absent(),
-                drift.Value<String?> logoUrl = const drift.Value.absent(),
-                drift.Value<DateTime> createdAt = const drift.Value.absent(),
-                drift.Value<DateTime> updatedAt = const drift.Value.absent(),
-                drift.Value<int> rowid = const drift.Value.absent(),
+                Value<String> id = const Value.absent(),
+                Value<String> userId = const Value.absent(),
+                Value<String> shopName = const Value.absent(),
+                Value<String> ownerName = const Value.absent(),
+                Value<String> phone = const Value.absent(),
+                Value<String> email = const Value.absent(),
+                Value<String> address = const Value.absent(),
+                Value<String> city = const Value.absent(),
+                Value<String> state = const Value.absent(),
+                Value<String> pincode = const Value.absent(),
+                Value<String?> logoUrl = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
               }) => ShopsCompanion(
                 id: id,
                 userId: userId,
@@ -3059,10 +3007,10 @@ class $$ShopsTableTableManager
                 required String city,
                 required String state,
                 required String pincode,
-                drift.Value<String?> logoUrl = const drift.Value.absent(),
+                Value<String?> logoUrl = const Value.absent(),
                 required DateTime createdAt,
                 required DateTime updatedAt,
-                drift.Value<int> rowid = const drift.Value.absent(),
+                Value<int> rowid = const Value.absent(),
               }) => ShopsCompanion.insert(
                 id: id,
                 userId: userId,
@@ -3080,9 +3028,7 @@ class $$ShopsTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (e.readTable(table), drift.BaseReferences(db, table, e)),
-              )
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -3090,7 +3036,7 @@ class $$ShopsTableTableManager
 }
 
 typedef $$ShopsTableProcessedTableManager =
-    drift.ProcessedTableManager<
+    ProcessedTableManager<
       _$AppDatabase,
       $ShopsTable,
       Shop,
@@ -3099,37 +3045,37 @@ typedef $$ShopsTableProcessedTableManager =
       $$ShopsTableAnnotationComposer,
       $$ShopsTableCreateCompanionBuilder,
       $$ShopsTableUpdateCompanionBuilder,
-      (Shop, drift.BaseReferences<_$AppDatabase, $ShopsTable, Shop>),
+      (Shop, BaseReferences<_$AppDatabase, $ShopsTable, Shop>),
       Shop,
-      drift.PrefetchHooks Function()
+      PrefetchHooks Function()
     >;
 typedef $$KycDocumentsTableCreateCompanionBuilder =
     KycDocumentsCompanion Function({
       required String id,
       required String userId,
-      drift.Value<String?> panPath,
-      drift.Value<String?> aadhaarPath,
-      drift.Value<String?> addressProofPath,
-      drift.Value<bool> isVerified,
+      Value<String?> panPath,
+      Value<String?> aadhaarPath,
+      Value<String?> addressProofPath,
+      Value<bool> isVerified,
       required DateTime createdAt,
       required DateTime updatedAt,
-      drift.Value<int> rowid,
+      Value<int> rowid,
     });
 typedef $$KycDocumentsTableUpdateCompanionBuilder =
     KycDocumentsCompanion Function({
-      drift.Value<String> id,
-      drift.Value<String> userId,
-      drift.Value<String?> panPath,
-      drift.Value<String?> aadhaarPath,
-      drift.Value<String?> addressProofPath,
-      drift.Value<bool> isVerified,
-      drift.Value<DateTime> createdAt,
-      drift.Value<DateTime> updatedAt,
-      drift.Value<int> rowid,
+      Value<String> id,
+      Value<String> userId,
+      Value<String?> panPath,
+      Value<String?> aadhaarPath,
+      Value<String?> addressProofPath,
+      Value<bool> isVerified,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
     });
 
 class $$KycDocumentsTableFilterComposer
-    extends drift.Composer<_$AppDatabase, $KycDocumentsTable> {
+    extends Composer<_$AppDatabase, $KycDocumentsTable> {
   $$KycDocumentsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -3137,49 +3083,49 @@ class $$KycDocumentsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.ColumnFilters<String> get id => $composableBuilder(
+  ColumnFilters<String> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get userId => $composableBuilder(
+  ColumnFilters<String> get userId => $composableBuilder(
     column: $table.userId,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get panPath => $composableBuilder(
+  ColumnFilters<String> get panPath => $composableBuilder(
     column: $table.panPath,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get aadhaarPath => $composableBuilder(
+  ColumnFilters<String> get aadhaarPath => $composableBuilder(
     column: $table.aadhaarPath,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get addressProofPath => $composableBuilder(
+  ColumnFilters<String> get addressProofPath => $composableBuilder(
     column: $table.addressProofPath,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<bool> get isVerified => $composableBuilder(
+  ColumnFilters<bool> get isVerified => $composableBuilder(
     column: $table.isVerified,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<DateTime> get createdAt => $composableBuilder(
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 }
 
 class $$KycDocumentsTableOrderingComposer
-    extends drift.Composer<_$AppDatabase, $KycDocumentsTable> {
+    extends Composer<_$AppDatabase, $KycDocumentsTable> {
   $$KycDocumentsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -3187,49 +3133,49 @@ class $$KycDocumentsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.ColumnOrderings<String> get id => $composableBuilder(
+  ColumnOrderings<String> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get userId => $composableBuilder(
+  ColumnOrderings<String> get userId => $composableBuilder(
     column: $table.userId,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get panPath => $composableBuilder(
+  ColumnOrderings<String> get panPath => $composableBuilder(
     column: $table.panPath,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get aadhaarPath => $composableBuilder(
+  ColumnOrderings<String> get aadhaarPath => $composableBuilder(
     column: $table.aadhaarPath,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get addressProofPath => $composableBuilder(
+  ColumnOrderings<String> get addressProofPath => $composableBuilder(
     column: $table.addressProofPath,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<bool> get isVerified => $composableBuilder(
+  ColumnOrderings<bool> get isVerified => $composableBuilder(
     column: $table.isVerified,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 }
 
 class $$KycDocumentsTableAnnotationComposer
-    extends drift.Composer<_$AppDatabase, $KycDocumentsTable> {
+    extends Composer<_$AppDatabase, $KycDocumentsTable> {
   $$KycDocumentsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -3237,40 +3183,40 @@ class $$KycDocumentsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.GeneratedColumn<String> get id =>
+  GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get userId =>
+  GeneratedColumn<String> get userId =>
       $composableBuilder(column: $table.userId, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get panPath =>
+  GeneratedColumn<String> get panPath =>
       $composableBuilder(column: $table.panPath, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get aadhaarPath => $composableBuilder(
+  GeneratedColumn<String> get aadhaarPath => $composableBuilder(
     column: $table.aadhaarPath,
     builder: (column) => column,
   );
 
-  drift.GeneratedColumn<String> get addressProofPath => $composableBuilder(
+  GeneratedColumn<String> get addressProofPath => $composableBuilder(
     column: $table.addressProofPath,
     builder: (column) => column,
   );
 
-  drift.GeneratedColumn<bool> get isVerified => $composableBuilder(
+  GeneratedColumn<bool> get isVerified => $composableBuilder(
     column: $table.isVerified,
     builder: (column) => column,
   );
 
-  drift.GeneratedColumn<DateTime> get createdAt =>
+  GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
-  drift.GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
 
 class $$KycDocumentsTableTableManager
     extends
-        drift.RootTableManager<
+        RootTableManager<
           _$AppDatabase,
           $KycDocumentsTable,
           KycDocument,
@@ -3281,18 +3227,14 @@ class $$KycDocumentsTableTableManager
           $$KycDocumentsTableUpdateCompanionBuilder,
           (
             KycDocument,
-            drift.BaseReferences<
-              _$AppDatabase,
-              $KycDocumentsTable,
-              KycDocument
-            >,
+            BaseReferences<_$AppDatabase, $KycDocumentsTable, KycDocument>,
           ),
           KycDocument,
-          drift.PrefetchHooks Function()
+          PrefetchHooks Function()
         > {
   $$KycDocumentsTableTableManager(_$AppDatabase db, $KycDocumentsTable table)
     : super(
-        drift.TableManagerState(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -3303,16 +3245,15 @@ class $$KycDocumentsTableTableManager
               $$KycDocumentsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                drift.Value<String> id = const drift.Value.absent(),
-                drift.Value<String> userId = const drift.Value.absent(),
-                drift.Value<String?> panPath = const drift.Value.absent(),
-                drift.Value<String?> aadhaarPath = const drift.Value.absent(),
-                drift.Value<String?> addressProofPath =
-                    const drift.Value.absent(),
-                drift.Value<bool> isVerified = const drift.Value.absent(),
-                drift.Value<DateTime> createdAt = const drift.Value.absent(),
-                drift.Value<DateTime> updatedAt = const drift.Value.absent(),
-                drift.Value<int> rowid = const drift.Value.absent(),
+                Value<String> id = const Value.absent(),
+                Value<String> userId = const Value.absent(),
+                Value<String?> panPath = const Value.absent(),
+                Value<String?> aadhaarPath = const Value.absent(),
+                Value<String?> addressProofPath = const Value.absent(),
+                Value<bool> isVerified = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
               }) => KycDocumentsCompanion(
                 id: id,
                 userId: userId,
@@ -3328,14 +3269,13 @@ class $$KycDocumentsTableTableManager
               ({
                 required String id,
                 required String userId,
-                drift.Value<String?> panPath = const drift.Value.absent(),
-                drift.Value<String?> aadhaarPath = const drift.Value.absent(),
-                drift.Value<String?> addressProofPath =
-                    const drift.Value.absent(),
-                drift.Value<bool> isVerified = const drift.Value.absent(),
+                Value<String?> panPath = const Value.absent(),
+                Value<String?> aadhaarPath = const Value.absent(),
+                Value<String?> addressProofPath = const Value.absent(),
+                Value<bool> isVerified = const Value.absent(),
                 required DateTime createdAt,
                 required DateTime updatedAt,
-                drift.Value<int> rowid = const drift.Value.absent(),
+                Value<int> rowid = const Value.absent(),
               }) => KycDocumentsCompanion.insert(
                 id: id,
                 userId: userId,
@@ -3348,9 +3288,7 @@ class $$KycDocumentsTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (e.readTable(table), drift.BaseReferences(db, table, e)),
-              )
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -3358,7 +3296,7 @@ class $$KycDocumentsTableTableManager
 }
 
 typedef $$KycDocumentsTableProcessedTableManager =
-    drift.ProcessedTableManager<
+    ProcessedTableManager<
       _$AppDatabase,
       $KycDocumentsTable,
       KycDocument,
@@ -3369,10 +3307,10 @@ typedef $$KycDocumentsTableProcessedTableManager =
       $$KycDocumentsTableUpdateCompanionBuilder,
       (
         KycDocument,
-        drift.BaseReferences<_$AppDatabase, $KycDocumentsTable, KycDocument>,
+        BaseReferences<_$AppDatabase, $KycDocumentsTable, KycDocument>,
       ),
       KycDocument,
-      drift.PrefetchHooks Function()
+      PrefetchHooks Function()
     >;
 typedef $$CarsTableCreateCompanionBuilder =
     CarsCompanion Function({
@@ -3382,31 +3320,30 @@ typedef $$CarsTableCreateCompanionBuilder =
       required String model,
       required String year,
       required String price,
-      drift.Value<String?> imageUrl,
-      drift.Value<String?> description,
-      drift.Value<bool> isAvailable,
+      Value<String?> imageUrl,
+      Value<String?> description,
+      Value<bool> isAvailable,
       required DateTime createdAt,
       required DateTime updatedAt,
-      drift.Value<int> rowid,
+      Value<int> rowid,
     });
 typedef $$CarsTableUpdateCompanionBuilder =
     CarsCompanion Function({
-      drift.Value<String> id,
-      drift.Value<String> userId,
-      drift.Value<String> make,
-      drift.Value<String> model,
-      drift.Value<String> year,
-      drift.Value<String> price,
-      drift.Value<String?> imageUrl,
-      drift.Value<String?> description,
-      drift.Value<bool> isAvailable,
-      drift.Value<DateTime> createdAt,
-      drift.Value<DateTime> updatedAt,
-      drift.Value<int> rowid,
+      Value<String> id,
+      Value<String> userId,
+      Value<String> make,
+      Value<String> model,
+      Value<String> year,
+      Value<String> price,
+      Value<String?> imageUrl,
+      Value<String?> description,
+      Value<bool> isAvailable,
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
     });
 
-class $$CarsTableFilterComposer
-    extends drift.Composer<_$AppDatabase, $CarsTable> {
+class $$CarsTableFilterComposer extends Composer<_$AppDatabase, $CarsTable> {
   $$CarsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -3414,64 +3351,63 @@ class $$CarsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.ColumnFilters<String> get id => $composableBuilder(
+  ColumnFilters<String> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get userId => $composableBuilder(
+  ColumnFilters<String> get userId => $composableBuilder(
     column: $table.userId,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get make => $composableBuilder(
+  ColumnFilters<String> get make => $composableBuilder(
     column: $table.make,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get model => $composableBuilder(
+  ColumnFilters<String> get model => $composableBuilder(
     column: $table.model,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get year => $composableBuilder(
+  ColumnFilters<String> get year => $composableBuilder(
     column: $table.year,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get price => $composableBuilder(
+  ColumnFilters<String> get price => $composableBuilder(
     column: $table.price,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get imageUrl => $composableBuilder(
+  ColumnFilters<String> get imageUrl => $composableBuilder(
     column: $table.imageUrl,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<String> get description => $composableBuilder(
+  ColumnFilters<String> get description => $composableBuilder(
     column: $table.description,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<bool> get isAvailable => $composableBuilder(
+  ColumnFilters<bool> get isAvailable => $composableBuilder(
     column: $table.isAvailable,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<DateTime> get createdAt => $composableBuilder(
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 
-  drift.ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
-    builder: (column) => drift.ColumnFilters(column),
+    builder: (column) => ColumnFilters(column),
   );
 }
 
-class $$CarsTableOrderingComposer
-    extends drift.Composer<_$AppDatabase, $CarsTable> {
+class $$CarsTableOrderingComposer extends Composer<_$AppDatabase, $CarsTable> {
   $$CarsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -3479,64 +3415,64 @@ class $$CarsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.ColumnOrderings<String> get id => $composableBuilder(
+  ColumnOrderings<String> get id => $composableBuilder(
     column: $table.id,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get userId => $composableBuilder(
+  ColumnOrderings<String> get userId => $composableBuilder(
     column: $table.userId,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get make => $composableBuilder(
+  ColumnOrderings<String> get make => $composableBuilder(
     column: $table.make,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get model => $composableBuilder(
+  ColumnOrderings<String> get model => $composableBuilder(
     column: $table.model,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get year => $composableBuilder(
+  ColumnOrderings<String> get year => $composableBuilder(
     column: $table.year,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get price => $composableBuilder(
+  ColumnOrderings<String> get price => $composableBuilder(
     column: $table.price,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get imageUrl => $composableBuilder(
+  ColumnOrderings<String> get imageUrl => $composableBuilder(
     column: $table.imageUrl,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<String> get description => $composableBuilder(
+  ColumnOrderings<String> get description => $composableBuilder(
     column: $table.description,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<bool> get isAvailable => $composableBuilder(
+  ColumnOrderings<bool> get isAvailable => $composableBuilder(
     column: $table.isAvailable,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 
-  drift.ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
-    builder: (column) => drift.ColumnOrderings(column),
+    builder: (column) => ColumnOrderings(column),
   );
 }
 
 class $$CarsTableAnnotationComposer
-    extends drift.Composer<_$AppDatabase, $CarsTable> {
+    extends Composer<_$AppDatabase, $CarsTable> {
   $$CarsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -3544,47 +3480,47 @@ class $$CarsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  drift.GeneratedColumn<String> get id =>
+  GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get userId =>
+  GeneratedColumn<String> get userId =>
       $composableBuilder(column: $table.userId, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get make =>
+  GeneratedColumn<String> get make =>
       $composableBuilder(column: $table.make, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get model =>
+  GeneratedColumn<String> get model =>
       $composableBuilder(column: $table.model, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get year =>
+  GeneratedColumn<String> get year =>
       $composableBuilder(column: $table.year, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get price =>
+  GeneratedColumn<String> get price =>
       $composableBuilder(column: $table.price, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get imageUrl =>
+  GeneratedColumn<String> get imageUrl =>
       $composableBuilder(column: $table.imageUrl, builder: (column) => column);
 
-  drift.GeneratedColumn<String> get description => $composableBuilder(
+  GeneratedColumn<String> get description => $composableBuilder(
     column: $table.description,
     builder: (column) => column,
   );
 
-  drift.GeneratedColumn<bool> get isAvailable => $composableBuilder(
+  GeneratedColumn<bool> get isAvailable => $composableBuilder(
     column: $table.isAvailable,
     builder: (column) => column,
   );
 
-  drift.GeneratedColumn<DateTime> get createdAt =>
+  GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
-  drift.GeneratedColumn<DateTime> get updatedAt =>
+  GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
 
 class $$CarsTableTableManager
     extends
-        drift.RootTableManager<
+        RootTableManager<
           _$AppDatabase,
           $CarsTable,
           Car,
@@ -3593,13 +3529,13 @@ class $$CarsTableTableManager
           $$CarsTableAnnotationComposer,
           $$CarsTableCreateCompanionBuilder,
           $$CarsTableUpdateCompanionBuilder,
-          (Car, drift.BaseReferences<_$AppDatabase, $CarsTable, Car>),
+          (Car, BaseReferences<_$AppDatabase, $CarsTable, Car>),
           Car,
-          drift.PrefetchHooks Function()
+          PrefetchHooks Function()
         > {
   $$CarsTableTableManager(_$AppDatabase db, $CarsTable table)
     : super(
-        drift.TableManagerState(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -3610,18 +3546,18 @@ class $$CarsTableTableManager
               $$CarsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                drift.Value<String> id = const drift.Value.absent(),
-                drift.Value<String> userId = const drift.Value.absent(),
-                drift.Value<String> make = const drift.Value.absent(),
-                drift.Value<String> model = const drift.Value.absent(),
-                drift.Value<String> year = const drift.Value.absent(),
-                drift.Value<String> price = const drift.Value.absent(),
-                drift.Value<String?> imageUrl = const drift.Value.absent(),
-                drift.Value<String?> description = const drift.Value.absent(),
-                drift.Value<bool> isAvailable = const drift.Value.absent(),
-                drift.Value<DateTime> createdAt = const drift.Value.absent(),
-                drift.Value<DateTime> updatedAt = const drift.Value.absent(),
-                drift.Value<int> rowid = const drift.Value.absent(),
+                Value<String> id = const Value.absent(),
+                Value<String> userId = const Value.absent(),
+                Value<String> make = const Value.absent(),
+                Value<String> model = const Value.absent(),
+                Value<String> year = const Value.absent(),
+                Value<String> price = const Value.absent(),
+                Value<String?> imageUrl = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<bool> isAvailable = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
               }) => CarsCompanion(
                 id: id,
                 userId: userId,
@@ -3644,12 +3580,12 @@ class $$CarsTableTableManager
                 required String model,
                 required String year,
                 required String price,
-                drift.Value<String?> imageUrl = const drift.Value.absent(),
-                drift.Value<String?> description = const drift.Value.absent(),
-                drift.Value<bool> isAvailable = const drift.Value.absent(),
+                Value<String?> imageUrl = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<bool> isAvailable = const Value.absent(),
                 required DateTime createdAt,
                 required DateTime updatedAt,
-                drift.Value<int> rowid = const drift.Value.absent(),
+                Value<int> rowid = const Value.absent(),
               }) => CarsCompanion.insert(
                 id: id,
                 userId: userId,
@@ -3665,9 +3601,7 @@ class $$CarsTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (e.readTable(table), drift.BaseReferences(db, table, e)),
-              )
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -3675,7 +3609,7 @@ class $$CarsTableTableManager
 }
 
 typedef $$CarsTableProcessedTableManager =
-    drift.ProcessedTableManager<
+    ProcessedTableManager<
       _$AppDatabase,
       $CarsTable,
       Car,
@@ -3684,9 +3618,9 @@ typedef $$CarsTableProcessedTableManager =
       $$CarsTableAnnotationComposer,
       $$CarsTableCreateCompanionBuilder,
       $$CarsTableUpdateCompanionBuilder,
-      (Car, drift.BaseReferences<_$AppDatabase, $CarsTable, Car>),
+      (Car, BaseReferences<_$AppDatabase, $CarsTable, Car>),
       Car,
-      drift.PrefetchHooks Function()
+      PrefetchHooks Function()
     >;
 
 class $AppDatabaseManager {

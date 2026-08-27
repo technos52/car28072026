@@ -145,7 +145,6 @@ class NotificationService {
         .doc(userId)
         .collection('notifications')
         .where('isRead', isEqualTo: false)
-        .orderBy('timestamp', descending: true)
         .limit(20)
         .snapshots()
         .listen(

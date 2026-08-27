@@ -176,9 +176,10 @@ class HomeScreen extends StatelessWidget {
                             onSubmitted: (val) {
                               controller.carSuggestions.clear();
                               controller.filteredBrandSuggestions.clear();
+                              controller.filteredDealerSuggestions.clear();
                             },
                             decoration: InputDecoration(
-                              hintText: 'Search cars, brands...',
+                              hintText: 'Search cars, brands, dealers...',
                               hintStyle: TextStyle(
                                 color: Colors.grey[500],
                                 fontSize: 14,
@@ -238,7 +239,9 @@ class HomeScreen extends StatelessWidget {
                                             FilterSheetContent(
                                               controller: searchCtrl,
                                             ),
-                                      );
+                                      ).then((_) {
+                                        controller.refreshCars();
+                                      });
                                     },
                                   ),
                                   const SizedBox(width: 4),
@@ -261,8 +264,10 @@ class HomeScreen extends StatelessWidget {
                                 controller.carSuggestions.isNotEmpty;
                             final hasBrandSuggestions =
                                 controller.filteredBrandSuggestions.isNotEmpty;
+                            final hasDealerSuggestions =
+                                controller.filteredDealerSuggestions.isNotEmpty;
 
-                            if (!hasCarSuggestions && !hasBrandSuggestions) {
+                            if (!hasCarSuggestions && !hasBrandSuggestions && !hasDealerSuggestions) {
                               return const SizedBox.shrink();
                             }
 
@@ -375,6 +380,42 @@ class HomeScreen extends StatelessWidget {
                                       );
                                     }).toList(),
                                   ],
+                                  // Dealer Suggestions
+                                  if (hasDealerSuggestions) ...[
+                                    if (hasCarSuggestions || hasBrandSuggestions)
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 8,
+                                        ),
+                                        child: Text(
+                                          'Dealers',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey[600],
+                                          ),
+                                        ),
+                                      ),
+                                    ...controller.filteredDealerSuggestions.map((
+                                      dealer,
+                                    ) {
+                                      return ListTile(
+                                        dense: true,
+                                        leading: const Icon(
+                                          Icons.storefront,
+                                          size: 20,
+                                          color: Colors.green,
+                                        ),
+                                        title: Text(
+                                          dealer,
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                        onTap: () => controller
+                                            .selectDealerFromSearch(dealer),
+                                      );
+                                    }).toList(),
+                                  ],
                                 ],
                               ),
                             );
@@ -414,69 +455,25 @@ class HomeScreen extends StatelessWidget {
                               ),
                               child: PageView.builder(
                                 controller: controller.carouselController,
-                                itemCount: controller.carouselImages.length,
-                                itemBuilder: (context, index) {
-                                  if (index >=
-                                      controller.carouselImages.length) {
-                                    return const SizedBox.shrink(); // Safety check
+                                onPageChanged: (index) {
+                                  if (controller.carouselImages.isNotEmpty) {
+                                    controller.currentCarouselImage.value =
+                                        index % controller.carouselImages.length;
                                   }
-                                  return Stack(
-                                    children: [
-                                      // Background Image - Sharp Corners
-                                      CachedImage(
-                                        imageUrl:
-                                            controller.carouselImages[index],
-                                        width: double.infinity,
-                                        height: 200,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      // Overlay Content
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          // Removed borderRadius for sharp corners
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Colors.black.withValues(
-                                                alpha: 0.6,
-                                              ),
-                                              Colors.transparent,
-                                            ],
-                                            begin: Alignment.bottomCenter,
-                                            end: Alignment.topCenter,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(16),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const Text(
-                                              "LET'S FIND YOUR IDEAL CAR",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize:
-                                                    18, // Increased font size
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            const Text(
-                                              "Luxury cars for a low price",
-                                              style: TextStyle(
-                                                color: Colors.white70,
-                                                fontSize:
-                                                    13, // Increased font size
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  );
+                                },
+                                itemBuilder: (context, index) {
+                                  if (controller.carouselImages.isEmpty) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  final realIndex =
+                                      index % controller.carouselImages.length;
+                                   return CachedImage(
+                                     imageUrl:
+                                         controller.carouselImages[realIndex],
+                                     width: double.infinity,
+                                     height: 200,
+                                     fit: BoxFit.cover,
+                                   );
                                 },
                               ),
                             )
@@ -514,19 +511,7 @@ class HomeScreen extends StatelessWidget {
     bool hasActiveSearch = false;
     if (searchCtrl != null) {
       hasActiveSearch =
-          searchCtrl.selectedBrandFilter.value.isNotEmpty ||
-          searchCtrl.selectedModelFilter.value.isNotEmpty ||
-          searchCtrl.selectedVariantFilter.value.isNotEmpty ||
-          searchCtrl.selectedYearFilter.value.isNotEmpty ||
-          searchCtrl.selectedColorFilter.value.isNotEmpty ||
-          searchCtrl.selectedFuelTypes.isNotEmpty ||
-          searchCtrl.selectedTransmissionFilter.value.isNotEmpty ||
-          searchCtrl.selectedInsuranceFilter.value.isNotEmpty ||
-          searchCtrl.selectedLicenseTypeFilter.value.isNotEmpty ||
-          searchCtrl.query.value.isNotEmpty ||
-          searchCtrl.minPrice.value > 0.30 ||
-          (searchCtrl.maxPrice.value < 200.0 &&
-              searchCtrl.maxPrice.value > 0.30);
+          searchCtrl.hasActiveFilters || searchCtrl.query.value.isNotEmpty;
     }
 
     final displayCars = <dynamic>[];
@@ -601,7 +586,7 @@ class HomeScreen extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.9, // Increased to prevent overflow
+        childAspectRatio: 0.78, // Decreased to fix bottom overflow
         crossAxisSpacing: 10, // Reduced spacing
         mainAxisSpacing: 10, // Reduced spacing
       ),
@@ -621,15 +606,16 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildCarCard(dynamic car, HomeController controller, bool isUserCar) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         // Navigate to car detail page
         final carKey = controller.getCarKey(car);
         final carId = controller.carIdMap[carKey];
         if (carId != null) {
-          Get.toNamed(
+          await Get.toNamed(
             AppRoutes.carDetail,
             arguments: {'car': car, 'carId': carId},
           );
+          controller.refreshCars();
         }
       },
       child: Container(

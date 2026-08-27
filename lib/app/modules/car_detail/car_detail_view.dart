@@ -410,6 +410,15 @@ class CarDetailView extends GetView<CarDetailController> {
               _buildSpecItem(Icons.verified_user, car.insurance.toString(), 'Insurance'),
             ],
           ),
+          const Hbox(16),
+          Row(
+            children: [
+              _buildSpecItem(Icons.badge_outlined, car.licenseType.toString(), 'License'),
+              _buildSpecItem(Icons.event_seat_outlined, car.seatType.toString(), 'Seats'),
+              const Expanded(child: SizedBox.shrink()),
+              const Expanded(child: SizedBox.shrink()),
+            ],
+          ),
         ],
       ),
     );
@@ -468,6 +477,12 @@ class CarDetailView extends GetView<CarDetailController> {
 
     final insuranceRow = detailRow('Insurance', car.insurance);
     if (insuranceRow != null) detailRows.add(insuranceRow);
+
+    final licenseRow = detailRow('License Type', car.licenseType);
+    if (licenseRow != null) detailRows.add(licenseRow);
+
+    final seatRow = detailRow('Seat Capacity', car.seatType);
+    if (seatRow != null) detailRows.add(seatRow);
 
     final kmsRow = detailRow(
       'Kms Driven',

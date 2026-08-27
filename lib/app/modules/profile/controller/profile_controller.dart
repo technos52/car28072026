@@ -24,7 +24,7 @@ class ProfileController extends GetxController {
   final TextEditingController pinCodeController = TextEditingController();
 
   // gender dropdown
-  final RxString selectedGender = 'Male'.obs;
+  final RxString selectedGender = ''.obs;
   final List<String> genders = <String>['Male', 'Female', 'Other'];
 
   final RxBool isSaving = false.obs;
@@ -36,9 +36,9 @@ class ProfileController extends GetxController {
   void onInit() {
     super.onInit();
     // Clear previous data if controller is being reused
-    nameController.clear();
-    emailController.clear();
-    phoneController.clear();
+    try { nameController.clear(); } catch (_) {}
+    try { emailController.clear(); } catch (_) {}
+    try { phoneController.clear(); } catch (_) {}
     avatarPath.value = '';
     selectedGender.value = 'Male';
     isEmailPrefilled.value = false;
@@ -55,9 +55,9 @@ class ProfileController extends GetxController {
     if (!_isLoadingData) {
       _isLoadingData = true;
       // Reset state before loading
-      nameController.clear();
-      emailController.clear();
-      phoneController.clear();
+      try { nameController.clear(); } catch (_) {}
+      try { emailController.clear(); } catch (_) {}
+      try { phoneController.clear(); } catch (_) {}
       avatarPath.value = '';
       selectedGender.value = 'Male';
       isEmailPrefilled.value = false;
@@ -130,8 +130,13 @@ class ProfileController extends GetxController {
             } else {
               nameController.text = user.displayName ?? '';
               emailController.text = user.email ?? '';
-              print('Profile data loaded from Firebase Auth');
             }
+          }
+          if (user.phoneNumber != null && user.phoneNumber!.isNotEmpty) {
+            isPhonePrefilled.value = true;
+          }
+          if (user.email != null && user.email!.isNotEmpty) {
+            isEmailPrefilled.value = true;
           }
         } else {
           print('No user logged in');
@@ -154,31 +159,29 @@ class ProfileController extends GetxController {
             avatarPath.value = savedData['avatarPath'];
         }
 
-        final user = FirebaseAuth.instance.currentUser;
-        if (user != null) {
-          if (user.email != null &&
-              user.email!.isNotEmpty &&
-              emailController.text.isEmpty) {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        if (user.email != null && user.email!.isNotEmpty) {
+          if (emailController.text.isEmpty) {
             emailController.text = user.email!;
-            isEmailPrefilled.value = true;
           }
-          if (user.phoneNumber != null &&
-              user.phoneNumber!.isNotEmpty &&
-              phoneController.text.isEmpty) {
-            String phoneDigits = user.phoneNumber!.replaceAll(
-              RegExp(r"[^0-9]"),
-              "",
-            );
-            if (phoneDigits.length >= 10) {
-              phoneController.text = phoneDigits.substring(
-                phoneDigits.length - 10,
-              );
-            } else if (phoneDigits.isNotEmpty) {
-              phoneController.text = phoneDigits;
-            }
-            isPhonePrefilled.value = true;
-          }
+          isEmailPrefilled.value = true;
         }
+        if (user.phoneNumber != null && user.phoneNumber!.isNotEmpty) {
+          String phoneDigits = user.phoneNumber!.replaceAll(
+            RegExp(r"[^0-9]"),
+            "",
+          );
+          if (phoneDigits.length >= 10) {
+            phoneController.text = phoneDigits.substring(
+              phoneDigits.length - 10,
+            );
+          } else if (phoneDigits.isNotEmpty) {
+            phoneController.text = phoneDigits;
+          }
+          isPhonePrefilled.value = true;
+        }
+      }
       }
     } catch (e) {
       print('Error loading saved profile data: $e');
@@ -274,10 +277,30 @@ class ProfileController extends GetxController {
     }
     final String email = emailController.text.trim();
     final RegExp emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
-    if (email.isNotEmpty && !emailRegex.hasMatch(email)) {
+    if (email.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Please enter your email address',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+    if (!emailRegex.hasMatch(email)) {
       Get.snackbar(
         'Error',
         'Enter a valid email address',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+    if (selectedGender.value.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Please select your gender',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -504,13 +527,13 @@ class ProfileController extends GetxController {
 
   @override
   void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
-    addressController.dispose();
-    cityController.dispose();
-    stateController.dispose();
-    pinCodeController.dispose();
+    try { nameController.dispose(); } catch (_) {}
+    try { emailController.dispose(); } catch (_) {}
+    try { phoneController.dispose(); } catch (_) {}
+    try { addressController.dispose(); } catch (_) {}
+    try { cityController.dispose(); } catch (_) {}
+    try { stateController.dispose(); } catch (_) {}
+    try { pinCodeController.dispose(); } catch (_) {}
     super.onClose();
   }
 }

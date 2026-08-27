@@ -20,6 +20,7 @@ class Car {
   final String state;
   final String city;
   final String pincode;
+  final String dealerName; // New field for dealer/shop name
   final DateTime? createdAt;
 
   const Car({
@@ -42,6 +43,7 @@ class Car {
     this.state = '',
     this.city = '',
     this.pincode = '',
+    this.dealerName = '',
     this.createdAt,
   });
 
@@ -65,6 +67,7 @@ class Car {
     String? state,
     String? city,
     String? pincode,
+    String? dealerName,
     DateTime? createdAt,
   }) {
     return Car(
@@ -87,6 +90,7 @@ class Car {
       state: state ?? this.state,
       city: city ?? this.city,
       pincode: pincode ?? this.pincode,
+      dealerName: dealerName ?? this.dealerName,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -112,11 +116,12 @@ class Car {
       'state': state,
       'city': city,
       'pincode': pincode,
+      'dealerName': dealerName,
       'createdAt': createdAt?.toIso8601String(),
     };
   }
 
   @override
   String toString() =>
-      'Car(name: $name, variant: $variant, seatType: $seatType, licenseType: $licenseType, state: $state, city: $city, pincode: $pincode)';
+      'Car(name: $name, variant: $variant, dealerName: $dealerName, seatType: $seatType, licenseType: $licenseType, state: $state, city: $city, pincode: $pincode)';
 }

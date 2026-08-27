@@ -154,7 +154,11 @@ class AdminMessagesView extends GetView<AdminMessagesController> {
             return GestureDetector(
               onTap: () {
                 if (isUnread) {
-                  controller.markAsRead(message['id'], notificationType);
+                  controller.markAsRead(
+                    message['id'],
+                    notificationType,
+                    sourceCollection: message['sourceCollection'],
+                  );
                 }
               },
               child: Container(

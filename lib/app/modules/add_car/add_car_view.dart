@@ -65,6 +65,26 @@ class AddCarView extends GetView<AddCarController> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text.rich(
+            TextSpan(
+              text: 'Upload Car Photos',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: primaryColor,
+              ),
+              children: const [
+                TextSpan(
+                  text: ' *',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
           // Upload button
           GestureDetector(
             onTap: () => controller.pickImages(),
@@ -295,12 +315,20 @@ class AddCarView extends GetView<AddCarController> {
           ],
         ),
         const SizedBox(height: 24),
-        const Text(
-          'Specifications',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: primaryColor,
+        Text.rich(
+          const TextSpan(
+            text: 'Specifications',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: primaryColor,
+            ),
+            children: [
+              TextSpan(
+                text: ' *',
+                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 16),
@@ -355,12 +383,20 @@ class AddCarView extends GetView<AddCarController> {
           keyboardType: TextInputType.number,
         ),
         const SizedBox(height: 24),
-        const Text(
-          'Location',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: primaryColor,
+        Text.rich(
+          const TextSpan(
+            text: 'Location',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: primaryColor,
+            ),
+            children: [
+              TextSpan(
+                text: ' *',
+                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 16),
@@ -411,12 +447,20 @@ class AddCarView extends GetView<AddCarController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: primaryColor,
+        Text.rich(
+          TextSpan(
+            text: label,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: primaryColor,
+            ),
+            children: const [
+              TextSpan(
+                text: ' *',
+                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 8),
@@ -528,12 +572,20 @@ class AddCarView extends GetView<AddCarController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: primaryColor,
+        Text.rich(
+          TextSpan(
+            text: label,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: primaryColor,
+            ),
+            children: const [
+              TextSpan(
+                text: ' *',
+                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 8),
@@ -566,12 +618,20 @@ class AddCarView extends GetView<AddCarController> {
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Seat Type',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: primaryColor,
+          Text.rich(
+            const TextSpan(
+              text: 'Seat Type',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: primaryColor,
+              ),
+              children: [
+                TextSpan(
+                  text: ' *',
+                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 12),
@@ -632,12 +692,20 @@ class AddCarView extends GetView<AddCarController> {
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'License Type',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: primaryColor,
+          Text.rich(
+            const TextSpan(
+              text: 'License Type',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: primaryColor,
+              ),
+              children: [
+                TextSpan(
+                  text: ' *',
+                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 12),
@@ -753,7 +821,15 @@ class AddCarView extends GetView<AddCarController> {
         return;
       }
 
-      // Brand name is optional - user can add cars without selecting a brand
+      // Brand name is mandatory
+      if (controller.selectedCarName.value == null ||
+          controller.selectedCarName.value!.isEmpty) {
+        print('Validation failed: Brand not selected');
+        Get.back();
+        _showErrorDialog('Please select a brand name');
+        return;
+      }
+
       if (controller.carName.value.isEmpty) {
         print('Validation failed: Car name is empty');
         Get.back(); // Close loading dialog
@@ -878,12 +954,6 @@ class AddCarView extends GetView<AddCarController> {
       await controller.saveCarToDatabase(car);
       print('Car saved successfully to database');
 
-      // Close loading dialog
-      Get.back();
-
-      // Small delay to ensure database operation is complete
-      await Future.delayed(const Duration(milliseconds: 500));
-
       // Refresh home controller to show new car
       try {
         if (Get.isRegistered<HomeController>()) {
@@ -894,6 +964,9 @@ class AddCarView extends GetView<AddCarController> {
       } catch (e) {
         print('Error refreshing home controller: $e');
       }
+
+      // Close loading dialog
+      Get.back();
 
       // Show success dialog
       _showSuccessDialog();

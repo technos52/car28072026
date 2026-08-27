@@ -29,14 +29,14 @@ class ShopController extends GetxController {
   void onInit() {
     super.onInit();
     // Clear previous data if controller is being reused
-    shopNameController.clear();
-    ownerNameController.clear();
-    phoneController.clear();
-    emailController.clear();
-    addressController.clear();
-    cityController.clear();
-    stateController.clear();
-    pincodeController.clear();
+    try { shopNameController.clear(); } catch (_) {}
+    try { ownerNameController.clear(); } catch (_) {}
+    try { phoneController.clear(); } catch (_) {}
+    try { emailController.clear(); } catch (_) {}
+    try { addressController.clear(); } catch (_) {}
+    try { cityController.clear(); } catch (_) {}
+    try { stateController.clear(); } catch (_) {}
+    try { pincodeController.clear(); } catch (_) {}
     logoPath.value = '';
     isOwnerNamePrefilled.value = false;
     isEmailPrefilled.value = false;
@@ -58,14 +58,14 @@ class ShopController extends GetxController {
     if (!_isLoadingData) {
       _isLoadingData = true;
       // Reset state before loading
-      shopNameController.clear();
-      ownerNameController.clear();
-      phoneController.clear();
-      emailController.clear();
-      addressController.clear();
-      cityController.clear();
-      stateController.clear();
-      pincodeController.clear();
+      try { shopNameController.clear(); } catch (_) {}
+      try { ownerNameController.clear(); } catch (_) {}
+      try { phoneController.clear(); } catch (_) {}
+      try { emailController.clear(); } catch (_) {}
+      try { addressController.clear(); } catch (_) {}
+      try { cityController.clear(); } catch (_) {}
+      try { stateController.clear(); } catch (_) {}
+      try { pincodeController.clear(); } catch (_) {}
       logoPath.value = '';
       isOwnerNamePrefilled.value = false;
       isEmailPrefilled.value = false;
@@ -146,6 +146,12 @@ class ShopController extends GetxController {
               print('Shop data not found');
             }
           }
+          if (user.phoneNumber != null && user.phoneNumber!.isNotEmpty) {
+            isPhonePrefilled.value = true;
+          }
+          if (user.email != null && user.email!.isNotEmpty) {
+            isEmailPrefilled.value = true;
+          }
         } else {
           print('No user logged in');
         }
@@ -193,15 +199,13 @@ class ShopController extends GetxController {
             ownerNameController.text = user.displayName!;
             isOwnerNamePrefilled.value = true;
           }
-          if (user.email != null &&
-              user.email!.isNotEmpty &&
-              emailController.text.isEmpty) {
-            emailController.text = user.email!;
+          if (user.email != null && user.email!.isNotEmpty) {
+            if (emailController.text.isEmpty) {
+              emailController.text = user.email!;
+            }
             isEmailPrefilled.value = true;
           }
-          if (user.phoneNumber != null &&
-              user.phoneNumber!.isNotEmpty &&
-              phoneController.text.isEmpty) {
+          if (user.phoneNumber != null && user.phoneNumber!.isNotEmpty) {
             String phoneDigits = user.phoneNumber!.replaceAll(
               RegExp(r"[^0-9]"),
               "",
@@ -249,8 +253,8 @@ class ShopController extends GetxController {
         Get.arguments as Map<String, dynamic>?;
     final bool isOnboarding = (arguments?['onboarding'] == true);
 
-    // Only require logo for onboarding, not for editing
-    if (isOnboarding && logoPath.value.isEmpty) {
+    // Always require logo
+    if (logoPath.value.isEmpty) {
       Get.snackbar(
         'Error',
         'Please upload a shop logo',
@@ -290,11 +294,33 @@ class ShopController extends GetxController {
     }
     final String email = emailController.text.trim();
     final RegExp emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
-    if (email.isNotEmpty && !emailRegex.hasMatch(email)) {
+    if (email.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Please enter email address',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+    if (!emailRegex.hasMatch(email)) {
       Get.snackbar(
         'Error',
         'Enter a valid email address',
         snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+    if (addressController.text.trim().isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Please enter shop address',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
       );
       return;
     }
@@ -478,14 +504,14 @@ class ShopController extends GetxController {
 
   @override
   void onClose() {
-    shopNameController.dispose();
-    ownerNameController.dispose();
-    phoneController.dispose();
-    emailController.dispose();
-    addressController.dispose();
-    cityController.dispose();
-    stateController.dispose();
-    pincodeController.dispose();
+    try { shopNameController.dispose(); } catch (_) {}
+    try { ownerNameController.dispose(); } catch (_) {}
+    try { phoneController.dispose(); } catch (_) {}
+    try { emailController.dispose(); } catch (_) {}
+    try { addressController.dispose(); } catch (_) {}
+    try { cityController.dispose(); } catch (_) {}
+    try { stateController.dispose(); } catch (_) {}
+    try { pincodeController.dispose(); } catch (_) {}
     super.onClose();
   }
 }

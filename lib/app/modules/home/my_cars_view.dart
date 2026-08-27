@@ -76,7 +76,7 @@ class MyCarsView extends GetView<HomeController> {
             padding: const EdgeInsets.all(16),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 0.9,
+              childAspectRatio: 0.78,
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
             ),
@@ -93,14 +93,15 @@ class MyCarsView extends GetView<HomeController> {
 
   Widget _buildCarCard(dynamic car, HomeController controller) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         final carKey = controller.getCarKey(car);
         final carId = controller.carIdMap[carKey];
         if (carId != null) {
-          Get.toNamed(
+          await Get.toNamed(
             AppRoutes.carDetail,
             arguments: {'car': car, 'carId': carId},
           );
+          controller.refreshCars();
         }
       },
       child: Container(

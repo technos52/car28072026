@@ -408,7 +408,7 @@ class VerificationDocsController extends GetxController {
       final FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
         type: FileType.custom,
-        allowedExtensions: ['pdf'],
+        allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png'],
         withData: false,
       );
 
@@ -436,10 +436,11 @@ class VerificationDocsController extends GetxController {
           .split('.')
           .last;
 
-      if (fileExtension != 'pdf') {
+      const List<String> allowed = ['pdf', 'jpg', 'jpeg', 'png'];
+      if (!allowed.contains(fileExtension)) {
         Get.snackbar(
           'Error',
-          'Only PDF files are supported',
+          'Only PDF, JPG, and PNG files are supported',
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
           colorText: Colors.white,

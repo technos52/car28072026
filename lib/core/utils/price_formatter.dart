@@ -47,18 +47,24 @@ class PriceFormatter {
 
     // Default multiplier is 1
     double multiplier = 1.0;
+    bool hasExplicitUnit = false;
 
     // Check for Lakh or Cr and adjust multiplier
     if (cleanStr.contains('lakh')) {
       multiplier = 100000.0;
+      hasExplicitUnit = true;
       cleanStr = cleanStr.replaceAll('lakh', '').trim();
     } else if (cleanStr.contains('crore') || cleanStr.contains('cr')) {
       multiplier = 10000000.0;
+      hasExplicitUnit = true;
       cleanStr = cleanStr.replaceAll('crore', '').replaceAll('cr', '').trim();
     }
 
     // Parse the remaining number and apply the multiplier
     final baseValue = double.tryParse(cleanStr) ?? 0.0;
+    if (!hasExplicitUnit && baseValue > 0 && baseValue < 1000) {
+      multiplier = 100000.0; // Numbers under 1000 without unit represent Lakhs
+    }
     return baseValue * multiplier;
   }
 

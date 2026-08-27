@@ -81,7 +81,7 @@ class SearchView extends GetView<SearchController> {
                       controller: controller.searchTextController,
                       onSubmitted: controller.submit,
                       decoration: InputDecoration.collapsed(
-                        hintText: 'Search car here',
+                        hintText: 'Search car or dealer here',
                         hintStyle: Ts.regular12(color: AppColor.primary),
                       ),
                     ),
@@ -261,6 +261,22 @@ class SearchView extends GetView<SearchController> {
                         },
                       ),
                     ],
+                    const Wbox(8),
+                    _FilterChipWithDropdown(
+                      label: 'License Type',
+                      selectedValue:
+                          controller.selectedLicenseTypeFilter.value.isEmpty ||
+                              controller.selectedLicenseTypeFilter.value ==
+                                  'All'
+                          ? null
+                          : controller.selectedLicenseTypeFilter.value,
+                      options: ['All', 'Commercial', 'Non Commercial'],
+                      onSelected: (value) {
+                        controller.applyFilters(
+                          licenseType: value == 'All' ? '' : value,
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -305,7 +321,7 @@ class SearchView extends GetView<SearchController> {
                           ),
                           const Hbox(8),
                           AppText(
-                            'Enter car name, model, or brand to search',
+                            'Enter car name, model, brand, or dealer to search',
                             style: Ts.regular14(color: AppColor.gray600),
                             textAlign: TextAlign.center,
                           ),
@@ -436,11 +452,12 @@ class SearchView extends GetView<SearchController> {
                               ? (controller.carAvailabilityMap[carId] ?? true)
                               : true;
                           return GestureDetector(
-                            onTap: () {
-                              Get.toNamed(
+                            onTap: () async {
+                              await Get.toNamed(
                                 AppRoutes.carDetail,
                                 arguments: {'car': car, 'carId': carId},
                               );
+                              controller.refreshSearchData();
                             },
                             child: _CarResultCard(
                               imageUrl: imageUrl,
@@ -1052,24 +1069,8 @@ class _FilterSheetContentState extends State<FilterSheetContent> {
                         bgColor: AppColor.gray100,
                         textColor: AppColor.gray600,
                         onPressed: () {
-                          setState(() {
-                            tempMinPrice = 0.30;
-                            tempMaxPrice = maxPriceRange;
-                            tempSelectedBrand = 'All';
-                            tempSelectedModel = 'All';
-                            tempSelectedColor = 'All';
-                            tempSortBy = 'Most Recent';
-                            tempSelectedFuelType = 'All';
-                            tempSelectedTransmission = 'All';
-                            tempSelectedLicenseType = 'All';
-                            tempSelectedState = 'All';
-                            tempSelectedCity = 'All';
-                            tempSelectedPincode = 'All';
-                            tempSelectedSeatType = 'All';
-                            _customBrandController.clear();
-                            _customColorController.clear();
-                            _pincodeController.clear();
-                          });
+                          widget.controller.clearFilters();
+                          Navigator.pop(context);
                         },
                         height: 50,
                         borderRadius: 10,
@@ -1098,9 +1099,10 @@ class _FilterSheetContentState extends State<FilterSheetContent> {
                           }
 
                           String finalColor = tempSelectedColor;
-                          if (tempSelectedColor == 'Others' &&
-                              _customColorController.text.trim().isNotEmpty) {
-                            finalColor = _customColorController.text.trim();
+                          if (tempSelectedColor == 'Others') {
+                            finalColor = _customColorController.text.trim().isNotEmpty
+                                ? _customColorController.text.trim()
+                                : 'All';
                           }
 
                           widget.controller.applyFilters(

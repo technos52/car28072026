@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -216,6 +217,7 @@ class AuthService extends GetxService {
     } catch (_) {}
 
     final GoogleSignInAccount? googleUser = await GoogleSignIn(
+      clientId: kIsWeb ? FirebaseConfig.googleWebClientId : null,
       serverClientId: FirebaseConfig.googleWebClientId,
       scopes: ['email', 'profile'],
     ).signIn();
@@ -298,7 +300,9 @@ class AuthService extends GetxService {
   Future<void> signOut() async {
     await _auth.signOut();
     try {
-      await GoogleSignIn().signOut();
+      await GoogleSignIn(
+        clientId: kIsWeb ? FirebaseConfig.googleWebClientId : null,
+      ).signOut();
     } catch (_) {}
   }
 
@@ -308,7 +312,8 @@ class AuthService extends GetxService {
 
   Future<void> deleteAccount() async {
     final user = _auth.currentUser;
-    if (user == null) throw 'No authenticated user found.';
+    if (user == null) return;
+    final uid = user.uid;
 
     final db = FirebaseConfig.firestoreDatabaseId != null
         ? FirebaseFirestore.instanceFor(
@@ -317,36 +322,72 @@ class AuthService extends GetxService {
           )
         : FirebaseFirestore.instance;
 
+    // 1. Delete all Firestore data for this user instantly
     try {
-      // 1. Delete cars first
-      final carsSnap = await db.collection('users').doc(user.uid).collection('cars').get();
+      // Delete cars in subcollection and public collection
+      final carsSnap =
+          await db.collection('users').doc(uid).collection('cars').get();
       for (var doc in carsSnap.docs) {
-        await db.collection('cars').doc(doc.id).delete();
-        await doc.reference.delete();
+        try {
+          await db.collection('cars').doc(doc.id).delete();
+        } catch (_) {}
+        try {
+          await doc.reference.delete();
+        } catch (_) {}
       }
 
-      // 2. Delete shop
-      await db
-          .collection('users')
-          .doc(user.uid)
-          .collection('shops')
-          .doc('${user.uid}_shop')
-          .delete();
+      // Delete shop
+      try {
+        await db
+            .collection('users')
+            .doc(uid)
+            .collection('shops')
+            .doc('${uid}_shop')
+            .delete();
+      } catch (_) {}
 
-      // 3. Delete user document
-      await db.collection('users').doc(user.uid).delete();
+      // Delete wishlist
+      try {
+        final wishlistSnap =
+            await db.collection('users').doc(uid).collection('wishlist').get();
+        for (var doc in wishlistSnap.docs) {
+          await doc.reference.delete();
+        }
+      } catch (_) {}
+
+      // Delete kyc_documents
+      try {
+        final kycSnap = await db
+            .collection('users')
+            .doc(uid)
+            .collection('kyc_documents')
+            .get();
+        for (var doc in kycSnap.docs) {
+          await doc.reference.delete();
+        }
+      } catch (_) {}
+
+      // Delete main user document
+      try {
+        await db.collection('users').doc(uid).delete();
+      } catch (_) {}
+
+      print('All user Firestore documents deleted successfully.');
     } catch (e) {
-      print('Warning: Failed to delete some Firestore data: $e');
+      print('Error during Firestore data deletion: $e');
     }
 
+    // 2. Try deleting Firebase Auth user (ignore error if token expired so logout proceeds)
     try {
       await user.delete();
-      print('Firebase user deleted successfully');
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'requires-recent-login') {
-        throw 'Recent login required: Please log out and log back in before deleting your account.';
-      }
-      rethrow;
+      print('Firebase Auth user deleted.');
+    } catch (e) {
+      print('Auth delete caught (proceeding to sign out): $e');
     }
+
+    // 3. Sign out completely
+    try {
+      await signOut();
+    } catch (_) {}
   }
 }

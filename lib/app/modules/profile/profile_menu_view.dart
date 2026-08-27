@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../core/constants/app_color.dart';
+import '../../../core/constants/firebase_config.dart';
 import '../../../core/utils/ts.dart';
 import '../../../core/utils/app_text.dart';
 import '../../../core/utils/size.dart';
@@ -695,7 +697,9 @@ class _ProfileMenuViewState extends State<ProfileMenuView> {
 
       // Sign out from Google
       try {
-        await GoogleSignIn().signOut();
+        await GoogleSignIn(
+          clientId: kIsWeb ? FirebaseConfig.googleWebClientId : null,
+        ).signOut();
       } catch (_) {}
 
       // Clear GetStorage

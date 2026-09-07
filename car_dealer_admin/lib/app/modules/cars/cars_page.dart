@@ -39,8 +39,13 @@ class _CarsPageState extends State<CarsPage> {
       filtered = filtered.where((car) {
         final make = (car['make'] ?? '').toString().toLowerCase();
         final model = (car['model'] ?? '').toString().toLowerCase();
+        final shopName = (car['shopName'] ?? '').toString().toLowerCase();
+        final sellerName = (car['sellerName'] ?? '').toString().toLowerCase();
         final query = _searchQuery.toLowerCase();
-        return make.contains(query) || model.contains(query);
+        return make.contains(query) || 
+               model.contains(query) || 
+               shopName.contains(query) || 
+               sellerName.contains(query);
       }).toList();
     }
     if (_filterStatus != 'all') {
@@ -258,7 +263,7 @@ class _CarsPageState extends State<CarsPage> {
               children: [
                 TextField(
                   decoration: InputDecoration(
-                    hintText: 'Search cars by make or model',
+                    hintText: 'Search cars by make, model, or dealer',
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),

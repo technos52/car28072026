@@ -53,3 +53,7 @@ serviceAccountKey.json
 
 # Certificates
 *.pem
+
+# Local build artifacts and crash reports
+apple carash/
+ios-app-ipa/

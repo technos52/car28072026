@@ -15,10 +15,40 @@ class AdminService {
   Future<List<Map<String, dynamic>>> getAllUsers() async {
     final usersSnapshot = await _db.collection('users').get();
     
-    return usersSnapshot.docs.map((doc) {
+    return Future.wait(usersSnapshot.docs.map((doc) async {
       final data = doc.data();
-      return {'id': doc.id, ...data};
-    }).toList();
+      
+      String? shopName;
+      bool hasShop = false;
+      try {
+        final shopsSnapshot = await _db.collection('users').doc(doc.id).collection('shops').limit(1).get();
+        if (shopsSnapshot.docs.isNotEmpty) {
+          final shopData = shopsSnapshot.docs.first.data();
+          shopName = shopData['shopName'];
+          if (shopName != null && shopName.toString().trim().isNotEmpty) {
+            hasShop = true;
+          }
+        }
+      } catch (e) {
+        // Ignore if no shop
+      }
+
+      final name = data['name'] ?? data['displayName'];
+      final phone = data['phone'] ?? data['phoneNumber'];
+      final email = data['email'];
+
+      final bool isComplete = (name != null && name.toString().trim().isNotEmpty) &&
+          ((phone != null && phone.toString().trim().isNotEmpty) ||
+           (email != null && email.toString().trim().isNotEmpty)) &&
+          hasShop;
+
+      return {
+        'id': doc.id,
+        'shopName': shopName,
+        'isProfileComplete': isComplete,
+        ...data,
+      };
+    }).toList());
   }
 
   Future<Map<String, dynamic>?> getUser(String userId) async {
@@ -359,30 +389,26 @@ class AdminService {
 
   Future<void> markAllEnquiriesAsRead() async {
     try {
-      final snapshot = await _db
-          .collection('admin_notifications')
-          .where('type', isEqualTo: 'car_inquiry')
-          .where('isRead', isEqualTo: false)
-          .get();
-      
-      final batch = _db.batch();
-      for (var doc in snapshot.docs) {
-        batch.update(doc.reference, {'isRead': true});
-      }
-      await batch.commit();
-    } catch (e) {
-      final snapshot = await _db
-          .collection('admin_notifications')
-          .where('isRead', isEqualTo: false)
-          .get();
-      
-      final batch = _db.batch();
-      for (var doc in snapshot.docs) {
-        if (doc.data()['type'] == 'car_inquiry') {
-          batch.update(doc.reference, {'isRead': true});
+      final snapshot = await _db.collection('admin_notifications').get();
+
+      final unreadDocs = snapshot.docs.where((doc) {
+        final data = doc.data();
+        return data['isRead'] != true;
+      }).toList();
+
+      if (unreadDocs.isEmpty) return;
+
+      for (var i = 0; i < unreadDocs.length; i += 400) {
+        final end = (i + 400 < unreadDocs.length) ? i + 400 : unreadDocs.length;
+        final batch = _db.batch();
+        for (var j = i; j < end; j++) {
+          batch.update(unreadDocs[j].reference, {'isRead': true});
         }
+        await batch.commit();
       }
-      await batch.commit();
+    } catch (e) {
+      print('Error marking all enquiries as read: $e');
+      rethrow;
     }
   }
 

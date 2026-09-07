@@ -53,9 +53,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
   Future<void> _markAsRead(String enquiryId) async {
     try {
+      setState(() {
+        final index = _enquiries.indexWhere((e) => e['id'] == enquiryId);
+        if (index != -1) {
+          _enquiries[index]['isRead'] = true;
+        }
+      });
       await _adminService.markNotificationAsRead(enquiryId);
       await _loadEnquiries();
     } catch (e) {
+      await _loadEnquiries();
       if (mounted) {
         Get.snackbar(
           'Error',
@@ -125,13 +132,25 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
   Future<void> _markAllAsRead() async {
     try {
+      setState(() {
+        for (var enquiry in _enquiries) {
+          enquiry['isRead'] = true;
+        }
+      });
+
       Get.dialog(
         const Center(child: CircularProgressIndicator()),
         barrierDismissible: false,
       );
+
       await _adminService.markAllEnquiriesAsRead();
-      Get.back();
+
+      if (Get.isDialogOpen == true) {
+        Get.back();
+      }
+
       await _loadEnquiries();
+
       if (mounted) {
         Get.snackbar(
           'Success',
@@ -142,7 +161,10 @@ class _NotificationsPageState extends State<NotificationsPage> {
         );
       }
     } catch (e) {
-      Get.back();
+      if (Get.isDialogOpen == true) {
+        Get.back();
+      }
+      await _loadEnquiries();
       if (mounted) {
         Get.snackbar(
           'Error',

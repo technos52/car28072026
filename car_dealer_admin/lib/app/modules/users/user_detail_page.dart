@@ -210,6 +210,12 @@ class _UserDetailPageState extends State<UserDetailPage> {
   }
 
   Widget _buildUserProfileCard() {
+    final bool isNameMissing = _user?['name'] == null || _user!['name'].toString().trim().isEmpty;
+    final bool isShopMissing = _shops.isEmpty ||
+        _shops.first['shopName'] == null ||
+        _shops.first['shopName'].toString().trim().isEmpty;
+    final bool isPending = isNameMissing || isShopMissing;
+
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -231,6 +237,33 @@ class _UserDetailPageState extends State<UserDetailPage> {
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
+            if (isPending)
+              Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.orange.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.orange.shade200),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.pending_actions_rounded,
+                        color: Colors.orange.shade800, size: 20),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        'Profile creation pending by user',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.orange.shade900,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             Stack(
               children: [
                 Container(

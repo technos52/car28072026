@@ -566,61 +566,21 @@ class _DocumentCardState extends State<_DocumentCard> {
       );
     }
 
-    return Container(
-      color: Colors.black,
-      child: Center(
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.contain,
-          loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Container(
-              color: Colors.grey.shade900,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                  : null,
-                  color: Colors.white,
-                            ),
-                          ),
-                        );
-                      },
-          errorBuilder: (context, error, stackTrace) {
-            print('Preview image error: $error');
-            print('Preview image URL: $imageUrl');
-            return Container(
-              color: Colors.grey.shade900,
-              child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                    const Icon(Icons.error_outline, size: 48, color: Colors.white70),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Failed to load image',
-                      style: TextStyle(color: Colors.white70),
-                    ),
-                    const SizedBox(height: 8),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        imageUrl.length > 80 ? '${imageUrl.substring(0, 80)}...' : imageUrl,
-                        style: const TextStyle(color: Colors.white54, fontSize: 10),
-                        textAlign: TextAlign.center,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ),
+    final String viewId = 'img-preview-${imageUrl.hashCode}-${DateTime.now().millisecondsSinceEpoch}';
+    
+    html.ImageElement imageElement = html.ImageElement()
+      ..src = imageUrl
+      ..style.width = '100%'
+      ..style.height = '100%'
+      ..style.objectFit = 'contain'
+      ..style.backgroundColor = 'black';
+    
+    ui_web.platformViewRegistry.registerViewFactory(
+      viewId,
+      (int viewId) => imageElement,
     );
+    
+    return HtmlElementView(viewType: viewId);
   }
 
   void _hideHoverPreview() {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'core/services/remote_service.dart';
+import 'package:DealMatee/core/services/remote_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

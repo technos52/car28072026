@@ -16,7 +16,9 @@ import 'core/utils/check_missing_fields.dart';
 // Background message handler for Firebase Messaging
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  }
   print('Handling a background message: ${message.messageId}');
 }
 
@@ -25,9 +27,11 @@ void main() async {
 
   try {
     print('Initializing Firebase...');
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    if (Firebase.apps.isEmpty) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    }
     print('Firebase initialized successfully');
 
     print('Initializing GetStorage...');

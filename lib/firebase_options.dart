@@ -60,20 +60,22 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBAESykTky1Vjcg1xNb1Hs_g35eIQYnjRQ',
-    appId: '1:1073666893011:ios:35fa5b6ec243009ae66026',
+    appId: '1:1073666893011:ios:0a3a02a314c8ccb2e66026',
     messagingSenderId: '1073666893011',
     projectId: 'cardealer-eb165',
     storageBucket: 'cardealer-eb165.firebasestorage.app',
-    iosBundleId: 'com.example.carDealer',
+    iosClientId: '1073666893011-qhvadf68ak7g74dhk92j1kt7p6ec4jjq.apps.googleusercontent.com',
+    iosBundleId: 'com.shailesh.DealMatee',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBAESykTky1Vjcg1xNb1Hs_g35eIQYnjRQ',
-    appId: '1:1073666893011:ios:35fa5b6ec243009ae66026',
+    appId: '1:1073666893011:ios:0a3a02a314c8ccb2e66026',
     messagingSenderId: '1073666893011',
     projectId: 'cardealer-eb165',
     storageBucket: 'cardealer-eb165.firebasestorage.app',
-    iosBundleId: 'com.example.carDealer',
+    iosClientId: '1073666893011-qhvadf68ak7g74dhk92j1kt7p6ec4jjq.apps.googleusercontent.com',
+    iosBundleId: 'com.shailesh.DealMatee',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

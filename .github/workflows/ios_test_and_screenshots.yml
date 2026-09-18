@@ -1,0 +1,121 @@
+name: iOS Simulator Tests & Screenshots
+
+on:
+  workflow_dispatch: # Allows manual trigger via GitHub CLI or Web UI
+  push:
+    branches: [ main ]
+    paths:
+      - 'lib/**'
+      - 'ios/**'
+      - 'integration_test/**'
+
+jobs:
+  test_and_capture:
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Disable Swift Package Manager
+        run: flutter config --no-enable-swift-package-manager
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Find and Boot iPhone Simulator
+        id: sim
+        run: |
+          # Find available iPhone simulator runtime
+          DEVICE_UDID=$(xcrun simctl list devices available | grep -m 1 "iPhone 16 Pro Max\|iPhone 15 Pro Max\|iPhone 14 Pro Max\|iPhone 13 Pro Max\|iPhone 16" | sed -E 's/.* \(([0-9A-F-]+)\).*/\1/')
+          
+          if [ -z "$DEVICE_UDID" ]; then
+            DEVICE_UDID=$(xcrun simctl list devices available | grep -m 1 "iPhone" | sed -E 's/.* \(([0-9A-F-]+)\).*/\1/')
+          fi
+          
+          echo "Selected Simulator UDID: $DEVICE_UDID"
+          xcrun simctl boot "$DEVICE_UDID" || true
+          xcrun simctl bootstatus "$DEVICE_UDID" -b
+          
+          # Set standard status bar (clean 9:41 AM, full Wi-Fi, 100% battery)
+          xcrun simctl status_bar "$DEVICE_UDID" override \
+            --time "9:41" \
+            --batteryState charged \
+            --batteryLevel 100 \
+            --cellularMode notSupported \
+            --wifiMode active \
+            --wifiBars 3
+            
+          echo "udid=$DEVICE_UDID" >> $GITHUB_OUTPUT
+          mkdir -p screenshots
+          mkdir -p logs
+
+      - name: Start Simulator Screen Recording
+        run: |
+          UDID="${{ steps.sim.outputs.udid }}"
+          xcrun simctl io "$UDID" recordVideo screenshots/simulator_test_run.mp4 &
+          echo $! > /tmp/video_record_pid.txt
+          echo "Started screen recording (PID: $(cat /tmp/video_record_pid.txt))"
+
+      - name: Build and Run iOS Simulator Integration Tests
+        id: run_tests
+        run: |
+          UDID="${{ steps.sim.outputs.udid }}"
+          flutter test integration_test/screenshot_test.dart -d "$UDID" 2>&1 | tee logs/flutter_test.log
+
+      - name: Fallback Direct UI Launch & simctl Screenshot Capture
+        if: always()
+        run: |
+          UDID="${{ steps.sim.outputs.udid }}"
+          # Take immediate high-resolution screenshot of whatever is on screen
+          xcrun simctl io "$UDID" screenshot screenshots/active_simulator_screen.png || true
+
+      - name: Stop Screen Recording
+        if: always()
+        run: |
+          if [ -f /tmp/video_record_pid.txt ]; then
+            PID=$(cat /tmp/video_record_pid.txt)
+            kill -INT "$PID" 2>/dev/null || kill -TERM "$PID" 2>/dev/null || true
+            sleep 3
+          fi
+
+      - name: Collect Crash Reports and System Logs
+        if: always()
+        run: |
+          UDID="${{ steps.sim.outputs.udid }}"
+          # Collect native crash diagnostic logs if any occurred
+          mkdir -p logs/crashes
+          cp -r ~/Library/Logs/DiagnosticReports/* logs/crashes/ 2>/dev/null || true
+          
+          # Collect recent simulator logs
+          xcrun simctl spawn "$UDID" log show --last 5m > logs/simulator_system.log 2>/dev/null || true
+          
+          # Check if crash logs exist
+          CRASH_COUNT=$(ls -1 logs/crashes | wc -l)
+          echo "Total crash logs detected: $CRASH_COUNT"
+
+      - name: Upload Screenshots and Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-screenshots-and-recordings
+          path: screenshots/
+
+      - name: Upload Test Logs & Crash Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-test-logs-and-crashes
+          path: logs/

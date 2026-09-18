@@ -843,28 +843,38 @@ class RemoteService {
     return carsWithMissingFields;
   }
 
+  static const List<String> defaultBanners = [
+    'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80',
+  ];
+
   Future<List<String>> getCarouselImages() async {
     try {
       final snapshot = await _db
           .collection('carousel_images')
           .orderBy('order', descending: false)
           .get();
-      return snapshot.docs
+      final urls = snapshot.docs
           .map((doc) => doc.data()['imageUrl'] as String? ?? '')
           .where((url) => url.isNotEmpty)
           .toList();
+      return urls.isNotEmpty ? urls : defaultBanners;
     } catch (e) {
       try {
         final snapshot = await _db
             .collection('carousel_images')
             .orderBy('createdAt', descending: false)
             .get();
-        return snapshot.docs
+        final urls = snapshot.docs
             .map((doc) => doc.data()['imageUrl'] as String? ?? '')
             .where((url) => url.isNotEmpty)
             .toList();
+        return urls.isNotEmpty ? urls : defaultBanners;
       } catch (e2) {
-        return [];
+        return defaultBanners;
       }
     }
   }

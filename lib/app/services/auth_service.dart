@@ -15,6 +15,9 @@ class AuthService extends GetxService {
 
   Future<bool> isExistingUser(User user) async {
     try {
+      if (user.isAnonymous) {
+        return true;
+      }
       print('Checking if user ${user.uid} is existing...');
       final db = FirebaseConfig.firestoreDatabaseId != null
           ? FirebaseFirestore.instanceFor(

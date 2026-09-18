@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get/get.dart';
@@ -82,8 +83,10 @@ void main() async {
           print('Error initializing NotificationService: $e');
         });
 
-    // Set up background message handler
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    // Set up background message handler on Android only
+    if (!kIsWeb && Platform.isAndroid) {
+      FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    }
 
     // Check for missing fields in Firebase (non-blocking)
     CheckMissingFields.checkAndReportMissingFields().catchError((e) {

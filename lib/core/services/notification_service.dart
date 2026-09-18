@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -235,6 +237,13 @@ class NotificationService {
 
   Future<void> _saveFCMToken() async {
     try {
+      if (!kIsWeb && Platform.isIOS) {
+        final apnsToken = await _messaging.getAPNSToken();
+        if (apnsToken == null) {
+          print('APNs token not yet available, delaying FCM token fetch');
+          return;
+        }
+      }
       final token = await _messaging.getToken();
       if (token != null) {
         await _saveFCMTokenToFirestore(token);

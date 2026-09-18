@@ -49,169 +49,206 @@ class PhoneController extends GetxController {
       },
     );
 
-    // Don't await - let it run in background while user sees OTP screen
-    final AuthService auth = Get.isRegistered<AuthService>()
-        ? Get.find<AuthService>()
-        : Get.put<AuthService>(AuthService(), permanent: true);
+    try {
+      final AuthService auth = Get.isRegistered<AuthService>()
+          ? Get.find<AuthService>()
+          : Get.put<AuthService>(AuthService(), permanent: true);
 
-    auth.verifyPhoneNumber(
-      phoneNumber: fullPhone,
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        try {
-          final userCredential = await FirebaseAuth.instance
-              .signInWithCredential(credential);
-          final user = userCredential.user;
+      await auth.verifyPhoneNumber(
+        phoneNumber: fullPhone,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          try {
+            final userCredential = await FirebaseAuth.instance
+                .signInWithCredential(credential);
+            final user = userCredential.user;
 
-          if (user != null) {
-            // Check if user is new or existing
-            final authService = Get.find<AuthService>();
-            final isExisting = await authService.isExistingUser(user);
+            if (user != null) {
+              final authService = Get.find<AuthService>();
+              final isExisting = await authService.isExistingUser(user);
 
-            if (isExisting) {
-              // Existing user - go to home
-              Get.offAllNamed(AppRoutes.root);
-            } else {
-              // New user - go to profile setup
-              Get.offAllNamed(
-                AppRoutes.profile,
-                arguments: {'onboarding': true},
-              );
+              if (isExisting) {
+                Get.offAllNamed(AppRoutes.root);
+              } else {
+                Get.offAllNamed(
+                  AppRoutes.profile,
+                  arguments: {'onboarding': true},
+                );
+              }
             }
+          } catch (e) {
+            Get.snackbar('Error', e.toString());
           }
-        } catch (e) {
-          Get.snackbar('Error', e.toString());
-        }
-      },
-      verificationFailed: (FirebaseAuthException error) {
-        isSending.value = false;
+        },
+        verificationFailed: (FirebaseAuthException error) {
+          isSending.value = false;
 
-        // Don't show session-expired errors - they're usually stale callbacks after successful verification
-        if (error.code.contains('session-expired') ||
-            (error.message?.contains('session-expired') ?? false)) {
-          print('Ignoring stale session-expired error from phone controller');
-          // Check if user is already authenticated (verification succeeded via another path)
-          if (FirebaseAuth.instance.currentUser != null) {
-            return; // User already authenticated, ignore this error
-          }
-        }
-
-        if (Get.currentRoute == AppRoutes.otp) {
-          if (Get.isRegistered<OtpController>()) {
-            final otpCtrl = Get.find<OtpController>();
-            // Don't process errors if already verified
-            if (otpCtrl.isVerified.value || otpCtrl.isDisposed) {
+          // Don't show session-expired errors - they're usually stale callbacks after successful verification
+          if (error.code.contains('session-expired') ||
+              (error.message?.contains('session-expired') ?? false)) {
+            print('Ignoring stale session-expired error from phone controller');
+            if (FirebaseAuth.instance.currentUser != null) {
               return;
             }
-            final verificationId =
-                Get.arguments['verificationId']?.toString() ?? '';
-            if (verificationId.isNotEmpty) {
+          }
+
+          if (Get.currentRoute == AppRoutes.otp) {
+            if (Get.isRegistered<OtpController>()) {
+              final otpCtrl = Get.find<OtpController>();
+              if (otpCtrl.isVerified.value || otpCtrl.isDisposed) {
+                return;
+              }
+              final verificationId =
+                  Get.arguments['verificationId']?.toString() ?? '';
+              if (verificationId.isNotEmpty) {
+                otpCtrl.verificationId = verificationId;
+                otpCtrl.isWaitingForSms.value = false;
+                otpCtrl.startTimer();
+                return;
+              }
+            }
+            Get.back();
+          }
+
+          if (!error.code.contains('session-expired') &&
+              !(error.message?.contains('session-expired') ?? false)) {
+            Get.snackbar(
+              'Verification failed',
+              error.message ?? error.code,
+              snackPosition: SnackPosition.TOP,
+              backgroundColor: Colors.red,
+              colorText: Colors.white,
+            );
+          }
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          _cachedVerificationId = verificationId;
+          _resendToken = resendToken;
+          isSending.value = false;
+          if (Get.currentRoute == AppRoutes.otp) {
+            Get.arguments['verificationId'] = verificationId;
+            Get.arguments['resendToken'] = resendToken;
+            Get.arguments['isSending'] = false;
+            if (Get.isRegistered<OtpController>()) {
+              final otpCtrl = Get.find<OtpController>();
+              otpCtrl.verificationId = verificationId;
+              otpCtrl.resendToken = resendToken;
+              otpCtrl.isWaitingForSms.value = false;
+              otpCtrl.startTimer();
+            }
+          }
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          _cachedVerificationId = verificationId;
+          isSending.value = false;
+          if (Get.currentRoute == AppRoutes.otp) {
+            Get.arguments['verificationId'] = verificationId;
+            Get.arguments['isSending'] = false;
+            if (Get.isRegistered<OtpController>()) {
+              final otpCtrl = Get.find<OtpController>();
               otpCtrl.verificationId = verificationId;
               otpCtrl.isWaitingForSms.value = false;
               otpCtrl.startTimer();
-              return;
             }
           }
-          Get.back();
-        }
-
-        // Only show non-session-expired errors
-        if (!error.code.contains('session-expired') &&
-            !(error.message?.contains('session-expired') ?? false)) {
-          Get.snackbar(
-            'Verification failed',
-            error.message ?? error.code,
-            snackPosition: SnackPosition.TOP,
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
-        }
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        _cachedVerificationId = verificationId;
-        _resendToken = resendToken;
-        isSending.value = false;
-        // Update arguments if we're on OTP screen
-        if (Get.currentRoute == AppRoutes.otp) {
-          Get.arguments['verificationId'] = verificationId;
-          Get.arguments['resendToken'] = resendToken;
-          Get.arguments['isSending'] = false;
-          // Update the OTP controller if it exists
-          if (Get.isRegistered<OtpController>()) {
-            final otpCtrl = Get.find<OtpController>();
-            otpCtrl.verificationId = verificationId;
-            otpCtrl.resendToken = resendToken;
-            otpCtrl.isWaitingForSms.value = false;
-            otpCtrl.startTimer();
-          }
-        }
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        _cachedVerificationId = verificationId;
-        isSending.value = false;
-        if (Get.currentRoute == AppRoutes.otp) {
-          Get.arguments['verificationId'] = verificationId;
-          Get.arguments['isSending'] = false;
-          if (Get.isRegistered<OtpController>()) {
-            final otpCtrl = Get.find<OtpController>();
-            otpCtrl.verificationId = verificationId;
-            otpCtrl.isWaitingForSms.value = false;
-            otpCtrl.startTimer();
-          }
-        }
-      },
-      forceResendingToken: _resendToken,
-    );
+        },
+        forceResendingToken: _resendToken,
+      );
+    } catch (e) {
+      isSending.value = false;
+      print('Phone verification call error: $e');
+      if (Get.currentRoute == AppRoutes.otp) {
+        Get.back();
+      }
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 
   Future<void> continueAsGuest() async {
     isSending.value = true;
     try {
-      final auth = Get.find<AuthService>();
-      final userCred = await auth.signInAnonymously();
-      
-      final user = userCred.user;
-      if (user != null) {
-        if (!Get.isRegistered<RemoteService>()) {
-          Get.put(RemoteService());
-        }
-        final remoteService = Get.find<RemoteService>();
-        
+      User? user;
+      try {
+        final auth = Get.find<AuthService>();
+        final userCred = await auth.signInAnonymously();
+        user = userCred.user;
+      } catch (_) {}
+
+      final uid = user?.uid ?? 'demo_guest_user';
+
+      if (!Get.isRegistered<RemoteService>()) {
+        Get.put(RemoteService());
+      }
+      final remoteService = Get.find<RemoteService>();
+
+      try {
         await remoteService.saveUser(
-          id: user.uid,
-          name: "Demo User",
+          id: uid,
+          name: "Demo Dealer",
           email: "demo@dealmatee.com",
           phone: "9999999999",
           gender: "Male",
+          avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
         );
 
         await remoteService.saveShop(
-          id: "${user.uid}_shop",
-          userId: user.uid,
-          shopName: "Demo Dealership",
-          ownerName: "Demo User",
+          id: "${uid}_shop",
+          userId: uid,
+          shopName: "DealMatee Premium Motors",
+          ownerName: "Demo Dealer",
           phone: "9999999999",
           email: "demo@dealmatee.com",
-          address: "123 Demo Street",
-          city: "Demo City",
-          state: "Demo State",
-          pincode: "111111",
+          address: "Auto Hub, Link Road, Andheri West",
+          city: "Mumbai",
+          state: "Maharashtra",
+          pincode: "400053",
+        );
+
+        await remoteService.saveKycDocument(
+          id: uid,
+          userId: uid,
+          panPath: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80",
+          aadhaarPath: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80",
+          addressProofPath: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80",
+          isVerified: true,
         );
 
         await remoteService.saveCar(
-          id: "${user.uid}_car_1",
-          userId: user.uid,
+          id: "${uid}_car_1",
+          userId: uid,
           make: "Toyota",
           model: "Camry",
           year: "2023",
           price: "2500000",
-          description: "This is a prefilled demo car.",
+          variant: "ZX Hybrid",
+          fuelType: "Petrol",
+          transmission: "Automatic",
+          color: "Pearl White",
+          kmsDriven: "18500",
+          owner: "1st Owner",
+          insurance: "Comprehensive",
+          mileage: "19.1 kmpl",
+          tankCapacity: "50 L",
+          state: "Maharashtra",
+          city: "Mumbai",
+          pincode: "400053",
+          imageUrls: [
+            "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80",
+          ],
+          description: "Pristine condition Toyota Camry Hybrid. Fully serviced at authorized dealership with complete records.",
           isAvailable: true,
         );
-      }
+      } catch (_) {}
 
       Get.offAllNamed(AppRoutes.root);
     } catch (e) {
-      Get.snackbar('Error', 'Failed to continue as guest: $e');
+      Get.offAllNamed(AppRoutes.root);
     } finally {
       isSending.value = false;
     }

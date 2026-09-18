@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -25,16 +27,21 @@ class _OtpViewState extends State<OtpView> with CodeAutoFill {
   @override
   void initState() {
     super.initState();
-    // Start listening for SMS code
-    listenForCode();
-    // Get app signature for debugging (optional)
-    SmsAutoFill().getAppSignature
-        .then((signature) {
-          print('App signature: $signature');
-        })
-        .catchError((e) {
-          print('Error getting app signature: $e');
-        });
+    // Start listening for SMS code only on Android
+    if (!kIsWeb && Platform.isAndroid) {
+      try {
+        listenForCode();
+        SmsAutoFill().getAppSignature
+            .then((signature) {
+              print('App signature: $signature');
+            })
+            .catchError((e) {
+              print('Error getting app signature: $e');
+            });
+      } catch (e) {
+        print('Error initializing SMS autofill: $e');
+      }
+    }
   }
 
   @override
@@ -77,7 +84,11 @@ class _OtpViewState extends State<OtpView> with CodeAutoFill {
   @override
   void dispose() {
     _isControllerDisposed = true;
-    cancel();
+    if (!kIsWeb && Platform.isAndroid) {
+      try {
+        cancel();
+      } catch (_) {}
+    }
     otpController.dispose();
     super.dispose();
   }

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../../services/auth_service.dart';
 import '../../../routes/app_routes.dart';
 import '../../../../core/services/remote_service.dart';
@@ -31,6 +32,13 @@ class AuthController extends GetxController {
         Get.offAllNamed(AppRoutes.profile, arguments: {'onboarding': true});
       }
     } catch (e) {
+      if (e is SignInWithAppleAuthorizationException &&
+          e.code == AuthorizationErrorCode.canceled) {
+        return;
+      }
+      if (e is FirebaseAuthException && e.code == 'canceled') {
+        return;
+      }
       Get.snackbar('Sign-in failed', e.toString());
     } finally {
       isLoading.value = false;

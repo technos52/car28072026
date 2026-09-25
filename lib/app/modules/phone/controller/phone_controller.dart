@@ -24,10 +24,10 @@ class PhoneController extends GetxController {
 
   Future<void> submit() async {
     final String digits = phoneNumber.value.replaceAll(RegExp(r"[^0-9]"), "");
-    if (digits.length != 10) {
+    if (digits.length < 7 || digits.length > 15) {
       Get.snackbar(
         'Error',
-        'Please enter a valid 10-digit phone number',
+        'Please enter a valid phone number',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,

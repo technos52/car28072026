@@ -101,9 +101,9 @@ class PhoneView extends GetView<PhoneController> {
                     Expanded(
                       child: AppTextField(
                         controller: controller.phoneController,
-                        hintText: '9999999999',
+                        hintText: 'Phone number',
                         keyboardType: TextInputType.phone,
-                        maxLength: 10,
+                        maxLength: 15,
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         onChanged: controller.setPhone,
                       ),
@@ -121,6 +121,17 @@ class PhoneView extends GetView<PhoneController> {
                   isFullWidth: true,
                   borderRadius: 40,
                 )),
+                const Hbox(16),
+                Center(
+                  child: TextButton.icon(
+                    onPressed: () => controller.continueAsGuest(),
+                    icon: const Icon(Icons.flash_on_rounded, color: AppColor.primary, size: 18),
+                    label: Text(
+                      'Explore with Demo Account',
+                      style: Ts.medium14(color: AppColor.primary),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 20),
               ],
             ),

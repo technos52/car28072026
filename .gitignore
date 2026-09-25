@@ -56,4 +56,11 @@ serviceAccountKey.json
 
 # Local build artifacts and crash reports
 apple carash/
-ios-app-ipa/
+ios-app-ipa/
+*.p8
+*.cer
+*.p12
+simulator_artifacts/
+simulator_artifacts_latest/
+simulator_run_success/
+simulator_screenshots_success/
